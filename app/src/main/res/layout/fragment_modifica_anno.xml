@@ -1,0 +1,94 @@
+<RelativeLayout
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:clickable="true"
+    android:background="#ededed">
+
+    <Button
+        android:id="@+id/salva"
+        android:text="SALVA"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="#d2d2d2"
+        android:textColor="#FFF"
+        android:textStyle="bold"
+        android:textSize="18dp"
+        android:layout_marginBottom="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginLeft="5dp"
+        android:enabled="false" />
+
+    <Button
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/anno"
+        android:layout_alignRight="@+id/salva"
+        android:layout_alignLeft="@+id/salva"
+        android:layout_marginTop="15dp"
+        android:height="60dp"
+        android:background="#fff" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/layout_tvl_anno"
+        android:id="@+id/tvl_anno"
+        android:layout_marginLeft="12dp"
+        android:layout_alignTop="@+id/anno"
+        android:layout_alignLeft="@+id/anno"
+        android:layout_alignStart="@+id/anno"
+        android:layout_marginTop="10dp"
+        android:textStyle="bold"
+        android:textSize="12dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tv_anno"
+        android:layout_below="@+id/tvl_anno"
+        android:layout_alignLeft="@+id/tvl_anno"
+        android:layout_alignStart="@+id/tvl_anno"
+        android:text="@string/layout_msg_ma"
+        android:textSize="11dp" />
+
+    <Button
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/anno_dm"
+        android:layout_marginTop="20dp"
+        android:enabled="false"
+        android:layout_alignRight="@+id/salva"
+        android:layout_alignEnd="@+id/salva"
+        android:layout_below="@+id/anno"
+        android:height="60dp"
+        android:background="#dedede"
+        android:layout_alignLeft="@+id/salva" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/layout_tvl_anno_dm"
+        android:id="@+id/tvl_anno_dm"
+        android:layout_marginTop="10dp"
+        android:textStyle="bold"
+        android:textSize="12dp"
+        android:layout_alignTop="@+id/anno_dm"
+        android:layout_alignLeft="@+id/tv_anno"
+        android:layout_alignStart="@+id/tv_anno"
+        android:textColor="#fff" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tv_anno_dm"
+        android:text="@string/layout_msg_ma2"
+        android:textSize="11dp"
+        android:layout_below="@+id/tvl_anno_dm"
+        android:layout_alignLeft="@+id/tvl_anno_dm"
+        android:layout_alignStart="@+id/tvl_anno_dm"
+        android:layout_marginTop="0dp"
+        android:textColor="#fff" />
+
+</RelativeLayout>

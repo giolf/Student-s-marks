@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="menu">
+        <item>Riepilogo annuale</item>
+        <item>Gestione anni</item>
+        <item>Modifica anno</item>
+        <item>Elimina anno</item>
+        <item>Crea corso</item>
+        <item>Modifica corso</item>
+        <item>Elimina corso</item>
+        <item>Crea voto</item>
+        <item>Modifica voto</item>
+        <item>Elimina voto</item>
+    </string-array>
+
+    <string name="app_name">Student\'s marks</string>
+    <string name="dialog_tit_ca">Seleziona l\'anno da creare</string>
+    <string name="dialog_tit_ma">Seleziona l\'anno da modificare</string>
+    <string name="dialog_tit_ma2">Seleziona il nuovo valore per l\'anno da modificare</string>
+    <string name="dialog_tit_sa">Modifica dell\' anno:</string>
+    <string name="dialog_tit_ea">ELIMINA ANNO</string>
+    <string name="dialog_stit_ea">Seleziona l\'anno da eliminare</string>
+    <string name="dialog_tit_cc">CREA CORSO</string>
+    <string name="dialog_stit_cc">Seleziona l\'anno del corso</string>
+    <string name="dialog_stit_ccp2">Inserisci il nome del corso</string>
+    <string name="dialog_tit_mc">MODIFICA CORSO</string>
+    <string name="dialog_stit_mc">Seleziona l\'anno del corso</string>
+    <string name="dialog_stit_mcp2">Seleziona il corso da modificare</string>
+    <string name="dialog_stit_mcp3">Modifica il nome del corso</string>
+    <string name="dialog_tit_ec">ELIMINA CORSO</string>
+    <string name="dialog_stit_ec">Seleziona l\'anno del corso</string>
+    <string name="dialog_stit_ecp2">Seleziona il corso da eliminare</string>
+    <string name="dialog_tit_cv">CREA VOTO</string>
+    <string name="dialog_stit_cv">Seleziona l\'anno del voto</string>
+    <string name="dialog_stit_cvp2">Seleziona il corso del voto</string>
+    <string name="dialog_stit_cvp3">Seleziona la data del voto</string>
+    <string name="dialog_stit_cvp4">Seleziona il punteggio del voto</string>
+    <string name="dialog_btn_salva">Salva</string>
+    <string name="dialog_btn_seleziona">Seleziona</string>
+    <string name="dialog_btn_modifica">Modifica</string>
+    <string name="dialog_btn_rimuovi">Rimuovi</string>
+    <string name="dialog_btn_annulla">Annulla</string>
+
+    <string name="tab_crea_anno">Crea anno</string>
+    <string name="tab_modifica_anno">Modifica anno</string>
+    <string name="tab_elimina_anno">Elimina anno</string>
+
+    <string name="layout_btn_salva">SALVA</string>
+    <string name="layout_btn_elimina">ELIMINA</string>
+
+    <string name="layout_msg_ca">Seleziona un anno da creare</string>
+    <string name="layout_msg_ma">Seleziona l\'anno da modificare</string>
+    <string name="layout_msg_ma2">Scegli un nuovo valore per l\'anno selezionato</string>
+    <string name="layout_msg_ea">Seleziona un anno da eliminare</string>
+    <string name="layout_tvl_anno_dm">MODIFICA ANNO</string>
+    <string name="layout_tvl_anno">ANNO</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="action_selected_year">-</string>
+    <string name="action_settings">Settings</string>
+
+</resources>
