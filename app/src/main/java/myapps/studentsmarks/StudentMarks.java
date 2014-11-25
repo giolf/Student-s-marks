@@ -71,18 +71,18 @@ public class StudentMarks extends Activity
     public void onNavigationDrawerItemSelected(int position) {
         // update the main content by replacing fragments
 
-        //istanzia il fragment per la voce 'creaAnno'
+        //istanzia il fragment-container per la voce 'Gestione anni'
         if (position == 1) {
             FragmentManager fragmentManager = getFragmentManager();
             fragmentManager.beginTransaction()
                     .replace(R.id.container, GestioneAnniFragment.newInstance(position + 1))
                     .commit();
         }
-        //istanzia il fragment per la voce 'modificaAnno'
+        //istanzia il fragment-container per la voce 'Gestione corsi'
         else if (position == 2) {
             FragmentManager fragmentManager = getFragmentManager();
             fragmentManager.beginTransaction()
-                    .replace(R.id.container, ModificaAnnoFragment.newInstance(position + 1))
+                    .replace(R.id.container, GestioneCorsiFragment.newInstance(position + 1))
                     .commit();
         }
         //istanzia il fragment per la voce 'eliminaAnno'

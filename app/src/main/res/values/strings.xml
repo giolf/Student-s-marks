@@ -3,11 +3,7 @@
     <string-array name="menu">
         <item>Riepilogo annuale</item>
         <item>Gestione anni</item>
-        <item>Modifica anno</item>
-        <item>Elimina anno</item>
-        <item>Crea corso</item>
-        <item>Modifica corso</item>
-        <item>Elimina corso</item>
+        <item>Gestione corsi</item>
         <item>Crea voto</item>
         <item>Modifica voto</item>
         <item>Elimina voto</item>
@@ -44,6 +40,9 @@
     <string name="tab_crea_anno">Crea anno</string>
     <string name="tab_modifica_anno">Modifica anno</string>
     <string name="tab_elimina_anno">Elimina anno</string>
+    <string name="tab_crea_corso">Crea corso</string>
+    <string name="tab_modifica_corso">Modifica corso</string>
+    <string name="tab_elimina_corso">Elimina corso</string>
 
     <string name="layout_btn_salva">SALVA</string>
     <string name="layout_btn_elimina">ELIMINA</string>

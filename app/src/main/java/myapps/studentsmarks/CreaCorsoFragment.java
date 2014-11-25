@@ -1,6 +1,5 @@
 package myapps.studentsmarks;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.Fragment;
@@ -14,8 +13,6 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import static myapps.studentsmarks.Utility.customTitleDialog;
 
 /**
  * Created by Gio on 15.11.2014.
@@ -123,13 +120,6 @@ public class CreaCorsoFragment extends Fragment {
         dialog.show();
 
         return rootView;
-    }
-
-    @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-        ((StudentMarks) activity).onSectionAttached(
-                getArguments().getInt(ARG_SECTION_NUMBER));
     }
 }
 
