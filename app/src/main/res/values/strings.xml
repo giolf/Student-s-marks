@@ -18,7 +18,7 @@
     <string name="dialog_tit_ma">Seleziona l\'anno da modificare</string>
     <string name="dialog_tit_ma2">Seleziona il nuovo valore per l\'anno da modificare</string>
     <string name="dialog_tit_sa">Modifica dell\' anno:</string>
-    <string name="dialog_tit_ea">ELIMINA ANNO</string>
+    <string name="dialog_tit_ea">Seleziona l\'anno da eliminare</string>
     <string name="dialog_stit_ea">Seleziona l\'anno da eliminare</string>
     <string name="dialog_tit_cc">CREA CORSO</string>
     <string name="dialog_stit_cc">Seleziona l\'anno del corso</string>
