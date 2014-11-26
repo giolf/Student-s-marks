@@ -148,7 +148,7 @@ public class ModificaAnnoFragment extends Fragment {
                         builder.setView(picker);
                         builder.setCustomTitle( customTitleDialog(activity, R.string.dialog_tit_ma2) );
 
-                        builder.setPositiveButton(R.string.dialog_btn_modifica, new Dialog.OnClickListener() {
+                        builder.setPositiveButton(R.string.dialog_btn_seleziona, new Dialog.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
                                 //prendo il nuovo anno selezionato dall'utente e lo inserisco nella textView della modifica dell'anno

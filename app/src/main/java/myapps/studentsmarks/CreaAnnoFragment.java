@@ -84,7 +84,7 @@ public class CreaAnnoFragment extends Fragment {
                             }
                         };
                         //bottoni dialog
-                        builder.setPositiveButton(R.string.dialog_btn_salva, salva);
+                        builder.setPositiveButton(R.string.dialog_btn_seleziona, salva);
                         builder.setNegativeButton(R.string.dialog_btn_annulla, null);
                         //mostro solo l'anno del datepicker
                         Utility.showJustYear(picker);

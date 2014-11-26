@@ -124,9 +124,9 @@ public class CreaCorsoFragment extends Fragment {
                         builder.setView(inputCreaCorso);
 
                         //titolo del dialog
-                        builder.setCustomTitle( customTitleDialog(activity, R.string.dialog_tit_cc) );
+                        builder.setCustomTitle( customTitleDialog(activity, R.string.dialog_tit_cc2) );
 
-                        builder.setPositiveButton(R.string.dialog_btn_crea, new Dialog.OnClickListener() {
+                        builder.setPositiveButton(R.string.dialog_btn_inserisci, new Dialog.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
                                 //inserisco il corso immesso nella TextView del corso
