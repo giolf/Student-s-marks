@@ -5,9 +5,6 @@ import android.app.Activity;
 import android.app.ActionBar;
 import android.app.Fragment;
 import android.app.FragmentManager;
-import android.app.FragmentTransaction;
-import android.app.LocalActivityManager;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v13.app.FragmentTabHost;
 import android.view.LayoutInflater;
@@ -16,11 +13,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.support.v4.widget.DrawerLayout;
-import android.view.animation.AccelerateInterpolator;
-import android.view.animation.Animation;
-import android.view.animation.TranslateAnimation;
-import android.widget.LinearLayout;
-import android.widget.TabHost;
 
 public class StudentMarks extends Activity
         implements NavigationDrawerFragment.NavigationDrawerCallbacks {

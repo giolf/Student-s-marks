@@ -1,6 +1,5 @@
 package myapps.studentsmarks;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.Fragment;
@@ -15,8 +14,6 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import static myapps.studentsmarks.Utility.customTitleDialog;
 
 
 /**
@@ -73,7 +70,7 @@ public class CreaAnnoFragment extends Fragment {
 
                         //titolo dialog
                         builder.setCustomTitle(Utility.customTitleDialog(activity, R.string.dialog_tit_ca));
-                        //builder.setTitle(R.string.dialog_tit_ca);
+
                         //listeners bottoni 'annulla' e 'salva'
                         Dialog.OnClickListener salva = new Dialog.OnClickListener() {
                             @Override

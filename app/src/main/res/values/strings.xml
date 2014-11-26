@@ -36,6 +36,7 @@
     <string name="dialog_btn_modifica">Modifica</string>
     <string name="dialog_btn_rimuovi">Rimuovi</string>
     <string name="dialog_btn_annulla">Annulla</string>
+    <string name="dialog_btn_crea">Crea</string>
 
     <string name="tab_crea_anno">Crea anno</string>
     <string name="tab_modifica_anno">Modifica anno</string>
@@ -51,8 +52,11 @@
     <string name="layout_msg_ma">Seleziona l\'anno da modificare</string>
     <string name="layout_msg_ma2">Scegli un nuovo valore per l\'anno selezionato</string>
     <string name="layout_msg_ea">Seleziona un anno da eliminare</string>
+    <string name="layout_msg_cc">Seleziona l\'anno del corso</string>
+    <string name="layout_msg_cc2">Crea un nuovo corso</string>
     <string name="layout_tvl_anno_dm">MODIFICA ANNO</string>
     <string name="layout_tvl_anno">ANNO</string>
+    <string name="layout_tvl_corso">CORSO</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
