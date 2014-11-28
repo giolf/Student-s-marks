@@ -18,10 +18,8 @@
     <string name="dialog_stit_ea">Seleziona l\'anno da eliminare</string>
     <string name="dialog_tit_cc">Seleziona l\'anno del corso</string>
     <string name="dialog_tit_cc2">Inserisci il nome del corso</string>
-    <string name="dialog_tit_mc">MODIFICA CORSO</string>
-    <string name="dialog_stit_mc">Seleziona l\'anno del corso</string>
-    <string name="dialog_stit_mcp2">Seleziona il corso da modificare</string>
-    <string name="dialog_stit_mcp3">Modifica il nome del corso</string>
+    <string name="dialog_tit_mc">Seleziona il corso da modificare</string>
+    <string name="dialog_tit_mc2">Modifica il nome del corso</string>
     <string name="dialog_tit_ec">ELIMINA CORSO</string>
     <string name="dialog_stit_ec">Seleziona l\'anno del corso</string>
     <string name="dialog_stit_ecp2">Seleziona il corso da eliminare</string>
@@ -50,12 +48,17 @@
     <string name="layout_msg_ca">Seleziona un anno da creare</string>
     <string name="layout_msg_ma">Seleziona l\'anno da modificare</string>
     <string name="layout_msg_ma2">Scegli un nuovo valore per l\'anno selezionato</string>
+    <string name="layout_msg_mc">Seleziona il corso da modificare</string>
+    <string name="layout_msg_mc2">Scegli un nuovo nome per il corso selezionato</string>
     <string name="layout_msg_ea">Seleziona un anno da eliminare</string>
     <string name="layout_msg_cc">Seleziona l\'anno del corso</string>
     <string name="layout_msg_cc2">Crea un nuovo corso</string>
     <string name="layout_tvl_anno_dm">MODIFICA ANNO</string>
+    <string name="layout_tvl_corso_dm">MODIFICA CORSO</string>
     <string name="layout_tvl_anno">ANNO</string>
     <string name="layout_tvl_corso">CORSO</string>
+
+    <string name="errore_msg">"Non puoi cambiare anno\ndopo aver scelto un corso.\nPer favore ripeti la procedura"</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
