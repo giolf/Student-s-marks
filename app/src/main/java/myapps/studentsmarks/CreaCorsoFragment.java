@@ -129,6 +129,14 @@ public class CreaCorsoFragment extends Fragment {
                         builder.setPositiveButton(R.string.dialog_btn_inserisci, new Dialog.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
+                                 /*se l'utente non inserisce nulla (lascia il campo vuoto premendo comunque 'inserisci')
+                                 *interrompo di netto il metodo (in pratica non succede nulla) obbligandolo a inserire qualcosa
+                                 *per poter salvare la creazione del corso
+                                 */
+                                String pattern = "^ *$"; //stringhe vuote con o senza spazi
+                                if( inputCreaCorso.getText().toString().matches(pattern) )
+                                    return;
+
                                 //inserisco il corso immesso nella TextView del corso
                                 tvCorso.setText(""+inputCreaCorso.getText());
 

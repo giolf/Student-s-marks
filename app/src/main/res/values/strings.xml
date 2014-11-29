@@ -15,14 +15,12 @@
     <string name="dialog_tit_ma2">Seleziona il nuovo valore per l\'anno da modificare</string>
     <string name="dialog_tit_sa">Modifica dell\' anno:</string>
     <string name="dialog_tit_ea">Seleziona l\'anno da eliminare</string>
-    <string name="dialog_stit_ea">Seleziona l\'anno da eliminare</string>
     <string name="dialog_tit_cc">Seleziona l\'anno del corso</string>
     <string name="dialog_tit_cc2">Inserisci il nome del corso</string>
     <string name="dialog_tit_mc">Seleziona il corso da modificare</string>
     <string name="dialog_tit_mc2">Modifica il nome del corso</string>
-    <string name="dialog_tit_ec">ELIMINA CORSO</string>
-    <string name="dialog_stit_ec">Seleziona l\'anno del corso</string>
-    <string name="dialog_stit_ecp2">Seleziona il corso da eliminare</string>
+    <string name="dialog_tit_ec">Seleziona l\'anno del corso da eliminare</string>
+    <string name="dialog_tit_ec2">Seleziona il corso da eliminare</string>
     <string name="dialog_tit_cv">CREA VOTO</string>
     <string name="dialog_stit_cv">Seleziona l\'anno del voto</string>
     <string name="dialog_stit_cvp2">Seleziona il corso del voto</string>
@@ -49,6 +47,7 @@
     <string name="layout_msg_ma">Seleziona l\'anno da modificare</string>
     <string name="layout_msg_ma2">Scegli un nuovo valore per l\'anno selezionato</string>
     <string name="layout_msg_mc">Seleziona il corso da modificare</string>
+    <string name="layout_msg_ec">Seleziona il corso da rimuovere</string>
     <string name="layout_msg_mc2">Scegli un nuovo nome per il corso selezionato</string>
     <string name="layout_msg_ea">Seleziona un anno da eliminare</string>
     <string name="layout_msg_cc">Seleziona l\'anno del corso</string>

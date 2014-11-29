@@ -206,7 +206,15 @@ public class ModificaCorsoFragment extends Fragment {
                         builder.setPositiveButton(R.string.dialog_btn_modifica, new Dialog.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
-                                //inserisco il nuovo nome del corso nella TextView del corso da modificare
+                                /*se l'utente non inserisce nulla (lascia il campo vuoto premendo comunque 'modifica')
+                                 *interrompo di netto il metodo (in pratica non succede nulla) obbligandolo a inserire qualcosa
+                                 *per poter salvare la modifica del corso
+                                 */
+                                String pattern = "^ *$"; //stringhe vuote con o senza spazi
+                                if( inputModificaCorso.getText().toString().matches(pattern) )
+                                    return;
+
+                                //Se invece l'utente digita qualcosa inserisco il nuovo nome del corso nella TextView del corso da modificare
                                 tvCorsoDM.setText("" + inputModificaCorso.getText());
 
                                 //abilito il bottone salva
@@ -257,7 +265,6 @@ public class ModificaCorsoFragment extends Fragment {
                         tvlCorsoDM.setText(getResources().getString(R.string.layout_tvl_corso_dm));
                         btnCorsoDM.setBackgroundColor(Color.parseColor("#dedede"));
                         btnCorsoDM.setEnabled(false);
-                        btnSalva.setBackgroundColor(Color.parseColor("#d2d2d2"));
                         btnSalva.setEnabled(false);
                         return true;
                 }
