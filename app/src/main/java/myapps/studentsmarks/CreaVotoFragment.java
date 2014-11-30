@@ -7,6 +7,7 @@ import android.app.Fragment;
 import android.content.DialogInterface;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -15,8 +16,12 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.Calendar;
+
+import static myapps.studentsmarks.Utility.customTitleDialog;
+import static myapps.studentsmarks.Utility.monthFromIntToString;
 
 /**
  * Created by Gio on 19.11.2014.
@@ -47,55 +52,159 @@ public class CreaVotoFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         final View rootView = inflater.inflate(R.layout.fragment_crea_voto, container, false);
-        //creo una nuova variabile che referenzia la main actitivity
-        final StudentMarks activity = (StudentMarks)getActivity();
-        //recupero dei bottoni 'annulla' e 'salva'
-        final Button btnAnnulla = (Button)rootView.findViewById(R.id.annulla);
-        final Button btnSalva = (Button)rootView.findViewById(R.id.salva);
+        final StudentMarks activity = ((StudentMarks)getActivity());
+        final Button btnSalva       = (Button)rootView.findViewById(R.id.salva);
+        final Button btnAnno        = (Button)rootView.findViewById(R.id.anno);
+        final Button btnCorso       = (Button)rootView.findViewById(R.id.corso);
+        final Button btnData        = (Button)rootView.findViewById(R.id.data);
+        final Button btnVoto        = (Button)rootView.findViewById(R.id.voto);
+        final TextView tvAnno       = (TextView)rootView.findViewById(R.id.tv_anno);
+        final TextView tvCorso      = (TextView)rootView.findViewById(R.id.tv_corso);
+        final TextView tvData       = (TextView)rootView.findViewById(R.id.tv_data);
+        final TextView tvVoto       = (TextView)rootView.findViewById(R.id.tv_voto);
+        final TextView tvlCorso     = (TextView)rootView.findViewById(R.id.tvl_corso);
+        final TextView tvlData      = (TextView)rootView.findViewById(R.id.tvl_data);
+        final TextView tvlVoto      = (TextView)rootView.findViewById(R.id.tvl_voto);
 
-        //setup del dialog
-        AlertDialog.Builder builder = new AlertDialog.Builder(activity);
-        builder.setCancelable(false);
-        final DatePicker picker = new DatePicker(activity);
-        picker.setCalendarViewShown(false);
-        picker.setDescendantFocusability(DatePicker.FOCUS_BLOCK_DESCENDANTS);
-        builder.setView(picker);
-
-        //titolo dialog
-        //builder.setCustomTitle( customTitleDialog(activity, R.string.dialog_tit_cv, R.string.dialog_stit_cv, 0) );
-
-        //listeners bottoni 'annulla' e 'seleziona'
-        final Dialog.OnClickListener annulla = new Dialog.OnClickListener() {
+        btnAnno.setOnTouchListener(new View.OnTouchListener() {
             @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                //riporto l'utente alla voce del menu 'riepilogo annuale'
-                activity.getMNavigationDrawerFragment().selectItem(0);
-                activity.onSectionAttached(1);
-                activity.restoreActionBar();
-                activity.getMenu().findItem(R.id.action_selected_year).setVisible(true);
-                activity.getMenu().findItem(R.id.action_settings).setVisible(true);
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                switch(motionEvent.getAction()) {
+                    case MotionEvent.ACTION_DOWN:
+                        btnAnno.setBackgroundColor(Color.parseColor("#e6e6e6"));
+                        return true;
+                    case MotionEvent.ACTION_UP:
+                        btnAnno.setBackgroundColor(Color.parseColor("#ffffff"));
+
+                        //Mostro il Dialog che permette la scelta dell'anno del corso
+                        //setup del dialog
+                        AlertDialog.Builder builder = new AlertDialog.Builder(activity);
+                        builder.setCancelable(false);
+                        final DatePicker picker = new DatePicker(activity);
+                        picker.setDescendantFocusability(DatePicker.FOCUS_BLOCK_DESCENDANTS);
+                        picker.setCalendarViewShown(false);
+                        builder.setView(picker);
+
+                        //titolo dialog
+                        builder.setCustomTitle( customTitleDialog(activity, R.string.dialog_tit_cc) );
+
+                        //listener bottone 'seleziona'
+                        Dialog.OnClickListener seleziona = new Dialog.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                 /*Se l'utente cambia anno DOPO aver gia scelto un corso, deve rifare tutta la procedura
+                                  *questo avviene perche non è detto che il corso selezionato nell'anno precedente ci sia
+                                  *anche nell'anno appena selezionato
+                                  */
+                                if( !tvCorso.getText().equals(getResources().getString(R.string.layout_msg_cv)) ) {
+                                    //resetto il fragment per renderlo disponibile per la modifica di un nuovo corso
+                                    tvAnno.setText(getResources().getText(R.string.layout_msg_cc));
+                                    tvCorso.setText(getResources().getString(R.string.layout_msg_cv));
+                                    tvCorso.setTextColor(Color.parseColor("#ffffff"));
+                                    tvlCorso.setTextColor(Color.parseColor("#ffffff"));
+                                    btnCorso.setBackgroundColor(Color.parseColor("#dedede"));
+                                    btnCorso.setEnabled(false);
+                                    tvData.setText(getResources().getString(R.string.layout_msg_cv2));
+                                    tvData.setTextColor(Color.parseColor("#ffffff"));
+                                    tvlData.setTextColor(Color.parseColor("#ffffff"));
+                                    btnData.setBackgroundColor(Color.parseColor("#dedede"));
+                                    btnData.setEnabled(false);
+                                    tvVoto.setText(getResources().getString(R.string.layout_msg_cv3));
+                                    tvVoto.setTextColor(Color.parseColor("#ffffff"));
+                                    tvlVoto.setTextColor(Color.parseColor("#ffffff"));
+                                    btnVoto.setBackgroundColor(Color.parseColor("#dedede"));
+                                    btnVoto.setEnabled(false);
+                                    btnSalva.setBackgroundColor(Color.parseColor("#d2d2d2"));
+                                    btnSalva.setEnabled(false);
+                                    //mostro un messaggio che avverte l'utente
+                                    Toast toast = Toast.makeText(activity, getResources().getString(R.string.errore_msg), Toast.LENGTH_LONG);
+                                    TextView tv = (TextView)toast.getView().findViewById(android.R.id.message);
+                                    tv.setGravity(Gravity.CENTER);
+                                    toast.show();
+                                    //esco dal metodo interrompendo il flusso del listener
+                                    return;
+                                }
+                                //mostro l'anno selezionato dall'utente nella TextView dell'anno
+                                tvAnno.setText(""+picker.getYear());
+
+                                //abilito il bottone corso
+                                btnCorso.setBackgroundColor(Color.parseColor("#ffffff"));
+                                tvCorso.setTextColor(Color.parseColor("#000000"));
+                                tvlCorso.setTextColor(Color.parseColor("#000000"));
+                                btnCorso.setEnabled(true);
+                            }
+                        };
+
+                        //set bottoni dialog
+                        builder.setPositiveButton(R.string.dialog_btn_seleziona, seleziona);
+                        builder.setNegativeButton(R.string.dialog_btn_annulla, null);
+
+                        //mostro solo l'anno del datepicker
+                        Utility.showJustYear(picker);
+
+                        //visualizzo il dialog
+                        Dialog dialog = builder.create();
+                        dialog.show();
+
+                        return true;
+                }
+                return false;
             }
-        };
-        Dialog.OnClickListener seleziona = new Dialog.OnClickListener() {
+        });
+        btnCorso.setOnTouchListener(new View.OnTouchListener() {
             @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                //salvo l'anno selezionato dall'utente
-                final int annoSelezionato = picker.getYear();
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                switch(motionEvent.getAction()) {
+                    case MotionEvent.ACTION_DOWN:
+                        btnCorso.setBackgroundColor(Color.parseColor("#e6e6e6"));
+                        return true;
+                    case MotionEvent.ACTION_UP:
+                        btnCorso.setBackgroundColor(Color.parseColor("#ffffff"));
 
-                //qui prendo i corsi dell'anno selezionato
-                final String[] lcAnnoSelezionato = {"Italiano", "Matematica", "Francese", "Fisica", "Tedesco", "Storia", "Scienze", "Latino", "Storia", "Scienze", "Latino"};
+                        //qui prendo i corsi dell'anno selezionato
+                        final String[] lcAnnoSelezionato = {"Italiano", "Matematica", "Francese", "Fisica", "Tedesco", "Storia", "Scienze", "Latino", "Storia", "Scienze", "Latino"};
 
-                //creo un nuovo Dialog per la selezione del corso dove sarà inserito il voto
-                AlertDialog.Builder builder = new AlertDialog.Builder(activity);
-                builder.setCancelable(false);
-                //builder.setCustomTitle(customTitleDialog(activity, R.string.dialog_tit_cv, R.string.dialog_stit_cvp2, 0));
-                builder.setItems(lcAnnoSelezionato, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        //qui prendo il corso scelto
-                        final String corsoScelto = lcAnnoSelezionato[i];
+                        //Mostro un dialog che permette la scelta del corso da selezionare nell'anno selezionato
+                        final AlertDialog.Builder builder = new AlertDialog.Builder(activity);
+                        builder.setCancelable(false);
+                        builder.setCustomTitle(customTitleDialog(activity, R.string.dialog_tit_cv3));
+                        builder.setItems(lcAnnoSelezionato, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, final int index) {
+                                //prendo il corso selezionato in base alla scelta dell'utente e lo metto nella TextView del corso
+                                tvCorso.setText(""+lcAnnoSelezionato[index]);
 
-                        //creo un nuovo dialog che si occuperà di mostrar e salvare la data del voto
+                                //abilito il bottone 'data del corso'
+                                btnData.setBackgroundColor(Color.parseColor("#ffffff"));
+                                tvData.setTextColor(Color.parseColor("#000000"));
+                                tvlData.setTextColor(Color.parseColor("#000000"));
+                                btnData.setEnabled(true);
+                            }
+                        });
+                        builder.setNegativeButton(R.string.dialog_btn_annulla, null);
+                        Dialog dialog = builder.create();
+                        dialog.show();
+                        //imposto le dimensioni della finestra dell'alertDialog
+                        WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
+                        lp.copyFrom(dialog.getWindow().getAttributes());
+                        lp.height = 1000;
+                        dialog.getWindow().setAttributes(lp);
+                        return true;
+                }
+                return false;
+            }
+        });
+        btnData.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                switch(motionEvent.getAction()) {
+                    case MotionEvent.ACTION_DOWN:
+                        btnData.setBackgroundColor(Color.parseColor("#e6e6e6"));
+                        return true;
+                    case MotionEvent.ACTION_UP:
+                        btnData.setBackgroundColor(Color.parseColor("#ffffff"));
+
+                        //creo un nuovo dialog che si occuperà di mostrare e salvare la data del voto
                         AlertDialog.Builder builder = new AlertDialog.Builder(activity);
                         builder.setCancelable(false);
                         final DatePicker picker = new DatePicker(activity);
@@ -104,154 +213,128 @@ public class CreaVotoFragment extends Fragment {
                         builder.setView(picker);
 
                         //titolo del dialog
-                        //builder.setCustomTitle( customTitleDialog(activity, R.string.dialog_tit_cv, R.string.dialog_stit_cvp3, 0) );
+                        builder.setCustomTitle( customTitleDialog(activity, R.string.dialog_tit_cv) );
 
                         //set dei listener
-                        builder.setNegativeButton(R.string.dialog_btn_annulla, annulla);
                         builder.setPositiveButton(R.string.dialog_btn_seleziona, new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
-                                //qui salvo la data selezionata e mostro un dialog che si occupera di scegliere il voto della nota
-                                final int meseSelezionato = picker.getMonth() + 1;
-                                final int giornoSelezionato = picker.getDayOfMonth();
-                                Calendar votoMinore = Calendar.getInstance();
-                                votoMinore.set(2014, Calendar.JANUARY, 1);
-                                Calendar votoMaggiore = Calendar.getInstance();
-                                votoMaggiore.set(2014, Calendar.JANUARY, 10);
-                                AlertDialog.Builder builder = new AlertDialog.Builder(activity);
-                                builder.setCancelable(false);
-                                final DatePicker picker = new DatePicker(activity);
-                                picker.setDescendantFocusability(DatePicker.FOCUS_BLOCK_DESCENDANTS);
-                                picker.setCalendarViewShown(false);
-                                picker.setMinDate(votoMinore.getTimeInMillis());
-                                picker.setMaxDate(votoMaggiore.getTimeInMillis());
-                                builder.setView(picker);
-                                //builder.setCustomTitle( customTitleDialog(activity, R.string.dialog_tit_cv, R.string.dialog_stit_cvp4, 0) );
+                                //metto la data selezionata nella textView del bottone 'data'
+                                String meseSelezionato  = monthFromIntToString(activity, picker.getMonth());
+                                int giornoSelezionato   = picker.getDayOfMonth();
+                                tvData.setText(""+giornoSelezionato+" "+meseSelezionato);
 
-                                //setup dei listener su i bottoni 'annulla' e 'seleziona'
-                                builder.setNegativeButton(R.string.dialog_btn_annulla, annulla);
-                                builder.setPositiveButton(R.string.dialog_btn_seleziona, new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialogInterface, int i) {
-                                        //salvo il voto selezionato
-                                        int votoSelezionato = picker.getDayOfMonth();
-
-                                        //rendo visibili tutte le view dell layout
-                                        Button btnAnno = (Button)rootView.findViewById(R.id.anno);
-                                        btnAnno.setVisibility(View.VISIBLE);
-                                        rootView.findViewById(R.id.tvl_anno).setVisibility(View.VISIBLE);
-                                        TextView tvAnno = (TextView)rootView.findViewById(R.id.tv_anno);
-                                        tvAnno.setVisibility(View.VISIBLE);
-                                        Button btnCorso = (Button)rootView.findViewById(R.id.corso);
-                                        btnCorso.setVisibility(View.VISIBLE);
-                                        rootView.findViewById(R.id.tvl_corso).setVisibility(View.VISIBLE);
-                                        TextView tvCorso = (TextView)rootView.findViewById(R.id.tv_corso);
-                                        tvCorso.setVisibility(View.VISIBLE);
-                                        Button btnData = (Button)rootView.findViewById(R.id.anno_dm);
-                                        btnData.setVisibility(View.VISIBLE);
-                                        rootView.findViewById(R.id.tvl_anno_dm).setVisibility(View.VISIBLE);
-                                        TextView tvData = (TextView)rootView.findViewById(R.id.tv_anno_dm);
-                                        tvData.setVisibility(View.VISIBLE);
-                                        Button btnVoto = (Button)rootView.findViewById(R.id.voto);
-                                        btnVoto.setVisibility(View.VISIBLE);
-                                        rootView.findViewById(R.id.tvl_voto).setVisibility(View.VISIBLE);
-                                        TextView tvVoto = (TextView)rootView.findViewById(R.id.tv_voto);
-                                        tvVoto.setVisibility(View.VISIBLE);
-
-                                        //mostro i dati selezionati dall utente sulle varie views
-                                        tvAnno.setText(""+annoSelezionato);
-                                        tvCorso.setText(corsoScelto);
-                                        tvData.setText(giornoSelezionato+"/"+meseSelezionato);
-                                        tvVoto.setText(""+votoSelezionato);
-
-                                        //rendo visibili i bottoni dell layout 'annulla' e 'salva'
-                                        btnAnnulla.setVisibility(View.VISIBLE);
-                                        btnSalva.setVisibility(View.VISIBLE);
-
-                                        //set listener dei bottoni 'annulla' e 'salva'
-                                        btnSalva.setOnTouchListener(new View.OnTouchListener() {
-                                            @Override
-                                            public boolean onTouch(View view, MotionEvent motionEvent) {
-                                                switch(motionEvent.getAction()) {
-                                                    case MotionEvent.ACTION_DOWN:
-                                                        btnSalva.setBackgroundColor(Color.parseColor("#537719"));
-                                                        return true; // if you want to handle the touch event
-                                                    case MotionEvent.ACTION_UP:
-                                                        btnSalva.setBackgroundColor(Color.parseColor("#87a914"));
-
-                                                        //qui salvo tutti i dati relativi al voto immessi dall user
-
-                                                        //riporto alla prima voce del menu 'riepilogo annuale'
-                                                        activity.getMNavigationDrawerFragment().selectItem(0);
-                                                        activity.onSectionAttached(1);
-                                                        activity.restoreActionBar();
-                                                        activity.getMenu().findItem(R.id.action_selected_year).setVisible(true);
-                                                        activity.getMenu().findItem(R.id.action_settings).setVisible(true);
-                                                        return true; // if you want to handle the touch event
-                                                }
-                                                return false;
-                                            }
-                                        });
-                                        btnAnnulla.setOnTouchListener(new View.OnTouchListener() {
-                                            @Override
-                                            public boolean onTouch(View view, MotionEvent motionEvent) {
-                                                switch(motionEvent.getAction()) {
-                                                    case MotionEvent.ACTION_DOWN:
-                                                        btnAnnulla.setBackgroundColor(Color.parseColor("#537719"));
-                                                        return true; // if you want to handle the touch event
-                                                    case MotionEvent.ACTION_UP:
-                                                        btnAnnulla.setBackgroundColor(Color.parseColor("#87a914"));
-                                                        //riporto alla prima voce del menu 'riepilogo annuale'
-                                                        activity.getMNavigationDrawerFragment().selectItem(0);
-                                                        activity.onSectionAttached(1);
-                                                        activity.restoreActionBar();
-                                                        activity.getMenu().findItem(R.id.action_selected_year).setVisible(true);
-                                                        activity.getMenu().findItem(R.id.action_settings).setVisible(true);
-                                                        return true; // if you want to handle the touch event
-                                                }
-                                                return false;
-                                            }
-                                        });
-                                    }
-                                });
-                                //mostro solo i giorni del datepicker (1-10 che corrisponderebbero al voto)
-                                Utility.showJustDay(picker);
-
-                                //visualizzo il dialog
-                                Dialog dialog = builder.create();
-                                dialog.show();
+                                //abilito il bottone 'voto'
+                                btnVoto.setBackgroundColor(Color.parseColor("#ffffff"));
+                                tvVoto.setTextColor(Color.parseColor("#000000"));
+                                tvlVoto.setTextColor(Color.parseColor("#000000"));
+                                btnVoto.setEnabled(true);
                             }
                         });
+                        builder.setNegativeButton(R.string.dialog_btn_annulla, null);
+
                         //visualizzo solo il giorno e il mese della data
                         Utility.showJustDayAndMonth(picker);
                         //visualizzo il dialog
                         Dialog dialog = builder.create();
                         dialog.show();
-                    }
-                });
-
-                builder.setNegativeButton(R.string.dialog_btn_annulla, annulla);
-
-                Dialog dialog = builder.create();
-                dialog.show();
-                //imposto le dimensioni della finestra dell'alertDialog
-                WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
-                lp.copyFrom(dialog.getWindow().getAttributes());
-                lp.height = 1000;
-                dialog.getWindow().setAttributes(lp);
+                        return true;
+                }
+                return false;
             }
-        };
+        });
+        btnVoto.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                switch(motionEvent.getAction()) {
+                    case MotionEvent.ACTION_DOWN:
+                        btnVoto.setBackgroundColor(Color.parseColor("#e6e6e6"));
+                        return true;
+                    case MotionEvent.ACTION_UP:
+                        btnVoto.setBackgroundColor(Color.parseColor("#ffffff"));
 
-        //set dei bottoni del dialog
-        builder.setPositiveButton(R.string.dialog_btn_seleziona, seleziona);
-        builder.setNegativeButton(R.string.dialog_btn_annulla, annulla);
+                        //Mostro un dialog che si occupa di scegliere e salvare il voto della nota
+                        Calendar votoMinore = Calendar.getInstance();
+                        votoMinore.set(2014, Calendar.JANUARY, 1);
+                        Calendar votoMaggiore = Calendar.getInstance();
+                        votoMaggiore.set(2014, Calendar.JANUARY, 10);
+                        AlertDialog.Builder builder = new AlertDialog.Builder(activity);
+                        builder.setCancelable(false);
+                        final DatePicker picker = new DatePicker(activity);
+                        picker.setDescendantFocusability(DatePicker.FOCUS_BLOCK_DESCENDANTS);
+                        picker.setCalendarViewShown(false);
+                        picker.setMinDate(votoMinore.getTimeInMillis());
+                        picker.setMaxDate(votoMaggiore.getTimeInMillis());
+                        builder.setView(picker);
+                        builder.setCustomTitle( customTitleDialog(activity, R.string.dialog_tit_cv2) );
 
-        //mostro solo l'anno del datepicker
-        Utility.showJustYear(picker);
+                        //setup dei listener sul bottone 'seleziona'
+                        builder.setNegativeButton(R.string.dialog_btn_annulla, null);
+                        builder.setPositiveButton(R.string.dialog_btn_seleziona, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                //salvo il voto nella TextView del voto
+                                tvVoto.setText(""+picker.getDayOfMonth());
 
-        //visualizzo il dialog
-        Dialog dialog = builder.create();
-        dialog.show();
+                                //abilito il bottone 'salva'
+                                btnSalva.setBackgroundColor(Color.parseColor("#87a914"));
+                                btnSalva.setEnabled(true);
+                            }
+                        });
+
+                        //mostro solo i giorni del datepicker (1-10 che corrisponderebbero al voto)
+                        Utility.showJustDay(picker);
+
+                        //visualizzo il dialog
+                        Dialog dialog = builder.create();
+                        dialog.show();
+                        return true;
+                }
+                return false;
+            }
+        });
+        btnSalva.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                switch(motionEvent.getAction()) {
+                    case MotionEvent.ACTION_DOWN:
+                        btnSalva.setBackgroundColor(Color.parseColor("#537719"));
+                        return true;
+                    case MotionEvent.ACTION_UP:
+                        btnSalva.setBackgroundColor(Color.parseColor("#d2d2d2"));
+
+                        //Salvo la creazione del voto (per ora ci metto solo un messaggio)
+                        //inizio output messaggio di modifica corso
+                        Toast toast = Toast.makeText(activity, "Hai creato un voto nell'anno: "+tvAnno.getText()+
+                                "\nnel corso: "+tvCorso.getText()+"\nla cui nota è: "+tvVoto.getText(), Toast.LENGTH_LONG);
+                        TextView textView = (TextView) toast.getView().findViewById(android.R.id.message);
+                        textView.setGravity(Gravity.CENTER);
+                        toast.show();
+                        //fine output messaggio di modifica
+
+                        //resetto il fragment per renderlo disponibile per la modifica di un nuovo corso
+                        tvAnno.setText(getResources().getText(R.string.layout_msg_cc));
+                        tvCorso.setText(getResources().getString(R.string.layout_msg_cv));
+                        tvCorso.setTextColor(Color.parseColor("#ffffff"));
+                        tvlCorso.setTextColor(Color.parseColor("#ffffff"));
+                        btnCorso.setBackgroundColor(Color.parseColor("#dedede"));
+                        btnCorso.setEnabled(false);
+                        tvData.setText(getResources().getString(R.string.layout_msg_cv2));
+                        tvData.setTextColor(Color.parseColor("#ffffff"));
+                        tvlData.setTextColor(Color.parseColor("#ffffff"));
+                        btnData.setBackgroundColor(Color.parseColor("#dedede"));
+                        btnData.setEnabled(false);
+                        tvVoto.setText(getResources().getString(R.string.layout_msg_cv3));
+                        tvVoto.setTextColor(Color.parseColor("#ffffff"));
+                        tvlVoto.setTextColor(Color.parseColor("#ffffff"));
+                        btnVoto.setBackgroundColor(Color.parseColor("#dedede"));
+                        btnVoto.setEnabled(false);
+                        btnSalva.setEnabled(false);
+                        return true;
+                }
+                return false;
+            }
+        });
         return rootView;
     }
 }

@@ -6,6 +6,20 @@
         <item>Gestione corsi</item>
         <item>Gestione voti</item>
     </string-array>
+    <string-array name="mesi">
+        <item>Gennaio</item>
+        <item>Febbraio</item>
+        <item>Marzo</item>
+        <item>Aprile</item>
+        <item>Maggio</item>
+        <item>Giugno</item>
+        <item>Luglio</item>
+        <item>Agosto</item>
+        <item>Settembre</item>
+        <item>Ottobre</item>
+        <item>Novembre</item>
+        <item>Dicembre</item>
+    </string-array>
 
     <string name="app_name">Student\'s marks</string>
     <string name="dialog_tit_ca">Seleziona l\'anno da creare</string>
@@ -19,11 +33,9 @@
     <string name="dialog_tit_mc2">Modifica il nome del corso</string>
     <string name="dialog_tit_ec">Seleziona l\'anno del corso da eliminare</string>
     <string name="dialog_tit_ec2">Seleziona il corso da eliminare</string>
-    <string name="dialog_tit_cv">CREA VOTO</string>
-    <string name="dialog_stit_cv">Seleziona l\'anno del voto</string>
-    <string name="dialog_stit_cvp2">Seleziona il corso del voto</string>
-    <string name="dialog_stit_cvp3">Seleziona la data del voto</string>
-    <string name="dialog_stit_cvp4">Seleziona il punteggio del voto</string>
+    <string name="dialog_tit_cv">Seleziona la data del voto</string>
+    <string name="dialog_tit_cv2">Seleziona il punteggio del voto</string>
+    <string name="dialog_tit_cv3">Seleziona il corso del voto</string>
     <string name="dialog_btn_salva">Salva</string>
     <string name="dialog_btn_seleziona">Seleziona</string>
     <string name="dialog_btn_modifica">Modifica</string>
@@ -44,6 +56,9 @@
     <string name="layout_btn_salva">SALVA</string>
     <string name="layout_btn_elimina">ELIMINA</string>
 
+    <string name="layout_msg_cv">Seleziona il corso in cui vuoi inserire il voto</string>
+    <string name="layout_msg_cv2">Seleziona la data del voto</string>
+    <string name="layout_msg_cv3">Seleziona la nota del voto</string>
     <string name="layout_msg_ca">Seleziona un anno da creare</string>
     <string name="layout_msg_ma">Seleziona l\'anno da modificare</string>
     <string name="layout_msg_ma2">Scegli un nuovo valore per l\'anno selezionato</string>
@@ -55,8 +70,10 @@
     <string name="layout_msg_cc2">Crea un nuovo corso</string>
     <string name="layout_tvl_anno_dm">MODIFICA ANNO</string>
     <string name="layout_tvl_corso_dm">MODIFICA CORSO</string>
+    <string name="layout_tvl_data">DATA</string>
     <string name="layout_tvl_anno">ANNO</string>
     <string name="layout_tvl_corso">CORSO</string>
+    <string name="layout_tvl_voto">VOTO</string>
 
     <string name="errore_msg">"Non puoi cambiare anno\ndopo aver scelto un corso.\nPer favore ripeti la procedura"</string>
 

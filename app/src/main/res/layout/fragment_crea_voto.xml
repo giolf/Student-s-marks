@@ -1,64 +1,39 @@
 <RelativeLayout
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:clickable="true"
     android:background="#ededed">
-    <View
-        android:id="@+id/buttons_helper"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_centerHorizontal="true" />
-    <Button
-        android:id="@+id/annulla"
-        android:text="ANNULLA"
-        android:layout_toLeftOf="@id/buttons_helper"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:background="#87a914"
-        android:textColor="#FFF"
-        android:textStyle="bold"
-        android:textSize="18dp"
-        android:layout_marginLeft="5dp"
-        android:layout_marginBottom="5dp"
-        android:visibility="invisible"  />
+
     <Button
         android:id="@+id/salva"
         android:text="SALVA"
-        android:layout_toRightOf="@id/buttons_helper"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:background="#dedede"
+        android:background="#d2d2d2"
         android:textColor="#FFF"
         android:textStyle="bold"
         android:textSize="18dp"
         android:layout_marginBottom="5dp"
         android:layout_marginRight="5dp"
-        android:visibility="invisible"  />
+        android:layout_marginLeft="5dp"
+        android:enabled="false" />
 
     <Button
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text=""
         android:id="@+id/anno"
-        android:layout_below="@+id/buttons_helper"
         android:layout_alignRight="@+id/salva"
-        android:layout_alignEnd="@+id/salva"
-        android:layout_alignLeft="@+id/annulla"
-        android:layout_alignStart="@+id/annulla"
+        android:layout_alignLeft="@+id/salva"
         android:layout_marginTop="15dp"
-        android:enabled="false"
-        android:focusable="false"
         android:height="60dp"
-        android:background="#fff"
-        android:visibility="invisible" />
+        android:background="#fff" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="ANNO"
+        android:text="@string/layout_tvl_anno"
         android:id="@+id/tvl_anno"
         android:layout_marginLeft="12dp"
         android:layout_alignTop="@+id/anno"
@@ -66,8 +41,7 @@
         android:layout_alignStart="@+id/anno"
         android:layout_marginTop="10dp"
         android:textStyle="bold"
-        android:textSize="12dp"
-        android:visibility="invisible" />
+        android:textSize="12dp" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -76,50 +50,8 @@
         android:layout_below="@+id/tvl_anno"
         android:layout_alignLeft="@+id/tvl_anno"
         android:layout_alignStart="@+id/tvl_anno"
-        android:textSize="11dp"
-        android:visibility="invisible" />
-
-    <Button
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text=""
-        android:id="@+id/anno_dm"
-        android:layout_marginTop="20dp"
-        android:enabled="false"
-        android:focusable="false"
-        android:layout_alignRight="@+id/salva"
-        android:layout_alignLeft="@+id/annulla"
-        android:layout_alignEnd="@+id/salva"
-        android:layout_alignStart="@+id/annulla"
-        android:layout_below="@+id/anno"
-        android:layout_centerHorizontal="true"
-        android:height="60dp"
-        android:background="#fff"
-        android:visibility="invisible" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="DATA"
-        android:id="@+id/tvl_anno_dm"
-        android:layout_marginTop="10dp"
-        android:textStyle="bold"
-        android:textSize="12dp"
-        android:layout_alignTop="@+id/anno_dm"
-        android:layout_alignLeft="@+id/tv_anno"
-        android:layout_alignStart="@+id/tv_anno"
-        android:visibility="invisible" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/tv_anno_dm"
-        android:textSize="11dp"
-        android:layout_below="@+id/tvl_anno_dm"
-        android:layout_alignLeft="@+id/tvl_anno_dm"
-        android:layout_alignStart="@+id/tvl_anno_dm"
-        android:layout_marginTop="0dp"
-        android:visibility="invisible" />
+        android:text="@string/layout_msg_cc"
+        android:textSize="11dp" />
 
     <Button
         android:layout_width="fill_parent"
@@ -127,40 +59,75 @@
         android:id="@+id/corso"
         android:layout_marginTop="20dp"
         android:enabled="false"
-        android:focusable="false"
-        android:height="60dp"
-        android:layout_below="@+id/anno_dm"
         android:layout_alignRight="@+id/salva"
-        android:layout_alignLeft="@+id/annulla"
         android:layout_alignEnd="@+id/salva"
-        android:layout_alignStart="@+id/annulla"
-        android:layout_centerHorizontal="true"
-        android:background="#fff"
-        android:visibility="invisible" />
+        android:layout_below="@+id/anno"
+        android:height="60dp"
+        android:background="#dedede"
+        android:layout_alignLeft="@+id/salva" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="CORSO"
+        android:text="@string/layout_tvl_corso"
         android:id="@+id/tvl_corso"
         android:layout_marginTop="10dp"
         android:textStyle="bold"
         android:textSize="12dp"
         android:layout_alignTop="@+id/corso"
-        android:layout_alignLeft="@+id/tv_anno_dm"
-        android:layout_alignStart="@+id/tv_anno_dm"
-        android:visibility="invisible" />
+        android:layout_alignLeft="@+id/tv_anno"
+        android:layout_alignStart="@+id/tv_anno"
+        android:textColor="#fff" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/tv_corso"
+        android:text="@string/layout_msg_cv"
         android:textSize="11dp"
         android:layout_below="@+id/tvl_corso"
         android:layout_alignLeft="@+id/tvl_corso"
         android:layout_alignStart="@+id/tvl_corso"
         android:layout_marginTop="0dp"
-        android:visibility="invisible" />
+        android:textColor="#fff" />
+
+    <Button
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/data"
+        android:layout_marginTop="20dp"
+        android:enabled="false"
+        android:layout_alignRight="@+id/salva"
+        android:layout_alignEnd="@+id/salva"
+        android:layout_below="@+id/corso"
+        android:height="60dp"
+        android:background="#dedede"
+        android:layout_alignLeft="@+id/salva" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/layout_tvl_data"
+        android:id="@+id/tvl_data"
+        android:layout_marginTop="10dp"
+        android:textStyle="bold"
+        android:textSize="12dp"
+        android:layout_alignTop="@+id/data"
+        android:layout_alignLeft="@+id/tv_corso"
+        android:layout_alignStart="@+id/tv_corso"
+        android:textColor="#fff" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tv_data"
+        android:text="@string/layout_msg_cv2"
+        android:textSize="11dp"
+        android:layout_below="@+id/tvl_data"
+        android:layout_alignLeft="@+id/tvl_data"
+        android:layout_alignStart="@+id/tvl_data"
+        android:layout_marginTop="0dp"
+        android:textColor="#fff" />
 
     <Button
         android:layout_width="fill_parent"
@@ -168,21 +135,17 @@
         android:id="@+id/voto"
         android:layout_marginTop="20dp"
         android:enabled="false"
-        android:focusable="false"
-        android:height="60dp"
-        android:layout_below="@+id/corso"
-        android:layout_centerHorizontal="true"
         android:layout_alignRight="@+id/salva"
-        android:layout_alignLeft="@+id/annulla"
         android:layout_alignEnd="@+id/salva"
-        android:layout_alignStart="@+id/annulla"
-        android:background="#fff"
-        android:visibility="invisible" />
+        android:layout_below="@+id/data"
+        android:height="60dp"
+        android:background="#dedede"
+        android:layout_alignLeft="@+id/salva" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="VOTO"
+        android:text="@string/layout_tvl_voto"
         android:id="@+id/tvl_voto"
         android:layout_marginTop="10dp"
         android:textStyle="bold"
@@ -190,17 +153,18 @@
         android:layout_alignTop="@+id/voto"
         android:layout_alignLeft="@+id/tv_corso"
         android:layout_alignStart="@+id/tv_corso"
-        android:visibility="invisible" />
+        android:textColor="#fff" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/tv_voto"
+        android:text="@string/layout_msg_cv3"
         android:textSize="11dp"
         android:layout_below="@+id/tvl_voto"
         android:layout_alignLeft="@+id/tvl_voto"
         android:layout_alignStart="@+id/tvl_voto"
         android:layout_marginTop="0dp"
-        android:visibility="invisible" />
+        android:textColor="#fff" />
 
 </RelativeLayout>

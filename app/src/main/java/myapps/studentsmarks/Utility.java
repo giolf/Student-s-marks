@@ -92,4 +92,9 @@ public class Utility {
         tv.setGravity(Gravity.CENTER);
         return tv;
     }
+
+    public static String monthFromIntToString(StudentMarks activity, int month) {
+
+        return activity.getResources().getStringArray(R.array.mesi)[month];
+    }
 }
