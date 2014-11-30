@@ -4,9 +4,7 @@
         <item>Riepilogo annuale</item>
         <item>Gestione anni</item>
         <item>Gestione corsi</item>
-        <item>Crea voto</item>
-        <item>Modifica voto</item>
-        <item>Elimina voto</item>
+        <item>Gestione voti</item>
     </string-array>
 
     <string name="app_name">Student\'s marks</string>
@@ -39,6 +37,9 @@
     <string name="tab_crea_corso">Crea corso</string>
     <string name="tab_modifica_corso">Modifica corso</string>
     <string name="tab_elimina_corso">Elimina corso</string>
+    <string name="tab_crea_voto">Crea voto</string>
+    <string name="tab_modifica_voto">Modifica voto</string>
+    <string name="tab_elimina_voto">Elimina voto</string>
 
     <string name="layout_btn_salva">SALVA</string>
     <string name="layout_btn_elimina">ELIMINA</string>

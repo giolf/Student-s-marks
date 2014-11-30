@@ -77,39 +77,11 @@ public class StudentMarks extends Activity
                     .replace(R.id.container, GestioneCorsiFragment.newInstance(position + 1))
                     .commit();
         }
-        //istanzia il fragment per la voce 'eliminaAnno'
+        //istanzia il fragment per la voce 'Gestione voti'
         else if (position == 3) {
             FragmentManager fragmentManager = getFragmentManager();
             fragmentManager.beginTransaction()
-                    .replace(R.id.container, EliminaAnnoFragment.newInstance(position + 1))
-                    .commit();
-        }
-        //istanzia il fragment per la voce 'creaCorso'
-        else if (position == 4) {
-            FragmentManager fragmentManager = getFragmentManager();
-            fragmentManager.beginTransaction()
-                    .replace(R.id.container, CreaCorsoFragment.newInstance(position + 1))
-                    .commit();
-        }
-        //istanzia il fragment per la voce 'modificaCorso'
-        else if (position == 5) {
-            FragmentManager fragmentManager = getFragmentManager();
-            fragmentManager.beginTransaction()
-                    .replace(R.id.container, ModificaCorsoFragment.newInstance(position + 1))
-                    .commit();
-        }
-        //istanzia il fragment per la voce 'eliminaCorso'
-        else if (position == 6) {
-            FragmentManager fragmentManager = getFragmentManager();
-            fragmentManager.beginTransaction()
-                    .replace(R.id.container, EliminaCorsoFragment.newInstance(position + 1))
-                    .commit();
-        }
-        //istanzia il fragment per la voce 'creaVoto'
-        else if (position == 7) {
-            FragmentManager fragmentManager = getFragmentManager();
-            fragmentManager.beginTransaction()
-                    .replace(R.id.container, CreaVotoFragment.newInstance(position + 1))
+                    .replace(R.id.container, GestioneVotiFragment.newInstance(position + 1))
                     .commit();
         }
         else {

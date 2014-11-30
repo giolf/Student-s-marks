@@ -254,11 +254,4 @@ public class CreaVotoFragment extends Fragment {
         dialog.show();
         return rootView;
     }
-
-    @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-        ((StudentMarks) activity).onSectionAttached(
-                getArguments().getInt(ARG_SECTION_NUMBER));
-    }
 }

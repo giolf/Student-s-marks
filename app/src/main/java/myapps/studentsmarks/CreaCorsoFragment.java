@@ -137,7 +137,7 @@ public class CreaCorsoFragment extends Fragment {
                                 if( inputCreaCorso.getText().toString().matches(pattern) )
                                     return;
 
-                                //inserisco il corso immesso nella TextView del corso
+                                //se invece l'utente digita qualcosa inserisco il corso immesso nella TextView del corso
                                 tvCorso.setText(""+inputCreaCorso.getText());
 
                                 //inserito l'anno e il corso abilito il bottone salva
