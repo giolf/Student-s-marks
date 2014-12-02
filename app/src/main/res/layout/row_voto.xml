@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="@string/layout_msg_mv6"
+        android:id="@+id/tvl_data"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="28 maggio 2014"
+        android:id="@+id/tv_data"
+        android:layout_toEndOf="@+id/tvl_data"
+        android:layout_marginLeft="5dp"
+        android:layout_alignBottom="@+id/tvl_data"
+        android:layout_marginBottom="1.4dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="@string/layout_msg_mv5"
+        android:id="@+id/tvl_nota"
+        android:layout_below="@+id/tvl_data"
+        android:layout_alignStart="@+id/tvl_data" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="6"
+        android:id="@+id/tv_nota"
+        android:layout_alignBottom="@+id/tvl_nota"
+        android:layout_alignLeft="@+id/tv_data"
+        android:layout_alignStart="@+id/tv_data"
+        android:layout_marginBottom="0.8dp" />
+</RelativeLayout>

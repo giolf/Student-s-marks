@@ -83,7 +83,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/tv_corso"
-        android:text="@string/layout_msg_cv"
+        android:text="@string/layout_msg_mv"
         android:textSize="11dp"
         android:layout_below="@+id/tvl_corso"
         android:layout_alignLeft="@+id/tvl_corso"
@@ -94,7 +94,7 @@
     <Button
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/data"
+        android:id="@+id/voto"
         android:layout_marginTop="20dp"
         android:enabled="false"
         android:layout_alignRight="@+id/salva"
@@ -107,45 +107,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/layout_tvl_data"
-        android:id="@+id/tvl_data"
-        android:layout_marginTop="10dp"
-        android:textStyle="bold"
-        android:textSize="12dp"
-        android:layout_alignTop="@+id/data"
-        android:layout_alignLeft="@+id/tv_corso"
-        android:layout_alignStart="@+id/tv_corso"
-        android:textColor="#fff" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/tv_data"
-        android:text="@string/layout_msg_cv2"
-        android:textSize="11dp"
-        android:layout_below="@+id/tvl_data"
-        android:layout_alignLeft="@+id/tvl_data"
-        android:layout_alignStart="@+id/tvl_data"
-        android:layout_marginTop="0dp"
-        android:textColor="#fff" />
-
-    <Button
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/voto"
-        android:layout_marginTop="20dp"
-        android:enabled="false"
-        android:layout_alignRight="@+id/salva"
-        android:layout_alignEnd="@+id/salva"
-        android:layout_below="@+id/data"
-        android:height="60dp"
-        android:background="#dedede"
-        android:layout_alignLeft="@+id/salva" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/layout_tvl_punteggio"
+        android:text="@string/layout_tvl_voto"
         android:id="@+id/tvl_voto"
         android:layout_marginTop="10dp"
         android:textStyle="bold"
@@ -159,11 +121,98 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/tv_voto"
-        android:text="@string/layout_msg_cv3"
+        android:text="@string/layout_msg_mv2"
         android:textSize="11dp"
         android:layout_below="@+id/tvl_voto"
         android:layout_alignLeft="@+id/tvl_voto"
         android:layout_alignStart="@+id/tvl_voto"
+        android:layout_marginTop="0dp"
+        android:textColor="#fff" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/layout_msg_mv5"
+        android:id="@+id/stv_nota"
+        android:layout_below="@+id/tv_voto"
+        android:layout_alignStart="@+id/tv_data"
+        android:textColor="#fff"
+        android:textSize="11dp"
+        android:visibility="invisible" />
+
+    <Button
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/data"
+        android:layout_marginTop="20dp"
+        android:enabled="false"
+        android:layout_alignRight="@+id/salva"
+        android:layout_alignEnd="@+id/salva"
+        android:layout_below="@+id/voto"
+        android:height="60dp"
+        android:background="#dedede"
+        android:layout_alignLeft="@+id/salva" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/layout_tvl_md_voto"
+        android:id="@+id/tvl_data"
+        android:layout_marginTop="10dp"
+        android:textStyle="bold"
+        android:textSize="12dp"
+        android:layout_alignTop="@+id/data"
+        android:layout_alignLeft="@+id/tv_corso"
+        android:layout_alignStart="@+id/tv_corso"
+        android:textColor="#fff" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tv_data"
+        android:text="@string/layout_msg_mv3"
+        android:textSize="11dp"
+        android:layout_below="@+id/tvl_data"
+        android:layout_alignLeft="@+id/tvl_data"
+        android:layout_alignStart="@+id/tvl_data"
+        android:layout_marginTop="0dp"
+        android:textColor="#fff" />
+
+    <Button
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/punteggio"
+        android:layout_marginTop="20dp"
+        android:enabled="false"
+        android:layout_alignRight="@+id/salva"
+        android:layout_alignEnd="@+id/salva"
+        android:layout_below="@+id/data"
+        android:height="60dp"
+        android:background="#dedede"
+        android:layout_alignLeft="@+id/salva" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/layout_tvl_md_punteggio"
+        android:id="@+id/tvl_punteggio"
+        android:layout_marginTop="10dp"
+        android:textStyle="bold"
+        android:textSize="12dp"
+        android:layout_alignTop="@+id/punteggio"
+        android:layout_alignLeft="@+id/tv_data"
+        android:layout_alignStart="@+id/tv_data"
+        android:textColor="#fff" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tv_punteggio"
+        android:text="@string/layout_msg_mv4"
+        android:textSize="11dp"
+        android:layout_below="@+id/tvl_punteggio"
+        android:layout_alignLeft="@+id/tvl_punteggio"
+        android:layout_alignStart="@+id/tvl_punteggio"
         android:layout_marginTop="0dp"
         android:textColor="#fff" />
 

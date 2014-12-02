@@ -36,6 +36,7 @@
     <string name="dialog_tit_cv">Seleziona la data del voto</string>
     <string name="dialog_tit_cv2">Seleziona il punteggio del voto</string>
     <string name="dialog_tit_cv3">Seleziona il corso del voto</string>
+    <string name="dialog_tit_mv">Seleziona il voto dal corso</string>
     <string name="dialog_btn_salva">Salva</string>
     <string name="dialog_btn_seleziona">Seleziona</string>
     <string name="dialog_btn_modifica">Modifica</string>
@@ -56,9 +57,15 @@
     <string name="layout_btn_salva">SALVA</string>
     <string name="layout_btn_elimina">ELIMINA</string>
 
+    <string name="layout_msg_mv">Seleziona il corso del voto da modificare</string>
+    <string name="layout_msg_mv2">Seleziona il voto da modificare</string>
+    <string name="layout_msg_mv3">Modifica la data del voto selezionato</string>
+    <string name="layout_msg_mv4">Modifica il punteggio del voto selezionato</string>
+    <string name="layout_msg_mv5">Nota:</string>
+    <string name="layout_msg_mv6">Data:</string>
     <string name="layout_msg_cv">Seleziona il corso in cui vuoi inserire il voto</string>
     <string name="layout_msg_cv2">Seleziona la data del voto</string>
-    <string name="layout_msg_cv3">Seleziona la nota del voto</string>
+    <string name="layout_msg_cv3">Seleziona il punteggio del voto</string>
     <string name="layout_msg_ca">Seleziona un anno da creare</string>
     <string name="layout_msg_ma">Seleziona l\'anno da modificare</string>
     <string name="layout_msg_ma2">Scegli un nuovo valore per l\'anno selezionato</string>
@@ -73,9 +80,13 @@
     <string name="layout_tvl_data">DATA</string>
     <string name="layout_tvl_anno">ANNO</string>
     <string name="layout_tvl_corso">CORSO</string>
+    <string name="layout_tvl_punteggio">PUNTEGGIO</string>
     <string name="layout_tvl_voto">VOTO</string>
+    <string name="layout_tvl_md_voto">MODIFICA DATA VOTO</string>
+    <string name="layout_tvl_md_punteggio">MODIFICA PUNTEGGIO VOTO</string>
 
     <string name="errore_msg">"Non puoi cambiare anno\ndopo aver scelto un corso.\nPer favore ripeti la procedura"</string>
+    <string name="errore_msg2">"Non puoi cambiare corso\ndopo aver scelto un voto.\nPer favore ripeti la procedura"</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>

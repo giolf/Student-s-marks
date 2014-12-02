@@ -93,8 +93,8 @@ public class Utility {
         return tv;
     }
 
+    //forse in futuro avrà piu senso inserirlo nella classe voto
     public static String monthFromIntToString(StudentMarks activity, int month) {
-
         return activity.getResources().getStringArray(R.array.mesi)[month];
     }
 }

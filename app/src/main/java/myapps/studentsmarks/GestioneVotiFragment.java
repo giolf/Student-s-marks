@@ -41,7 +41,7 @@ public class GestioneVotiFragment extends Fragment {
         tabHost.setup(getActivity(), getChildFragmentManager(), R.id.gestione_corsi_container);
 
         tabHost.addTab(tabHost.newTabSpec(getResources().getString(R.string.tab_crea_voto)).setIndicator(getResources().getString(R.string.tab_crea_voto)), CreaVotoFragment.class, null);
-        tabHost.addTab(tabHost.newTabSpec(getResources().getString(R.string.tab_modifica_voto)).setIndicator(getResources().getString(R.string.tab_modifica_voto)), ModificaCorsoFragment.class, null);
+        tabHost.addTab(tabHost.newTabSpec(getResources().getString(R.string.tab_modifica_voto)).setIndicator(getResources().getString(R.string.tab_modifica_voto)), ModificaVotoFragment.class, null);
         tabHost.addTab(tabHost.newTabSpec(getResources().getString(R.string.tab_elimina_voto)).setIndicator(getResources().getString(R.string.tab_elimina_voto)), EliminaCorsoFragment.class, null);
 
         return tabHost;
