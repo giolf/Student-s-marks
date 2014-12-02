@@ -55,7 +55,7 @@ public class ModificaCorsoFragment extends Fragment {
         final Button btnAnno        = (Button)rootView.findViewById(R.id.anno);
         final Button btnCorso       = (Button)rootView.findViewById(R.id.corso);
         final Button btnCorsoDM     = (Button)rootView.findViewById(R.id.corso_dm);
-        final TextView tvAnno      = (TextView)rootView.findViewById(R.id.tv_anno);
+        final TextView tvAnno       = (TextView)rootView.findViewById(R.id.tv_anno);
         final TextView tvCorso      = (TextView)rootView.findViewById(R.id.tv_corso);
         final TextView tvCorsoDM    = (TextView)rootView.findViewById(R.id.tv_corso_dm);
         final TextView tvlCorso     = (TextView)rootView.findViewById(R.id.tvl_corso);

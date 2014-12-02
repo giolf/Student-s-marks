@@ -223,7 +223,7 @@ public class CreaVotoFragment extends Fragment {
                                 int giornoSelezionato   = picker.getDayOfMonth();
                                 tvData.setText(""+giornoSelezionato+" "+meseSelezionato);
 
-                                //abilito il bottone 'voto'
+                                //abilito il bottone 'punteggio'
                                 btnVoto.setBackgroundColor(Color.parseColor("#ffffff"));
                                 tvVoto.setTextColor(Color.parseColor("#000000"));
                                 tvlVoto.setTextColor(Color.parseColor("#000000"));

@@ -19,6 +19,7 @@ import android.widget.Toast;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 import static myapps.studentsmarks.Utility.customTitleDialog;
 import static myapps.studentsmarks.Utility.monthFromIntToString;
@@ -50,7 +51,7 @@ public class ModificaVotoFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        final View rootView               = inflater.inflate(R.layout.fragment_modifica_voto, container, false);
+        final View rootView         = inflater.inflate(R.layout.fragment_modifica_voto, container, false);
         final StudentMarks activity = ((StudentMarks)getActivity());
         final Button btnSalva       = (Button)rootView.findViewById(R.id.salva);
         final Button btnAnno        = (Button)rootView.findViewById(R.id.anno);
@@ -311,7 +312,154 @@ public class ModificaVotoFragment extends Fragment {
                 return false;
             }
         });
+        btnData.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                switch(motionEvent.getAction()) {
+                    case MotionEvent.ACTION_DOWN:
+                        btnData.setBackgroundColor(Color.parseColor("#e6e6e6"));
+                        return true;
+                    case MotionEvent.ACTION_UP:
+                        btnData.setBackgroundColor(Color.parseColor("#ffffff"));
 
+                        //creo un nuovo dialog che si occuperà di mostrare e salvare la data del voto
+                        AlertDialog.Builder builder = new AlertDialog.Builder(activity);
+                        builder.setCancelable(false);
+                        final DatePicker picker = new DatePicker(activity);
+                        picker.setDescendantFocusability(DatePicker.FOCUS_BLOCK_DESCENDANTS);
+                        picker.setCalendarViewShown(false);
+                        builder.setView(picker);
+
+                        //titolo del dialog
+                        builder.setCustomTitle( customTitleDialog(activity, R.string.dialog_tit_mv2) );
+
+                        //set dei listener
+                        builder.setPositiveButton(R.string.dialog_btn_seleziona, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                //metto la data selezionata nella textView del bottone 'data'
+                                String meseSelezionato  = monthFromIntToString(activity, picker.getMonth());
+                                int giornoSelezionato   = picker.getDayOfMonth();
+                                tvData.setText(""+giornoSelezionato+" "+meseSelezionato);
+
+                                //abilito il bottone 'salva'
+                                btnSalva.setBackgroundColor(Color.parseColor("#87a914"));
+                                btnSalva.setEnabled(true);
+                            }
+                        });
+                        builder.setNegativeButton(R.string.dialog_btn_annulla, null);
+
+                        //visualizzo solo il giorno e il mese della data
+                        Utility.showJustDayAndMonth(picker);
+                        //visualizzo il dialog
+                        Dialog dialog = builder.create();
+                        dialog.show();
+                        return true;
+                }
+                return false;
+            }
+        });
+        btnPunteggio.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                switch(motionEvent.getAction()) {
+                    case MotionEvent.ACTION_DOWN:
+                        btnPunteggio.setBackgroundColor(Color.parseColor("#e6e6e6"));
+                        return true;
+                    case MotionEvent.ACTION_UP:
+                        btnPunteggio.setBackgroundColor(Color.parseColor("#ffffff"));
+
+                        //Mostro un dialog che si occupa di scegliere e salvare il voto della nota
+                        Calendar votoMinore = Calendar.getInstance();
+                        votoMinore.set(2014, Calendar.JANUARY, 1);
+                        Calendar votoMaggiore = Calendar.getInstance();
+                        votoMaggiore.set(2014, Calendar.JANUARY, 10);
+                        AlertDialog.Builder builder = new AlertDialog.Builder(activity);
+                        builder.setCancelable(false);
+                        final DatePicker picker = new DatePicker(activity);
+                        picker.setDescendantFocusability(DatePicker.FOCUS_BLOCK_DESCENDANTS);
+                        picker.setCalendarViewShown(false);
+                        picker.setMinDate(votoMinore.getTimeInMillis());
+                        picker.setMaxDate(votoMaggiore.getTimeInMillis());
+                        builder.setView(picker);
+                        builder.setCustomTitle( customTitleDialog(activity, R.string.dialog_tit_mv3) );
+
+                        //setup dei listener sul bottone 'seleziona'
+                        builder.setNegativeButton(R.string.dialog_btn_annulla, null);
+                        builder.setPositiveButton(R.string.dialog_btn_seleziona, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                //salvo il voto nella TextView del bottone punteggio
+                                tvPunteggio.setText(""+picker.getDayOfMonth());
+
+                                //abilito il bottone 'salva'
+                                btnSalva.setBackgroundColor(Color.parseColor("#87a914"));
+                                btnSalva.setEnabled(true);
+                            }
+                        });
+
+                        //mostro solo i giorni del datepicker (1-10 che corrisponderebbero al voto)
+                        Utility.showJustDay(picker);
+
+                        //visualizzo il dialog
+                        Dialog dialog = builder.create();
+                        dialog.show();
+                        return true;
+                }
+                return false;
+            }
+        });
+        btnSalva.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                switch(motionEvent.getAction()) {
+                    case MotionEvent.ACTION_DOWN:
+                        btnSalva.setBackgroundColor(Color.parseColor("#537719"));
+                        return true;
+                    case MotionEvent.ACTION_UP:
+                        btnSalva.setBackgroundColor(Color.parseColor("#d2d2d2"));
+
+                        //Salvo la modifica del voto (per ora ci metto solo un messaggio)
+                        //inizio output messaggio di modifica corso
+                        Toast toast = Toast.makeText(activity, "Hai modificato un voto nell'anno: "+tvAnno.getText()+
+                                "\nnel corso: "+tvCorso.getText()+"\n\nData: "+tvData.getText()+"\nNota: "+
+                                tvPunteggio.getText(), Toast.LENGTH_LONG);
+                        TextView textView = (TextView) toast.getView().findViewById(android.R.id.message);
+                        textView.setGravity(Gravity.CENTER);
+                        toast.show();
+                        //fine output messaggio di modifica
+
+                        //resetto il fragment per renderlo disponibile per la modifica di un nuovo voto
+                        tvAnno.setText(getResources().getText(R.string.layout_msg_cc));
+                        tvCorso.setText(getResources().getString(R.string.layout_msg_mv));
+                        tvCorso.setTextColor(Color.parseColor("#ffffff"));
+                        tvlCorso.setTextColor(Color.parseColor("#ffffff"));
+                        btnCorso.setBackgroundColor(Color.parseColor("#dedede"));
+                        btnCorso.setEnabled(false);
+                        tvVoto.setText(getResources().getString(R.string.layout_msg_mv2));
+                        tvVoto.setTextColor(Color.parseColor("#ffffff"));
+                        stvNota.setTextColor(Color.parseColor("#ffffff"));
+                        stvNota.setVisibility(View.INVISIBLE);
+                        tvlVoto.setTextColor(Color.parseColor("#ffffff"));
+                        btnVoto.setBackgroundColor(Color.parseColor("#dedede"));
+                        btnVoto.setEnabled(false);
+                        tvData.setText(getResources().getString(R.string.layout_msg_mv3));
+                        tvData.setTextColor(Color.parseColor("#ffffff"));
+                        tvlData.setTextColor(Color.parseColor("#ffffff"));
+                        btnData.setBackgroundColor(Color.parseColor("#dedede"));
+                        btnData.setEnabled(false);
+                        tvPunteggio.setText(getResources().getString(R.string.layout_msg_mv4));
+                        tvPunteggio.setTextColor(Color.parseColor("#ffffff"));
+                        tvlPunteggio.setTextColor(Color.parseColor("#ffffff"));
+                        btnPunteggio.setBackgroundColor(Color.parseColor("#dedede"));
+                        btnPunteggio.setEnabled(false);
+                        btnSalva.setBackgroundColor(Color.parseColor("#d2d2d2"));
+                        btnSalva.setEnabled(false);
+                        return true;
+                }
+                return false;
+            }
+        });
         return rootView;
     }
 }

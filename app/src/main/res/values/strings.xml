@@ -36,7 +36,9 @@
     <string name="dialog_tit_cv">Seleziona la data del voto</string>
     <string name="dialog_tit_cv2">Seleziona il punteggio del voto</string>
     <string name="dialog_tit_cv3">Seleziona il corso del voto</string>
-    <string name="dialog_tit_mv">Seleziona il voto dal corso</string>
+    <string name="dialog_tit_mv">Seleziona il voto del corso</string>
+    <string name="dialog_tit_mv2">Modifica la data del voto selezionato</string>
+    <string name="dialog_tit_mv3">Modifica il punteggio del voto selezionato</string>
     <string name="dialog_btn_salva">Salva</string>
     <string name="dialog_btn_seleziona">Seleziona</string>
     <string name="dialog_btn_modifica">Modifica</string>
@@ -63,6 +65,8 @@
     <string name="layout_msg_mv4">Modifica il punteggio del voto selezionato</string>
     <string name="layout_msg_mv5">Nota:</string>
     <string name="layout_msg_mv6">Data:</string>
+    <string name="layout_msg_ev">Seleziona il corso del voto da eliminare</string>
+    <string name="layout_msg_ev2">Seleziona il voto da eliminare</string>
     <string name="layout_msg_cv">Seleziona il corso in cui vuoi inserire il voto</string>
     <string name="layout_msg_cv2">Seleziona la data del voto</string>
     <string name="layout_msg_cv3">Seleziona il punteggio del voto</string>
