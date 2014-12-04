@@ -11,12 +11,13 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.DatePicker;
+import android.widget.FrameLayout;
+import android.widget.NumberPicker;
 import android.widget.TextView;
 import android.widget.Toast;
-import java.util.Calendar;
 
 import static myapps.studentsmarks.Utility.customTitleDialog;
+import static myapps.studentsmarks.Utility.makeFrameLWithNumPicker;
 
 /**
  * Created by Gio on 11.11.2014.
@@ -60,24 +61,23 @@ public class EliminaAnnoFragment extends Fragment {
                         return true;
                     case MotionEvent.ACTION_UP:
                         btnAnno.setBackgroundColor(Color.parseColor("#ffffff"));
-                        //acquizisione dell'anno piu piccolo e piu grande creati dall'utente
-                        int[] anniCreatiutente = {2010, 2011, 2012, 2013};
-                        int annoPiuPiccolo = anniCreatiutente[0];
-                        int annoPiuGrande = anniCreatiutente[3];
-                        Calendar dataAnnoPiuPiccolo = Calendar.getInstance();
-                        dataAnnoPiuPiccolo.set(annoPiuPiccolo, Calendar.JANUARY, 1);
-                        Calendar dataAnnoPiuGrande = Calendar.getInstance();
-                        dataAnnoPiuGrande.set(annoPiuGrande, Calendar.JANUARY, 1);
+
+                        //recupero la lista degli anni creati dall'utente
+                        //qui dovro recuperarla da un arraylist di anni (attraverso un metodo implementato nella classe container degli anni)
+                        final String[] anniCreatiutente = Utility.makeSchoolYearList(2014);
 
                         //setup del dialog
                         AlertDialog.Builder builder = new AlertDialog.Builder(activity);
                         builder.setCancelable(false);
-                        final DatePicker picker = new DatePicker(activity);
-                        picker.setDescendantFocusability(DatePicker.FOCUS_BLOCK_DESCENDANTS);
-                        picker.setCalendarViewShown(false);
-                        picker.setMinDate(dataAnnoPiuPiccolo.getTimeInMillis());
-                        picker.setMaxDate(dataAnnoPiuGrande.getTimeInMillis());
-                        builder.setView(picker);
+                        final NumberPicker picker = new NumberPicker(activity);
+                        picker.setDescendantFocusability(NumberPicker.FOCUS_BLOCK_DESCENDANTS);
+                        picker.setMinValue(0);
+                        picker.setMaxValue(anniCreatiutente.length - 1);
+                        picker.setValue(anniCreatiutente.length - 1);
+                        picker.setWrapSelectorWheel(false);
+                        picker.setDisplayedValues(anniCreatiutente);
+                        FrameLayout frameLayout = makeFrameLWithNumPicker(picker, activity);
+                        builder.setView(frameLayout);
                         builder.setCustomTitle( customTitleDialog(activity, R.string.dialog_tit_ea) );
 
                         //listeners bottone 'seleziona'
@@ -85,7 +85,7 @@ public class EliminaAnnoFragment extends Fragment {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
                                 //inserisco nella TextView dell'anno l'anno selezionato dall'utente (cioe quello da eliminare)
-                                tvAnno.setText(""+picker.getYear());
+                                tvAnno.setText(""+anniCreatiutente[picker.getValue()]);
                                 //abilito e preparo il setuo del bottone 'elimina'
                                 btnElimina.setBackgroundColor(Color.parseColor("#87a914"));
                                 btnElimina.setEnabled(true);
@@ -95,9 +95,6 @@ public class EliminaAnnoFragment extends Fragment {
                         //setup dei bottoni del dialog
                         builder.setPositiveButton(R.string.dialog_btn_seleziona, seleziona);
                         builder.setNegativeButton(R.string.dialog_btn_annulla, null);
-
-                        //mostro solo l'anno del datepicker
-                        Utility.showJustYear(picker);
 
                         //visualizzo il dialog
                         Dialog dialog = builder.create();

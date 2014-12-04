@@ -13,10 +13,13 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.FrameLayout;
+import android.widget.NumberPicker;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import static myapps.studentsmarks.Utility.customTitleDialog;
+import static myapps.studentsmarks.Utility.makeFrameLWithNumPicker;
 
 /**
  * Created by Gio on 15.11.2014.
@@ -64,14 +67,24 @@ public class CreaCorsoFragment extends Fragment {
                         return true;
                     case MotionEvent.ACTION_UP:
                         btnAnno.setBackgroundColor(Color.parseColor("#ffffff"));
-                        //mostro un dialog che consente di selezionare l'anno in cui si vuole creare il corso
+
+                        //recupero la lista degli anni creati dall'utente
+                        //qui dovro recuperarla da un arraylist di anni (attraverso un metodo implementato nella classe container degli anni)
+                        final String[] anniCreatiutente = Utility.makeSchoolYearList(2014);
+
+                        //Mostro il Dialog che permette la scelta dell'anno del corso da creare
                         //setup del dialog
                         AlertDialog.Builder builder = new AlertDialog.Builder(activity);
                         builder.setCancelable(false);
-                        final DatePicker picker = new DatePicker(activity);
-                        picker.setCalendarViewShown(false);
-                        picker.setDescendantFocusability(DatePicker.FOCUS_BLOCK_DESCENDANTS);
-                        builder.setView(picker);
+                        final NumberPicker picker = new NumberPicker(activity);
+                        picker.setDescendantFocusability(NumberPicker.FOCUS_BLOCK_DESCENDANTS);
+                        picker.setMinValue(0);
+                        picker.setMaxValue(anniCreatiutente.length-1);
+                        picker.setValue(anniCreatiutente.length-1);
+                        picker.setWrapSelectorWheel(false);
+                        picker.setDisplayedValues(anniCreatiutente);
+                        FrameLayout frameLayout = makeFrameLWithNumPicker(picker, activity);
+                        builder.setView(frameLayout);
 
                         //titolo dialog
                         builder.setCustomTitle( customTitleDialog(activity, R.string.dialog_tit_cc) );
@@ -81,7 +94,7 @@ public class CreaCorsoFragment extends Fragment {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
                                 //salvo l'anno selezionato dall'utente e lo mostro nella TextView dell'anno
-                                tvAnno.setText(""+picker.getYear());
+                                tvAnno.setText( ""+anniCreatiutente[picker.getValue()] );
 
                                 //abilito il bottone corso
                                 btnCorso.setBackgroundColor(Color.parseColor("#ffffff"));
@@ -94,9 +107,6 @@ public class CreaCorsoFragment extends Fragment {
                         //set bottoni dialog
                         builder.setPositiveButton(R.string.dialog_btn_seleziona, seleziona);
                         builder.setNegativeButton(R.string.dialog_btn_annulla, null);
-
-                        //mostro solo l'anno del datepicker
-                        Utility.showJustYear(picker);
 
                         //visualizzo il dialog
                         Dialog dialog = builder.create();

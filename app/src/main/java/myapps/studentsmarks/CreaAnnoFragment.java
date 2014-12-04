@@ -11,9 +11,14 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.DatePicker;
+import android.widget.FrameLayout;
+import android.widget.NumberPicker;
 import android.widget.TextView;
 import android.widget.Toast;
+import java.util.Calendar;
+import static myapps.studentsmarks.Utility.makeSchoolYearList;
+import static myapps.studentsmarks.Utility.makeFrameLWithNumPicker;
+
 
 
 /**
@@ -59,24 +64,36 @@ public class CreaAnnoFragment extends Fragment {
                     case MotionEvent.ACTION_UP:
                         btnAnno.setBackgroundColor(Color.parseColor("#ffffff"));
 
+                        //Calcolo l'anno corrente
+                        Calendar calendar = Calendar.getInstance();
+                        int annoCorrente  = calendar.get(Calendar.YEAR);
+
+                        //creo una lista di anni, da: annocorrente-10 a: annocorrente
+                        final String[] listaAnniScolastici = makeSchoolYearList(annoCorrente);
+
                         //appare il dialog della selezione dell'anno da creare
                         //setup del dialog
                         AlertDialog.Builder builder = new AlertDialog.Builder(activity);
                         builder.setCancelable(false);
-                        final DatePicker picker = new DatePicker(activity);
-                        picker.setCalendarViewShown(false);
-                        picker.setDescendantFocusability(DatePicker.FOCUS_BLOCK_DESCENDANTS);
-                        builder.setView(picker);
+                        final NumberPicker picker = new NumberPicker(activity);
+                        picker.setDescendantFocusability(NumberPicker.FOCUS_BLOCK_DESCENDANTS);
+                        picker.setMinValue(0);
+                        picker.setMaxValue(listaAnniScolastici.length-1);
+                        picker.setValue(listaAnniScolastici.length-1);
+                        picker.setWrapSelectorWheel(false);
+                        picker.setDisplayedValues(listaAnniScolastici);
+                        FrameLayout frameLayout = makeFrameLWithNumPicker(picker, activity);
+                        builder.setView(frameLayout);
 
                         //titolo dialog
                         builder.setCustomTitle(Utility.customTitleDialog(activity, R.string.dialog_tit_ca));
 
                         //listeners bottoni 'annulla' e 'salva'
-                        Dialog.OnClickListener salva = new Dialog.OnClickListener() {
+                        Dialog.OnClickListener seleziona = new Dialog.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
                                 //prendo i l'anno selezionato e lo mostro nel bottone dell'anno
-                                tvAnno.setText(""+picker.getYear());
+                                tvAnno.setText( ""+listaAnniScolastici[picker.getValue()] );
 
                                 //abilito il bottone salva
                                 btnSalva.setBackgroundColor(Color.parseColor("#87a914"));
@@ -84,10 +101,8 @@ public class CreaAnnoFragment extends Fragment {
                             }
                         };
                         //bottoni dialog
-                        builder.setPositiveButton(R.string.dialog_btn_seleziona, salva);
+                        builder.setPositiveButton(R.string.dialog_btn_seleziona, seleziona);
                         builder.setNegativeButton(R.string.dialog_btn_annulla, null);
-                        //mostro solo l'anno del datepicker
-                        Utility.showJustYear(picker);
 
                         //visualizzo il dialog
                         Dialog dialog = builder.create();
@@ -108,7 +123,7 @@ public class CreaAnnoFragment extends Fragment {
                         return true;
                     case MotionEvent.ACTION_UP:
                         //salvo i dati relativi all anno creato
-                        Toast.makeText(activity, "hai creato l'anno: "+tvAnno.getText(), Toast.LENGTH_LONG).show();
+                        Toast.makeText(activity, "hai creato l'anno scolastico: "+tvAnno.getText(), Toast.LENGTH_LONG).show();
 
                         //e poi resetto il fragment per renderlo disponibile per la creazione di un nuovo anno
                         tvAnno.setText(getResources().getText(R.string.layout_msg_ca));

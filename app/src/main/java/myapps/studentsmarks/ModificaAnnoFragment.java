@@ -4,28 +4,26 @@ package myapps.studentsmarks;
  * Created by Gio on 10.11.2014.
  */
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.Fragment;
 import android.content.DialogInterface;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.DatePicker;
+import android.widget.FrameLayout;
+import android.widget.NumberPicker;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import junit.framework.TestCase;
-
 import java.util.Calendar;
 
 import static myapps.studentsmarks.Utility.customTitleDialog;
+import static myapps.studentsmarks.Utility.makeFrameLWithNumPicker;
+import static myapps.studentsmarks.Utility.makeSchoolYearList;
 
 
 /**
@@ -65,8 +63,6 @@ public class ModificaAnnoFragment extends Fragment {
         final TextView tvlAnnoDM    = (TextView)rootView.findViewById(R.id.tvl_anno_dm);
         final String msgAnnoDM      = (String)getResources().getText(R.string.layout_tvl_anno_dm);
 
-
-
         btnAnno.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
@@ -76,25 +72,24 @@ public class ModificaAnnoFragment extends Fragment {
                         return true;
                     case MotionEvent.ACTION_UP:
                         btnAnno.setBackgroundColor(Color.parseColor("#ffffff"));
-                        //mostro il dialog che permette la selezione dell'anno a modificare
-                        //acquizisione dell'anno piu piccolo e piu grande creati dall'utente
-                        int[] anniCreatiutente = {2010, 2011, 2012, 2013};
-                        int annoPiuPiccolo = anniCreatiutente[0];
-                        int annoPiuGrande = anniCreatiutente[3];
-                        Calendar dataAnnoPiuPiccolo = Calendar.getInstance();
-                        dataAnnoPiuPiccolo.set(annoPiuPiccolo, Calendar.JANUARY, 1);
-                        Calendar dataAnnoPiuGrande = Calendar.getInstance();
-                        dataAnnoPiuGrande.set(annoPiuGrande, Calendar.JANUARY, 1);
 
+                        //recupero la lista degli anni creati dall'utente
+                        //qui dovro recuperarla da un arraylist di anni (attraverso un metodo implementato nella classe container degli anni)
+                        final String[] anniCreatiutente = Utility.makeSchoolYearList(2014);
+
+                        //mostro il dialog che permette la selezione dell'anno da modificare
                         //setup del dialog
                         AlertDialog.Builder builder = new AlertDialog.Builder(activity);
                         builder.setCancelable(false);
-                        final DatePicker picker = new DatePicker(activity);
-                        picker.setDescendantFocusability(DatePicker.FOCUS_BLOCK_DESCENDANTS);
-                        picker.setCalendarViewShown(false);
-                        picker.setMinDate(dataAnnoPiuPiccolo.getTimeInMillis());
-                        picker.setMaxDate(dataAnnoPiuGrande.getTimeInMillis());
-                        builder.setView(picker);
+                        final NumberPicker picker = new NumberPicker(activity);
+                        picker.setDescendantFocusability(NumberPicker.FOCUS_BLOCK_DESCENDANTS);
+                        picker.setMinValue(0);
+                        picker.setMaxValue(anniCreatiutente.length-1);
+                        picker.setValue(anniCreatiutente.length-1);
+                        picker.setWrapSelectorWheel(false);
+                        picker.setDisplayedValues(anniCreatiutente);
+                        FrameLayout frameLayout = makeFrameLWithNumPicker(picker, activity);
+                        builder.setView(frameLayout);
                         builder.setCustomTitle( customTitleDialog(activity, R.string.dialog_tit_ma) );
 
                         //listener bottone 'seleziona'
@@ -102,13 +97,13 @@ public class ModificaAnnoFragment extends Fragment {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
                                 //prendo l'anno selezionato e lo mostro nella TextView relativa al bottone anno
-                                tvAnno.setText(""+picker.getYear());
+                                tvAnno.setText( ""+anniCreatiutente[picker.getValue()] );
                                 //abilito il bottone della modifica anno e le sue varie impostazioni
                                 btnAnnoDM.setBackgroundColor(Color.parseColor("#ffffff"));
                                 btnAnnoDM.setEnabled(true);
                                 //permette di vedere nella label textView del bottone di modifica anno,
                                 //la selezione dell'anno da modificare fatta dall'utente
-                                tvlAnnoDM.setText(msgAnnoDM+" - "+picker.getYear());
+                                tvlAnnoDM.setText( msgAnnoDM+" - "+anniCreatiutente[picker.getValue()] );
                                 tvlAnnoDM.setTextColor(Color.parseColor("#000000"));
                                 tvAnnoDM.setTextColor(Color.parseColor("#000000"));
                             }
@@ -116,9 +111,6 @@ public class ModificaAnnoFragment extends Fragment {
                         //set bottoni dialog
                         builder.setPositiveButton(R.string.dialog_btn_seleziona, seleziona);
                         builder.setNegativeButton(R.string.dialog_btn_annulla, null);
-
-                        //mostro solo l'anno del datepicker
-                        Utility.showJustYear(picker);
 
                         //visualizzo il dialog
                         Dialog dialog = builder.create();
@@ -139,20 +131,34 @@ public class ModificaAnnoFragment extends Fragment {
                     case MotionEvent.ACTION_UP:
                         btnAnnoDM.setBackgroundColor(Color.parseColor("#ffffff"));
 
+                        //Calcolo l'anno corrente
+                        Calendar calendar = Calendar.getInstance();
+                        int annoCorrente  = calendar.get(Calendar.YEAR);
+
+                        //creo una lista di anni, da: annocorrente-10 a: annocorrente
+                        final String[] listaAnniScolastici = makeSchoolYearList(annoCorrente);
+
                         //creo un nuovo Dialog per la modifica dell'anno selezionato
                         AlertDialog.Builder builder = new AlertDialog.Builder(activity);
                         builder.setCancelable(false);
-                        final DatePicker picker = new DatePicker(activity);
-                        picker.setDescendantFocusability(DatePicker.FOCUS_BLOCK_DESCENDANTS);
-                        picker.setCalendarViewShown(false);
-                        builder.setView(picker);
+                        final NumberPicker picker = new NumberPicker(activity);
+                        picker.setDescendantFocusability(NumberPicker.FOCUS_BLOCK_DESCENDANTS);
+                        picker.setMinValue(0);
+                        picker.setMaxValue(listaAnniScolastici.length-1);
+                        picker.setValue(listaAnniScolastici.length-1);
+                        picker.setWrapSelectorWheel(false);
+                        picker.setDisplayedValues(listaAnniScolastici);
+                        FrameLayout frameLayout = makeFrameLWithNumPicker(picker, activity);
+                        builder.setView(frameLayout);
+
+                        //titolo del dialog
                         builder.setCustomTitle( customTitleDialog(activity, R.string.dialog_tit_ma2) );
 
                         builder.setPositiveButton(R.string.dialog_btn_seleziona, new Dialog.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
                                 //prendo il nuovo anno selezionato dall'utente e lo inserisco nella textView della modifica dell'anno
-                                tvAnnoDM.setText("" + picker.getYear());
+                                tvAnnoDM.setText("" + listaAnniScolastici[picker.getValue()]);
 
                                 //abilito e preparo il setup del bottone 'salva'
                                 btnSalva.setBackgroundColor(Color.parseColor("#87a914"));
@@ -160,7 +166,7 @@ public class ModificaAnnoFragment extends Fragment {
                             }
                         });
                         builder.setNegativeButton(R.string.dialog_btn_annulla, null);
-                        Utility.showJustYear(picker);
+
                         Dialog dialog = builder.create();
                         dialog.show();
                         return true;

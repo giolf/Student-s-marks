@@ -13,14 +13,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.Button;
-import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.FrameLayout;
+import android.widget.NumberPicker;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import org.w3c.dom.Text;
-
 import static myapps.studentsmarks.Utility.customTitleDialog;
+import static myapps.studentsmarks.Utility.makeFrameLWithNumPicker;
 
 /**
  * Created by Gio on 16.11.2014.
@@ -71,14 +71,23 @@ public class ModificaCorsoFragment extends Fragment {
                     case MotionEvent.ACTION_UP:
                         btnAnno.setBackgroundColor(Color.parseColor("#ffffff"));
 
-                        //Mostro il Dialog che permette la scelta dell'anno del corso
+                        //recupero la lista degli anni creati dall'utente
+                        //qui dovro recuperarla da un arraylist di anni (attraverso un metodo implementato nella classe container degli anni)
+                        final String[] anniCreatiutente = Utility.makeSchoolYearList(2014);
+
+                        //Mostro il Dialog che permette la scelta dell'anno del corso da modificare
                         //setup del dialog
                         AlertDialog.Builder builder = new AlertDialog.Builder(activity);
                         builder.setCancelable(false);
-                        final DatePicker picker = new DatePicker(activity);
-                        picker.setDescendantFocusability(DatePicker.FOCUS_BLOCK_DESCENDANTS);
-                        picker.setCalendarViewShown(false);
-                        builder.setView(picker);
+                        final NumberPicker picker = new NumberPicker(activity);
+                        picker.setDescendantFocusability(NumberPicker.FOCUS_BLOCK_DESCENDANTS);
+                        picker.setMinValue(0);
+                        picker.setMaxValue(anniCreatiutente.length-1);
+                        picker.setValue(anniCreatiutente.length-1);
+                        picker.setWrapSelectorWheel(false);
+                        picker.setDisplayedValues(anniCreatiutente);
+                        FrameLayout frameLayout = makeFrameLWithNumPicker(picker, activity);
+                        builder.setView(frameLayout);
 
                         //titolo dialog
                         builder.setCustomTitle( customTitleDialog(activity, R.string.dialog_tit_cc) );
@@ -116,7 +125,7 @@ public class ModificaCorsoFragment extends Fragment {
                                     return;
                                 }
                                 //mostro l'anno selezionato dall'utente nella TextView dell'anno
-                                tvAnno.setText(""+picker.getYear());
+                                tvAnno.setText( ""+anniCreatiutente[picker.getValue()] );
 
                                 //abilito il bottone corso
                                 btnCorso.setBackgroundColor(Color.parseColor("#ffffff"));
@@ -129,9 +138,6 @@ public class ModificaCorsoFragment extends Fragment {
                         //set bottoni dialog
                         builder.setPositiveButton(R.string.dialog_btn_seleziona, seleziona);
                         builder.setNegativeButton(R.string.dialog_btn_annulla, null);
-
-                        //mostro solo l'anno del datepicker
-                        Utility.showJustYear(picker);
 
                         //visualizzo il dialog
                         Dialog dialog = builder.create();
@@ -158,12 +164,25 @@ public class ModificaCorsoFragment extends Fragment {
                         //Mostro un dialog che permette la scelta del corso da modificare nell'anno selezionato
                         final AlertDialog.Builder builder = new AlertDialog.Builder(activity);
                         builder.setCancelable(false);
+                        final NumberPicker picker = new NumberPicker(activity);
+                        picker.setDescendantFocusability(NumberPicker.FOCUS_BLOCK_DESCENDANTS);
+                        picker.setMinValue(0);
+                        picker.setMaxValue(lcAnnoSelezionato.length-1);
+                        picker.setValue(lcAnnoSelezionato.length-1);
+                        picker.setWrapSelectorWheel(false);
+                        picker.setDisplayedValues(lcAnnoSelezionato);
+                        FrameLayout frameLayout = makeFrameLWithNumPicker(picker, activity);
+                        builder.setView(frameLayout);
+
+                        //tiolo dialog
                         builder.setCustomTitle(customTitleDialog(activity, R.string.dialog_tit_mc));
-                        builder.setItems(lcAnnoSelezionato, new DialogInterface.OnClickListener() {
+
+                        //listeners dialog
+                        builder.setPositiveButton(R.string.dialog_btn_seleziona, new DialogInterface.OnClickListener() {
                             @Override
-                            public void onClick(DialogInterface dialogInterface, final int index) {
+                            public void onClick(DialogInterface dialogInterface, int i) {
                                 //prendo il corso da modificare in base alla scelta dell'utente e lo metto nella TextView del corso
-                                tvCorso.setText(""+lcAnnoSelezionato[index]);
+                                tvCorso.setText(""+lcAnnoSelezionato[picker.getValue()]);
 
                                 //abilito il bottone 'modifica corso'
                                 btnCorsoDM.setBackgroundColor(Color.parseColor("#ffffff"));
@@ -176,6 +195,7 @@ public class ModificaCorsoFragment extends Fragment {
                         builder.setNegativeButton(R.string.dialog_btn_annulla, null);
                         Dialog dialog = builder.create();
                         dialog.show();
+
                         //imposto le dimensioni della finestra dell'alertDialog
                         WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
                         lp.copyFrom(dialog.getWindow().getAttributes());
