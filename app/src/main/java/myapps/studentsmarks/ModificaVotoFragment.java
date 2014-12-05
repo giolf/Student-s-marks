@@ -85,7 +85,7 @@ public class ModificaVotoFragment extends Fragment {
                         //qui dovro recuperarla da un arraylist di anni (attraverso un metodo implementato nella classe container degli anni)
                         final String[] anniCreatiutente = Utility.makeSchoolYearList(2014);
 
-                        //mostro il dialog che permette la selezione dell'anno in cui creare il voto
+                        //mostro il dialog che permette la selezione dell'anno in cui modificare il voto
                         //setup del dialog
                         AlertDialog.Builder builder = new AlertDialog.Builder(activity);
                         builder.setCancelable(false);
