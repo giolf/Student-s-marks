@@ -6,6 +6,7 @@ import android.app.Fragment;
 import android.content.DialogInterface;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -18,6 +19,11 @@ import android.widget.NumberPicker;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+
+import static myapps.studentsmarks.GestioneAnniFragment.CreaArrayNomiAnni;
+import static myapps.studentsmarks.GestioneAnniFragment.getAnno;
+import static myapps.studentsmarks.GestioneAnniFragment.getListaAnni;
 import static myapps.studentsmarks.Utility.customTitleDialog;
 import static myapps.studentsmarks.Utility.makeFrameLWithNumPicker;
 
@@ -68,9 +74,27 @@ public class CreaCorsoFragment extends Fragment {
                     case MotionEvent.ACTION_UP:
                         btnAnno.setBackgroundColor(Color.parseColor("#ffffff"));
 
+                        //Controllo se ci sono anni creati
+                        if (getListaAnni().size() == 0) {
+                            //se non ci sono anni creati avviso l'utente e poi interrompo la procedura
+                            AlertDialog.Builder builder = new AlertDialog.Builder(activity);
+                            builder.setCancelable(false);
+                            builder.setCustomTitle(Utility.customTitleDialog(activity, R.string.dialog_tit_avviso));
+                            builder.setPositiveButton(R.string.dialog_btn_ok, null);
+                            TextView messaggio = new TextView(activity);
+                            messaggio.setText(R.string.errore_msg6);
+                            messaggio.setPadding(0, 50, 0, 50);
+                            messaggio.setGravity(Gravity.CENTER);
+                            messaggio.setTextSize(18);
+                            builder.setView(messaggio);
+                            Dialog dialog = builder.create();
+                            dialog.show();
+                            //dopo che l'utente preme 'ok' interrompo la procedura
+                            return false;
+                        }
+
                         //recupero la lista degli anni creati dall'utente
-                        //qui dovro recuperarla da un arraylist di anni (attraverso un metodo implementato nella classe container degli anni)
-                        final String[] anniCreatiutente = Utility.makeSchoolYearList(2014);
+                        final String[] anniCreatiutente = CreaArrayNomiAnni();
 
                         //Mostro il Dialog che permette la scelta dell'anno del corso da creare
                         //setup del dialog
@@ -147,7 +171,30 @@ public class CreaCorsoFragment extends Fragment {
                                 if( inputCreaCorso.getText().toString().matches(pattern) )
                                     return;
 
-                                //se invece l'utente digita qualcosa inserisco il corso immesso nella TextView del corso
+                                //controllo se l'anno selezionato ha almeno 1 corso
+                                Anno annoSelezionato = getAnno( (String)tvAnno.getText() );
+                                if ( annoSelezionato.getListaCorsi().size() > 0 )
+                                    //in questo anno ci sono corsi, controllo se il corso immesso è gia presente nell'anno selezionato
+                                    if (annoSelezionato.corsoGiaEsistente( inputCreaCorso.getText().toString() ) ) {
+                                        //l'utente sta inserendo un corso gia presente nell'anno selezionato
+                                        //quindi lo avverto e interrompo la procedura di creazione
+                                        AlertDialog.Builder builder = new AlertDialog.Builder(activity);
+                                        builder.setCancelable(false);
+                                        builder.setCustomTitle(Utility.customTitleDialog(activity, R.string.dialog_tit_avviso));
+                                        builder.setPositiveButton(R.string.dialog_btn_ok, null);
+                                        TextView messaggio = new TextView(activity);
+                                        messaggio.setText(R.string.errore_msg7);
+                                        messaggio.setPadding(0, 50, 0, 50);
+                                        messaggio.setGravity(Gravity.CENTER);
+                                        messaggio.setTextSize(18);
+                                        builder.setView(messaggio);
+                                        Dialog dialog = builder.create();
+                                        dialog.show();
+                                        //dopo che l'utente preme 'ok' interrompo la procedura
+                                        return;
+                                    }
+
+                                //se invece l'utente digita qualcosa di valido e che non è gia esistente inserisco il corso immesso nella TextView del corso
                                 tvCorso.setText(""+inputCreaCorso.getText());
 
                                 //inserito l'anno e il corso abilito il bottone salva
@@ -172,9 +219,11 @@ public class CreaCorsoFragment extends Fragment {
                         return true;
                     case MotionEvent.ACTION_UP:
                         btnSalva.setBackgroundColor(Color.parseColor("#d2d2d2"));
-                        //controllo se l'input è corretto e se il corso può essere inserito nell'anno selezionato
 
-                        //se tutto è ok, salvo il corso nell'anno selezionato
+                        //salvo il corso nell'anno selezionato
+                        Anno annoSelezionato = getAnno( (String)tvAnno.getText() );
+                        annoSelezionato.getListaCorsi().add( new Corso((String)tvCorso.getText()) );
+
                         Toast.makeText(activity, "Hai creato il corso: "+tvCorso.getText()+" nell'anno: "+tvAnno.getText(), Toast.LENGTH_LONG).show();
 
                         //e poi resetto il fragment per renderlo disponibile per la creazione di un nuovo corso

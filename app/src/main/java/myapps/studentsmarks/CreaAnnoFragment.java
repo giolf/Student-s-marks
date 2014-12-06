@@ -16,13 +16,10 @@ import android.widget.FrameLayout;
 import android.widget.NumberPicker;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import java.util.ArrayList;
 import java.util.Calendar;
 
 import static myapps.studentsmarks.GestioneAnniFragment.annoGiaEsistente;
 import static myapps.studentsmarks.GestioneAnniFragment.getListaAnni;
-import static myapps.studentsmarks.GestioneAnniFragment.setListaAnni;
 import static myapps.studentsmarks.Utility.makeSchoolYearList;
 import static myapps.studentsmarks.Utility.makeFrameLWithNumPicker;
 
@@ -100,7 +97,7 @@ public class CreaAnnoFragment extends Fragment {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
                                 //Verifico se l'utente ha almeno creato un anno
-                                if (getListaAnni() != null)
+                                if (getListaAnni().size() > 0)
                                     //l'utente ha gia creato almeno un anno, verifico se l'anno che vuole creare esiste gia
                                     if ( annoGiaEsistente(listaAnniScolastici[picker.getValue()]) ) {
                                         //l'utente sta creando un anno gia esistente, lo avviso con un dialog ed interrompo la procedura
@@ -151,12 +148,7 @@ public class CreaAnnoFragment extends Fragment {
                         return true;
                     case MotionEvent.ACTION_UP:
                         //salvo i dati relativi all anno creato
-                        if (getListaAnni() != null)
-                            getListaAnni().add( new Anno((String) tvAnno.getText()) );
-                        else {
-                            setListaAnni(new ArrayList<Anno>());
-                            getListaAnni().add( new Anno((String) tvAnno.getText()) );
-                        }
+                        getListaAnni().add( new Anno((String) tvAnno.getText()) );
                         Toast.makeText(activity, "hai creato l'anno scolastico: "+tvAnno.getText(), Toast.LENGTH_LONG).show();
 
                         //e poi resetto il fragment per renderlo disponibile per la creazione di un nuovo anno

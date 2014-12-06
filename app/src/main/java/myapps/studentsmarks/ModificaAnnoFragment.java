@@ -25,6 +25,7 @@ import java.util.Calendar;
 import static myapps.studentsmarks.GestioneAnniFragment.CreaArrayNomiAnni;
 import static myapps.studentsmarks.GestioneAnniFragment.annoGiaEsistente;
 import static myapps.studentsmarks.GestioneAnniFragment.getAnno;
+import static myapps.studentsmarks.GestioneAnniFragment.getListaAnni;
 import static myapps.studentsmarks.Utility.customTitleDialog;
 import static myapps.studentsmarks.Utility.makeFrameLWithNumPicker;
 import static myapps.studentsmarks.Utility.makeSchoolYearList;
@@ -78,7 +79,7 @@ public class ModificaAnnoFragment extends Fragment {
                         btnAnno.setBackgroundColor(Color.parseColor("#ffffff"));
 
                         //Controllo se ci sono anni creati
-                        if (GestioneAnniFragment.getListaAnni() == null ) {
+                        if (getListaAnni().size() == 0 ) {
                             //se non ci sono anni creati avviso l'utente e poi interrompo la procedura
                             AlertDialog.Builder builder = new AlertDialog.Builder(activity);
                             builder.setCancelable(false);

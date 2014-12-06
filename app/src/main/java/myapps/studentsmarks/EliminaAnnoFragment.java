@@ -18,6 +18,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import static myapps.studentsmarks.GestioneAnniFragment.CreaArrayNomiAnni;
+import static myapps.studentsmarks.GestioneAnniFragment.getListaAnni;
 import static myapps.studentsmarks.GestioneAnniFragment.rimuoviAnno;
 import static myapps.studentsmarks.Utility.customTitleDialog;
 import static myapps.studentsmarks.Utility.makeFrameLWithNumPicker;
@@ -66,7 +67,7 @@ public class EliminaAnnoFragment extends Fragment {
                         btnAnno.setBackgroundColor(Color.parseColor("#ffffff"));
 
                         //Controllo se ci sono anni creati
-                        if (GestioneAnniFragment.getListaAnni() == null ) {
+                        if (getListaAnni().size() == 0 ) {
                             //se non ci sono anni creati avviso l'utente e poi interrompo la procedura
                             AlertDialog.Builder builder = new AlertDialog.Builder(activity);
                             builder.setCancelable(false);

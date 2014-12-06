@@ -23,17 +23,13 @@ public class GestioneAnniFragment extends Fragment {
     FragmentTabHost tabHost;
 
     /*Contiene la lista degli anni creati*/
-    private static ArrayList<Anno> listaAnni;
+    private static ArrayList<Anno> listaAnni = new ArrayList<Anno>();
 
     public GestioneAnniFragment() {
     }
 
     public static ArrayList<Anno> getListaAnni() {
         return listaAnni;
-    }
-
-    public static void setListaAnni(ArrayList<Anno> listaAnni) {
-        GestioneAnniFragment.listaAnni = listaAnni;
     }
 
     public static Anno getAnno(String nomeAnnoScolastico) {

@@ -17,6 +17,7 @@ public class Anno {
         this.nomeAnnoScolastico = nome;
         this.mediaAttuale       = 0;
         this.mediaPrecedente    = 0;
+        this.listaCorsi         = new ArrayList<Corso>();
     }
 
     public int getId() {
@@ -54,4 +55,13 @@ public class Anno {
     public void setListaCorsi(ArrayList<Corso> listaCorsi) {
         this.listaCorsi = listaCorsi;
     }
+
+    public boolean corsoGiaEsistente(String corsoSelezionato) {
+        for (Corso corsoCreato : listaCorsi) {
+            if ( corsoCreato.getNomeCorso().equals(corsoSelezionato) )
+                return true;
+        }
+        return false;
+    }
+
 }
