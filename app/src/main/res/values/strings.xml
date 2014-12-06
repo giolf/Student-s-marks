@@ -22,6 +22,7 @@
     </string-array>
 
     <string name="app_name">Student\'s marks</string>
+    <string name="dialog_tit_avviso">AVVISO</string>
     <string name="dialog_tit_ca">Seleziona l\'anno scolastico da creare</string>
     <string name="dialog_tit_ma">Seleziona l\'anno scolastico da modificare</string>
     <string name="dialog_tit_ma2">Seleziona il nuovo valore per l\'anno scolastico da modificare</string>
@@ -45,6 +46,7 @@
     <string name="dialog_btn_rimuovi">Rimuovi</string>
     <string name="dialog_btn_annulla">Annulla</string>
     <string name="dialog_btn_inserisci">Inserisci</string>
+    <string name="dialog_btn_ok">Ok</string>
 
     <string name="tab_crea_anno">Crea anno scolastico</string>
     <string name="tab_modifica_anno">Modifica anno scolastico</string>
@@ -91,6 +93,7 @@
 
     <string name="errore_msg">"Non puoi cambiare anno scolastico\ndopo aver scelto un corso.\nPer favore ripeti la procedura"</string>
     <string name="errore_msg2">"Non puoi cambiare corso\ndopo aver scelto un voto.\nPer favore ripeti la procedura"</string>
+    <string name="errore_msg3">"L'anno selezionato è gia esistente"</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>

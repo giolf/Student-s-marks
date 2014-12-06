@@ -6,6 +6,7 @@ import android.app.Fragment;
 import android.content.DialogInterface;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -15,7 +16,13 @@ import android.widget.FrameLayout;
 import android.widget.NumberPicker;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.util.ArrayList;
 import java.util.Calendar;
+
+import static myapps.studentsmarks.GestioneAnniFragment.annoGiaEsistente;
+import static myapps.studentsmarks.GestioneAnniFragment.getListaAnni;
+import static myapps.studentsmarks.GestioneAnniFragment.setListaAnni;
 import static myapps.studentsmarks.Utility.makeSchoolYearList;
 import static myapps.studentsmarks.Utility.makeFrameLWithNumPicker;
 
@@ -92,6 +99,27 @@ public class CreaAnnoFragment extends Fragment {
                         Dialog.OnClickListener seleziona = new Dialog.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
+                                //Verifico se l'utente ha almeno creato un anno
+                                if (getListaAnni() != null)
+                                    //l'utente ha gia creato almeno un anno, verifico se l'anno che vuole creare esiste gia
+                                    if ( annoGiaEsistente(listaAnniScolastici[picker.getValue()]) ) {
+                                        //l'utente sta creando un anno gia esistente, lo avviso con un dialog ed interrompo la procedura
+                                        AlertDialog.Builder builder = new AlertDialog.Builder(activity);
+                                        builder.setCancelable(false);
+                                        builder.setCustomTitle(Utility.customTitleDialog(activity, R.string.dialog_tit_avviso));
+                                        builder.setPositiveButton(R.string.dialog_btn_ok, null);
+                                        TextView messaggio = new TextView(activity);
+                                        messaggio.setText(R.string.errore_msg3);
+                                        messaggio.setPadding(0, 50, 0, 50);
+                                        messaggio.setGravity(Gravity.CENTER);
+                                        messaggio.setTextSize(18);
+                                        builder.setView(messaggio);
+                                        Dialog dialog = builder.create();
+                                        dialog.show();
+                                        //dopo che l'utente preme 'ok' interrompo la procedura
+                                        return;
+                                    }
+
                                 //prendo i l'anno selezionato e lo mostro nel bottone dell'anno
                                 tvAnno.setText( ""+listaAnniScolastici[picker.getValue()] );
 
@@ -123,6 +151,12 @@ public class CreaAnnoFragment extends Fragment {
                         return true;
                     case MotionEvent.ACTION_UP:
                         //salvo i dati relativi all anno creato
+                        if (getListaAnni() != null)
+                            getListaAnni().add( new Anno((String) tvAnno.getText()) );
+                        else {
+                            setListaAnni(new ArrayList<Anno>());
+                            getListaAnni().add( new Anno((String) tvAnno.getText()) );
+                        }
                         Toast.makeText(activity, "hai creato l'anno scolastico: "+tvAnno.getText(), Toast.LENGTH_LONG).show();
 
                         //e poi resetto il fragment per renderlo disponibile per la creazione di un nuovo anno
