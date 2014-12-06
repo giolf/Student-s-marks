@@ -10,6 +10,7 @@ import android.app.Fragment;
 import android.content.DialogInterface;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -21,6 +22,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 import java.util.Calendar;
 
+import static myapps.studentsmarks.GestioneAnniFragment.CreaArrayNomiAnni;
+import static myapps.studentsmarks.GestioneAnniFragment.annoGiaEsistente;
+import static myapps.studentsmarks.GestioneAnniFragment.getAnno;
 import static myapps.studentsmarks.Utility.customTitleDialog;
 import static myapps.studentsmarks.Utility.makeFrameLWithNumPicker;
 import static myapps.studentsmarks.Utility.makeSchoolYearList;
@@ -73,9 +77,27 @@ public class ModificaAnnoFragment extends Fragment {
                     case MotionEvent.ACTION_UP:
                         btnAnno.setBackgroundColor(Color.parseColor("#ffffff"));
 
+                        //Controllo se ci sono anni creati
+                        if (GestioneAnniFragment.getListaAnni() == null ) {
+                            //se non ci sono anni creati avviso l'utente e poi interrompo la procedura
+                            AlertDialog.Builder builder = new AlertDialog.Builder(activity);
+                            builder.setCancelable(false);
+                            builder.setCustomTitle(Utility.customTitleDialog(activity, R.string.dialog_tit_avviso));
+                            builder.setPositiveButton(R.string.dialog_btn_ok, null);
+                            TextView messaggio = new TextView(activity);
+                            messaggio.setText(R.string.errore_msg4);
+                            messaggio.setPadding(0, 50, 0, 50);
+                            messaggio.setGravity(Gravity.CENTER);
+                            messaggio.setTextSize(18);
+                            builder.setView(messaggio);
+                            Dialog dialog = builder.create();
+                            dialog.show();
+                            //dopo che l'utente preme 'ok' interrompo la procedura
+                            return false;
+                        }
+
                         //recupero la lista degli anni creati dall'utente
-                        //qui dovro recuperarla da un arraylist di anni (attraverso un metodo implementato nella classe container degli anni)
-                        final String[] anniCreatiutente = Utility.makeSchoolYearList(2014);
+                        final String[] anniCreatiutente = CreaArrayNomiAnni();
 
                         //mostro il dialog che permette la selezione dell'anno da modificare
                         //setup del dialog
@@ -103,7 +125,7 @@ public class ModificaAnnoFragment extends Fragment {
                                 btnAnnoDM.setEnabled(true);
                                 //permette di vedere nella label textView del bottone di modifica anno,
                                 //la selezione dell'anno da modificare fatta dall'utente
-                                tvlAnnoDM.setText( msgAnnoDM+" - "+anniCreatiutente[picker.getValue()] );
+                                tvlAnnoDM.setText( msgAnnoDM+" "+anniCreatiutente[picker.getValue()] );
                                 tvlAnnoDM.setTextColor(Color.parseColor("#000000"));
                                 tvAnnoDM.setTextColor(Color.parseColor("#000000"));
                             }
@@ -157,6 +179,24 @@ public class ModificaAnnoFragment extends Fragment {
                         builder.setPositiveButton(R.string.dialog_btn_seleziona, new Dialog.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
+                                //verifico se l'anno che vuole modificare esiste gia
+                                if ( annoGiaEsistente(listaAnniScolastici[picker.getValue()]) ) {
+                                    //l'utente sta creando un anno gia esistente, lo avviso con un dialog ed interrompo la procedura
+                                    AlertDialog.Builder builder = new AlertDialog.Builder(activity);
+                                    builder.setCancelable(false);
+                                    builder.setCustomTitle(Utility.customTitleDialog(activity, R.string.dialog_tit_avviso));
+                                    builder.setPositiveButton(R.string.dialog_btn_ok, null);
+                                    TextView messaggio = new TextView(activity);
+                                    messaggio.setText(R.string.errore_msg3);
+                                    messaggio.setPadding(0, 50, 0, 50);
+                                    messaggio.setGravity(Gravity.CENTER);
+                                    messaggio.setTextSize(18);
+                                    builder.setView(messaggio);
+                                    Dialog dialog = builder.create();
+                                    dialog.show();
+                                    //dopo che l'utente preme 'ok' interrompo la procedura
+                                    return;
+                                }
                                 //prendo il nuovo anno selezionato dall'utente e lo inserisco nella textView della modifica dell'anno
                                 tvAnnoDM.setText("" + listaAnniScolastici[picker.getValue()]);
 
@@ -184,6 +224,10 @@ public class ModificaAnnoFragment extends Fragment {
                         return true;
                     case MotionEvent.ACTION_UP:
                         //salvo i dati relativi alla modifica dell'anno
+                        //recupero l'anno che ha subito la modifica
+                        Anno annoDaModificare = getAnno( (String)tvAnno.getText() );
+                        //modifico l'anno
+                        annoDaModificare.setNomeAnnoScolastico( (String)tvAnnoDM.getText() );
                         Toast.makeText(activity, "hai modificato l'anno: "+tvAnno.getText()+"\nora è diventato: "+tvAnnoDM.getText(), Toast.LENGTH_LONG).show();
 
                         //e poi resetto il fragment per renderlo disponibile per la modifica di un nuovo anno

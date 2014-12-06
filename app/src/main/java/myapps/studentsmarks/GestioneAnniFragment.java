@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 /**
  * Created by Gio on 24.11.2014.
@@ -35,12 +36,33 @@ public class GestioneAnniFragment extends Fragment {
         GestioneAnniFragment.listaAnni = listaAnni;
     }
 
+    public static Anno getAnno(String nomeAnnoScolastico) {
+        for (Anno annoCreato : listaAnni)
+            if ( annoCreato.getNomeAnnoScolastico().equals(nomeAnnoScolastico) )
+                return annoCreato;
+        return null;
+    }
+
+    public static void rimuoviAnno(String nomeAnnoScolastico) {
+        for (int i = 0; i<listaAnni.size(); i++)
+            if ( listaAnni.get(i).getNomeAnnoScolastico().equals(nomeAnnoScolastico) )
+                listaAnni.remove(i);
+    }
+
     public static boolean annoGiaEsistente(String annoSelezionato) {
         for (Anno annoCreato : listaAnni) {
-            if (annoCreato.getNome().equals(annoSelezionato))
+            if ( annoCreato.getNomeAnnoScolastico().equals(annoSelezionato) )
                 return true;
         }
         return false;
+    }
+
+    public static String[] CreaArrayNomiAnni() {
+        String[] listaNomiAnni = new String[listaAnni.size()];
+        for (int i = 0; i<listaAnni.size(); i++)
+            listaNomiAnni[i] = listaAnni.get(i).getNomeAnnoScolastico();
+        Arrays.sort(listaNomiAnni);
+        return listaNomiAnni;
     }
 
     /*Returns a new instance of this fragment for the given section number.*/

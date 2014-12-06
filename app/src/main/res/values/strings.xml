@@ -93,7 +93,9 @@
 
     <string name="errore_msg">"Non puoi cambiare anno scolastico\ndopo aver scelto un corso.\nPer favore ripeti la procedura"</string>
     <string name="errore_msg2">"Non puoi cambiare corso\ndopo aver scelto un voto.\nPer favore ripeti la procedura"</string>
-    <string name="errore_msg3">"L'anno selezionato è gia esistente"</string>
+    <string name="errore_msg3">"L'anno scolastico selezionato è gia esistente\n\nLa modifica non è possibile"</string>
+    <string name="errore_msg4">"Non hai creato nessun anno scolastico.\n\nLa modifica non è possibile"</string>
+    <string name="errore_msg5">"Non hai creato nessun anno scolastico.\n\nLa rimozione non è possibile"</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>

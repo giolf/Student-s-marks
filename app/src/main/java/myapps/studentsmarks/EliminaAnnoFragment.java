@@ -6,6 +6,7 @@ import android.app.Fragment;
 import android.content.DialogInterface;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -16,6 +17,8 @@ import android.widget.NumberPicker;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import static myapps.studentsmarks.GestioneAnniFragment.CreaArrayNomiAnni;
+import static myapps.studentsmarks.GestioneAnniFragment.rimuoviAnno;
 import static myapps.studentsmarks.Utility.customTitleDialog;
 import static myapps.studentsmarks.Utility.makeFrameLWithNumPicker;
 
@@ -62,9 +65,27 @@ public class EliminaAnnoFragment extends Fragment {
                     case MotionEvent.ACTION_UP:
                         btnAnno.setBackgroundColor(Color.parseColor("#ffffff"));
 
+                        //Controllo se ci sono anni creati
+                        if (GestioneAnniFragment.getListaAnni() == null ) {
+                            //se non ci sono anni creati avviso l'utente e poi interrompo la procedura
+                            AlertDialog.Builder builder = new AlertDialog.Builder(activity);
+                            builder.setCancelable(false);
+                            builder.setCustomTitle(Utility.customTitleDialog(activity, R.string.dialog_tit_avviso));
+                            builder.setPositiveButton(R.string.dialog_btn_ok, null);
+                            TextView messaggio = new TextView(activity);
+                            messaggio.setText(R.string.errore_msg5);
+                            messaggio.setPadding(0, 50, 0, 50);
+                            messaggio.setGravity(Gravity.CENTER);
+                            messaggio.setTextSize(18);
+                            builder.setView(messaggio);
+                            Dialog dialog = builder.create();
+                            dialog.show();
+                            //dopo che l'utente preme 'ok' interrompo la procedura
+                            return false;
+                        }
+
                         //recupero la lista degli anni creati dall'utente
-                        //qui dovro recuperarla da un arraylist di anni (attraverso un metodo implementato nella classe container degli anni)
-                        final String[] anniCreatiutente = Utility.makeSchoolYearList(2014);
+                        final String[] anniCreatiutente = CreaArrayNomiAnni();
 
                         //setup del dialog
                         AlertDialog.Builder builder = new AlertDialog.Builder(activity);
@@ -113,6 +134,7 @@ public class EliminaAnnoFragment extends Fragment {
                         return true;
                     case MotionEvent.ACTION_UP:
                         //elimino l'anno selezionato dall'utente
+                        rimuoviAnno( (String)tvAnno.getText() );
                         Toast.makeText(activity, "hai eliminato l'anno: "+tvAnno.getText(), Toast.LENGTH_LONG).show();
                         //e poi resetto il fragment per renderlo disponibile per l'eliminazione di un nuovo anno
                         tvAnno.setText(getResources().getText(R.string.layout_msg_ea));

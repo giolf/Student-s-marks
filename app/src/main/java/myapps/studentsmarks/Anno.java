@@ -8,25 +8,27 @@ import java.util.ArrayList;
 public class Anno {
 
     private int id;
-    private String nome;
+    private String nomeAnnoScolastico;
     private double mediaAttuale;
     private double mediaPrecedente;
     private ArrayList<Corso> listaCorsi;
 
     public Anno (String nome) {
-        this.nome = nome;
+        this.nomeAnnoScolastico = nome;
+        this.mediaAttuale       = 0;
+        this.mediaPrecedente    = 0;
     }
 
     public int getId() {
         return id;
     }
 
-    public String getNome() {
-        return nome;
+    public String getNomeAnnoScolastico() {
+        return nomeAnnoScolastico;
     }
 
-    public void setNome(String nome) {
-        this.nome = nome;
+    public void setNomeAnnoScolastico(String nome) {
+        this.nomeAnnoScolastico = nome;
     }
 
     public double getMediaAttuale() {
