@@ -75,7 +75,7 @@ public class EliminaAnnoFragment extends Fragment {
                             builder.setPositiveButton(R.string.dialog_btn_ok, null);
                             TextView messaggio = new TextView(activity);
                             messaggio.setText(R.string.errore_msg5);
-                            messaggio.setPadding(0, 50, 0, 50);
+                            messaggio.setPadding(20, 50, 20, 50);
                             messaggio.setGravity(Gravity.CENTER);
                             messaggio.setTextSize(18);
                             builder.setView(messaggio);

@@ -1,6 +1,7 @@
 package myapps.studentsmarks;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 /**
  * Created by Gio on 06.12.2014.
@@ -52,13 +53,24 @@ public class Anno {
         return listaCorsi;
     }
 
-    public void setListaCorsi(ArrayList<Corso> listaCorsi) {
-        this.listaCorsi = listaCorsi;
+    public String[] CreaArrayNomiCorsi() {
+        String[] listaNomiCorsi = new String[listaCorsi.size()];
+        for (int i = 0; i<listaCorsi.size(); i++)
+            listaNomiCorsi[i] = listaCorsi.get(i).getNomeCorso();
+        Arrays.sort(listaNomiCorsi);
+        return listaNomiCorsi;
+    }
+
+    public Corso getCorso(String nomeCorso) {
+        for (Corso corsoCreato : listaCorsi)
+            if ( corsoCreato.getNomeCorso().equals(nomeCorso) )
+                return corsoCreato;
+        return null;
     }
 
     public boolean corsoGiaEsistente(String corsoSelezionato) {
         for (Corso corsoCreato : listaCorsi) {
-            if ( corsoCreato.getNomeCorso().equals(corsoSelezionato) )
+            if ( corsoCreato.getNomeCorso().equalsIgnoreCase(corsoSelezionato) )
                 return true;
         }
         return false;

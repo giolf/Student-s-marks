@@ -83,7 +83,7 @@ public class CreaCorsoFragment extends Fragment {
                             builder.setPositiveButton(R.string.dialog_btn_ok, null);
                             TextView messaggio = new TextView(activity);
                             messaggio.setText(R.string.errore_msg6);
-                            messaggio.setPadding(0, 50, 0, 50);
+                            messaggio.setPadding(20, 50, 20, 50);
                             messaggio.setGravity(Gravity.CENTER);
                             messaggio.setTextSize(18);
                             builder.setView(messaggio);
@@ -184,7 +184,7 @@ public class CreaCorsoFragment extends Fragment {
                                         builder.setPositiveButton(R.string.dialog_btn_ok, null);
                                         TextView messaggio = new TextView(activity);
                                         messaggio.setText(R.string.errore_msg7);
-                                        messaggio.setPadding(0, 50, 0, 50);
+                                        messaggio.setPadding(20, 50, 20, 50);
                                         messaggio.setGravity(Gravity.CENTER);
                                         messaggio.setTextSize(18);
                                         builder.setView(messaggio);
@@ -224,7 +224,10 @@ public class CreaCorsoFragment extends Fragment {
                         Anno annoSelezionato = getAnno( (String)tvAnno.getText() );
                         annoSelezionato.getListaCorsi().add( new Corso((String)tvCorso.getText()) );
 
-                        Toast.makeText(activity, "Hai creato il corso: "+tvCorso.getText()+" nell'anno: "+tvAnno.getText(), Toast.LENGTH_LONG).show();
+                        Toast toast = Toast.makeText(activity, "Hai creato il corso: "+tvCorso.getText()+"\nnell'anno: "+tvAnno.getText(), Toast.LENGTH_LONG);
+                        TextView textView = (TextView) toast.getView().findViewById(android.R.id.message);
+                        textView.setGravity(Gravity.CENTER);
+                        toast.show();
 
                         //e poi resetto il fragment per renderlo disponibile per la creazione di un nuovo corso
                         btnCorso.setEnabled(false);

@@ -20,6 +20,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import static myapps.studentsmarks.GestioneAnniFragment.CreaArrayNomiAnni;
+import static myapps.studentsmarks.GestioneAnniFragment.getAnno;
 import static myapps.studentsmarks.GestioneAnniFragment.getListaAnni;
 import static myapps.studentsmarks.Utility.customTitleDialog;
 import static myapps.studentsmarks.Utility.makeFrameLWithNumPicker;
@@ -74,15 +75,15 @@ public class ModificaCorsoFragment extends Fragment {
                         btnAnno.setBackgroundColor(Color.parseColor("#ffffff"));
 
                         //Controllo se ci sono anni creati
-                        if (getListaAnni() == null ) {
+                        if (getListaAnni().size() == 0) {
                             //se non ci sono anni creati avviso l'utente e poi interrompo la procedura
                             AlertDialog.Builder builder = new AlertDialog.Builder(activity);
                             builder.setCancelable(false);
                             builder.setCustomTitle(Utility.customTitleDialog(activity, R.string.dialog_tit_avviso));
                             builder.setPositiveButton(R.string.dialog_btn_ok, null);
                             TextView messaggio = new TextView(activity);
-                            messaggio.setText(R.string.errore_msg6);
-                            messaggio.setPadding(0, 50, 0, 50);
+                            messaggio.setText(R.string.errore_msg8);
+                            messaggio.setPadding(20, 50, 20, 50);
                             messaggio.setGravity(Gravity.CENTER);
                             messaggio.setTextSize(18);
                             builder.setView(messaggio);
@@ -178,8 +179,28 @@ public class ModificaCorsoFragment extends Fragment {
                     case MotionEvent.ACTION_UP:
                         btnCorso.setBackgroundColor(Color.parseColor("#ffffff"));
 
-                        //qui prendo i corsi dell'anno selezionato
-                        final String[] lcAnnoSelezionato = {"Italiano", "Matematica", "Francese", "Fisica", "Tedesco", "Storia", "Scienze", "Latino", "Storia", "Scienze", "Latino"};
+                        //controllo se l'anno selezionato ha almeno 1 corso
+                        final Anno annoSelezionato = getAnno( (String)tvAnno.getText() );
+                        if ( annoSelezionato.getListaCorsi().size() == 0 ) {
+                            //mostro un messaggio che avvisa l'utente che nell'anno selezionato non ci sono corsi e poi interrompo la procedura
+                            AlertDialog.Builder builder = new AlertDialog.Builder(activity);
+                            builder.setCancelable(false);
+                            builder.setCustomTitle(Utility.customTitleDialog(activity, R.string.dialog_tit_avviso));
+                            builder.setPositiveButton(R.string.dialog_btn_ok, null);
+                            TextView messaggio = new TextView(activity);
+                            messaggio.setText(R.string.errore_msg9);
+                            messaggio.setPadding(20, 50, 20, 50);
+                            messaggio.setGravity(Gravity.CENTER);
+                            messaggio.setTextSize(18);
+                            builder.setView(messaggio);
+                            Dialog dialog = builder.create();
+                            dialog.show();
+                            //dopo che l'utente preme 'ok' interrompo la procedura
+                            return false;
+                        }
+
+                        // l'anno selezionato contiene corsi, li recupero
+                        final String[] lcAnnoSelezionato = annoSelezionato.CreaArrayNomiCorsi();
 
                         //Mostro un dialog che permette la scelta del corso da modificare nell'anno selezionato
                         final AlertDialog.Builder builder = new AlertDialog.Builder(activity);
@@ -201,6 +222,7 @@ public class ModificaCorsoFragment extends Fragment {
                         builder.setPositiveButton(R.string.dialog_btn_seleziona, new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
+
                                 //prendo il corso da modificare in base alla scelta dell'utente e lo metto nella TextView del corso
                                 tvCorso.setText(""+lcAnnoSelezionato[picker.getValue()]);
 
@@ -253,7 +275,25 @@ public class ModificaCorsoFragment extends Fragment {
                                 String pattern = "^ *$"; //stringhe vuote con o senza spazi
                                 if( inputModificaCorso.getText().toString().matches(pattern) )
                                     return;
-
+                                //Controllo se il corso immesso dall'utente è gia presente nell'anno selezionato
+                                Anno annoSelezionato = getAnno( (String)tvAnno.getText() );
+                                if ( annoSelezionato.corsoGiaEsistente(inputModificaCorso.getText().toString()) ) {
+                                    //se ce gia un corso nell'anno selezionato con lo stesso nome avverto l'utente e interrompo la procedura
+                                    AlertDialog.Builder builder = new AlertDialog.Builder(activity);
+                                    builder.setCancelable(false);
+                                    builder.setCustomTitle(Utility.customTitleDialog(activity, R.string.dialog_tit_avviso));
+                                    builder.setPositiveButton(R.string.dialog_btn_ok, null);
+                                    TextView messaggio = new TextView(activity);
+                                    messaggio.setText(R.string.errore_msg7);
+                                    messaggio.setPadding(20, 50, 20, 50);
+                                    messaggio.setGravity(Gravity.CENTER);
+                                    messaggio.setTextSize(18);
+                                    builder.setView(messaggio);
+                                    Dialog dialog = builder.create();
+                                    dialog.show();
+                                    //dopo che l'utente preme 'ok' interrompo la procedura
+                                    return;
+                                }
                                 //Se invece l'utente digita qualcosa inserisco il nuovo nome del corso nella TextView del corso da modificare
                                 tvCorsoDM.setText("" + inputModificaCorso.getText());
 
@@ -280,11 +320,11 @@ public class ModificaCorsoFragment extends Fragment {
                         return true;
                     case MotionEvent.ACTION_UP:
                         btnSalva.setBackgroundColor(Color.parseColor("#d2d2d2"));
-                        //faccio un controllo generale sull'input immesso dall'utente
-                        /*
-                            qui faccio il controllo
-                         */
-                        //Salvo la modifica del corso (per ora ci metto solo un messaggio)
+                        //Salvo la modifica del corso
+                        Anno annoSelezionato   = getAnno((String)tvAnno.getText());
+                        Corso corsoSelezionato = annoSelezionato.getCorso( (String)tvCorso.getText() );
+                        corsoSelezionato.setNomeCorso( tvCorsoDM.getText().toString() );
+
                         //inizio output messaggio di modifica corso
                         Toast toast = Toast.makeText(activity, "Hai modificato il corso: " + tvCorso.getText() + "\n ora si chiama: " + tvCorsoDM.getText(), Toast.LENGTH_LONG);
                         TextView textView = (TextView) toast.getView().findViewById(android.R.id.message);
