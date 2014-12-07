@@ -60,6 +60,7 @@
 
     <string name="layout_btn_salva">SALVA</string>
     <string name="layout_btn_elimina">ELIMINA</string>
+    <string name="layout_btn_modifica">MODIFICA</string>
 
     <string name="layout_msg_mv">Seleziona il corso del voto da modificare</string>
     <string name="layout_msg_mv2">Seleziona il voto da modificare</string>
@@ -106,6 +107,9 @@
     <string name="errore_msg13">"Il corso selezionato non contiene voti.\n\nNon è possibile modificare il voto"</string>
     <string name="errore_msg14">"L\'anno selezionato non contiene corsi.\n\nNon è possibile modificare il voto"</string>
     <string name="errore_msg15">"Non hai creato nessun anno scolastico.\n\nNon è possibile modificare il voto"</string>
+    <string name="errore_msg16">"Non hai creato nessun anno scolastico.\n\nNon è possibile eliminare il voto"</string>
+    <string name="errore_msg17">"L\'anno selezionato non contiene corsi.\n\nNon è possibile eliminare il voto"</string>
+    <string name="errore_msg18">"Il corso selezionato non contiene voti.\n\nNon è possibile eliminare il voto"</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>

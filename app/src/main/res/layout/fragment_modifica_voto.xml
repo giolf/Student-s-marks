@@ -7,7 +7,7 @@
 
     <Button
         android:id="@+id/salva"
-        android:text="SALVA"
+        android:text="@string/layout_btn_modifica"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"

@@ -19,6 +19,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 import java.util.ArrayList;
 
+import static myapps.studentsmarks.GestioneAnniFragment.CreaArrayNomiAnni;
+import static myapps.studentsmarks.GestioneAnniFragment.getAnno;
+import static myapps.studentsmarks.GestioneAnniFragment.getListaAnni;
 import static myapps.studentsmarks.Utility.customTitleDialog;
 import static myapps.studentsmarks.Utility.makeFrameLWithNumPicker;
 import static myapps.studentsmarks.Utility.monthFromIntToString;
@@ -73,9 +76,27 @@ public class EliminaVotoFragment extends Fragment {
                     case MotionEvent.ACTION_UP:
                         btnAnno.setBackgroundColor(Color.parseColor("#ffffff"));
 
+                        //Controllo se ci sono anni creati
+                        if (getListaAnni().size() == 0) {
+                            //se non ci sono anni creati avviso l'utente e poi interrompo la procedura
+                            AlertDialog.Builder builder = new AlertDialog.Builder(activity);
+                            builder.setCancelable(false);
+                            builder.setCustomTitle(Utility.customTitleDialog(activity, R.string.dialog_tit_avviso));
+                            builder.setPositiveButton(R.string.dialog_btn_ok, null);
+                            TextView messaggio = new TextView(activity);
+                            messaggio.setText(R.string.errore_msg16);
+                            messaggio.setPadding(20, 50, 20, 50);
+                            messaggio.setGravity(Gravity.CENTER);
+                            messaggio.setTextSize(18);
+                            builder.setView(messaggio);
+                            Dialog dialog = builder.create();
+                            dialog.show();
+                            //dopo che l'utente preme 'ok' interrompo la procedura
+                            return false;
+                        }
+
                         //recupero la lista degli anni creati dall'utente
-                        //qui dovro recuperarla da un arraylist di anni (attraverso un metodo implementato nella classe container degli anni)
-                        final String[] anniCreatiutente = Utility.makeSchoolYearList(2014);
+                        final String[] anniCreatiutente = CreaArrayNomiAnni();
 
                         //mostro il dialog che permette la selezione dell'anno in cui eliminare il voto
                         //setup del dialog
@@ -161,8 +182,28 @@ public class EliminaVotoFragment extends Fragment {
                     case MotionEvent.ACTION_UP:
                         btnCorso.setBackgroundColor(Color.parseColor("#ffffff"));
 
-                        //qui prendo i corsi dell'anno selezionato
-                        final String[] lcAnnoSelezionato = {"Italiano", "Matematica", "Francese", "Fisica", "Tedesco", "Storia", "Scienze", "Latino", "Storia", "Scienze", "Latino"};
+                        //controllo se l'anno selezionato ha almeno 1 corso
+                        final Anno annoSelezionato = getAnno( (String)tvAnno.getText() );
+                        if ( annoSelezionato.getListaCorsi().size() == 0 ) {
+                            //mostro un messaggio che avvisa l'utente che nell'anno selezionato non ci sono corsi e poi interrompo la procedura
+                            AlertDialog.Builder builder = new AlertDialog.Builder(activity);
+                            builder.setCancelable(false);
+                            builder.setCustomTitle(Utility.customTitleDialog(activity, R.string.dialog_tit_avviso));
+                            builder.setPositiveButton(R.string.dialog_btn_ok, null);
+                            TextView messaggio = new TextView(activity);
+                            messaggio.setText(R.string.errore_msg17);
+                            messaggio.setPadding(20, 50, 20, 50);
+                            messaggio.setGravity(Gravity.CENTER);
+                            messaggio.setTextSize(18);
+                            builder.setView(messaggio);
+                            Dialog dialog = builder.create();
+                            dialog.show();
+                            //dopo che l'utente preme 'ok' interrompo la procedura
+                            return false;
+                        }
+
+                        //l'anno selezionato contiene corsi, li recupero
+                        final String[] lcAnnoSelezionato = annoSelezionato.CreaArrayNomiCorsi();
 
                         //Mostro un dialog che permette la scelta del corso da selezionare nell'anno selezionato
                         final AlertDialog.Builder builder = new AlertDialog.Builder(activity);
@@ -246,10 +287,30 @@ public class EliminaVotoFragment extends Fragment {
                         return true;
                     case MotionEvent.ACTION_UP:
                         btnVoto.setBackgroundColor(Color.parseColor("#ffffff"));
+
                         //prendo i voti del corso selezionato
-                        final ArrayList<Voto> listaVoti = new ArrayList<Voto>();
-                        //listaVoti.add(new Voto(1, 1, 2014, 4.5));
-                        //listaVoti.add(new Voto(2, 2, 2014, 5.5));
+                        Anno annoSelezionato      = GestioneAnniFragment.getAnno( (String)tvAnno.getText() );
+                        Corso corsoSelezionato    = annoSelezionato.getCorso( (String)tvCorso.getText() );
+                        final ArrayList<Voto> listaVoti = corsoSelezionato.getListaVoti();
+
+                        //se il corso selezionato non ha voti, avverto l'utente e interrompo l'operazione
+                        if (listaVoti.size() == 0) {
+                            //mostro un messaggio che avvisa l'utente che nel corso selezionato non ci sono corsi e poi interrompo la procedura
+                            AlertDialog.Builder builder = new AlertDialog.Builder(activity);
+                            builder.setCancelable(false);
+                            builder.setCustomTitle(Utility.customTitleDialog(activity, R.string.dialog_tit_avviso));
+                            builder.setPositiveButton(R.string.dialog_btn_ok, null);
+                            TextView messaggio = new TextView(activity);
+                            messaggio.setText(R.string.errore_msg18);
+                            messaggio.setPadding(20, 50, 20, 50);
+                            messaggio.setGravity(Gravity.CENTER);
+                            messaggio.setTextSize(18);
+                            builder.setView(messaggio);
+                            Dialog dialog = builder.create();
+                            dialog.show();
+                            //dopo che l'utente preme 'ok' interrompo la procedura
+                            return false;
+                        }
 
                         //creo l'adapter passandogli la lista dei voti del corso selezionato
                         AdapterModificaCorsoSV adapter = new AdapterModificaCorsoSV(activity, R.layout.row_voto, listaVoti);
@@ -305,7 +366,15 @@ public class EliminaVotoFragment extends Fragment {
                     case MotionEvent.ACTION_UP:
                         btnSalva.setBackgroundColor(Color.parseColor("#d2d2d2"));
 
-                        //Salvo la modifica del voto (per ora ci metto solo un messaggio)
+                        //elimino il voto
+                        //ottengo una sotto-stringa dalla text view del voto (che ora contiene una data) per avere la data pulita che mi servirà per prendere il voto corretto
+                        int inizioSubString = rootView.getResources().getString(R.string.layout_msg_mv6).length()+1;
+                        int fineSubString   = tvVoto.getText().length();
+                        String dataPulita   = (String)tvVoto.getText().subSequence(inizioSubString, fineSubString);
+                        Anno annoSelezionato   = GestioneAnniFragment.getAnno( (String)tvAnno.getText() );
+                        Corso corsoSelezionato = annoSelezionato.getCorso( (String)tvCorso.getText() );
+                        corsoSelezionato.rimuoviVoto(dataPulita);
+
                         //inizio output messaggio di modifica corso
                         Toast toast = Toast.makeText(activity, "Hai eliminato un voto nell'anno: "+tvAnno.getText()+
                                 "\nnel corso: "+tvCorso.getText()+"\n\n"+tvVoto.getText()+"\nNota: "+

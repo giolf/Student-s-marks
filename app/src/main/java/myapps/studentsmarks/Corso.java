@@ -51,4 +51,10 @@ public class Corso {
                 return votoCreato;
         return null;
     }
+
+    public void rimuoviVoto(String dataVotoSelezionato) {
+        for (int i = 0; i<listaVoti.size(); i++)
+            if ( listaVoti.get(i).getData().equals(dataVotoSelezionato) )
+                listaVoti.remove(i);
+    }
 }

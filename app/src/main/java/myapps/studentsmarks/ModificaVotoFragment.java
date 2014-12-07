@@ -323,6 +323,7 @@ public class ModificaVotoFragment extends Fragment {
                         Anno annoSelezionato      = GestioneAnniFragment.getAnno( (String)tvAnno.getText() );
                         Corso corsoSelezionato    = annoSelezionato.getCorso( (String)tvCorso.getText() );
                         final ArrayList<Voto> listaVoti = corsoSelezionato.getListaVoti();
+
                         //se il corso selezionato non ha voti, avverto l'utente e interrompo l'operazione
                         if (listaVoti.size() == 0) {
                             //mostro un messaggio che avvisa l'utente che nel corso selezionato non ci sono corsi e poi interrompo la procedura
