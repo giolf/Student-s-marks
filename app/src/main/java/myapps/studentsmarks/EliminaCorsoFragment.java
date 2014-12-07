@@ -18,6 +18,9 @@ import android.widget.NumberPicker;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import static myapps.studentsmarks.GestioneAnniFragment.CreaArrayNomiAnni;
+import static myapps.studentsmarks.GestioneAnniFragment.getAnno;
+import static myapps.studentsmarks.GestioneAnniFragment.getListaAnni;
 import static myapps.studentsmarks.Utility.customTitleDialog;
 import static myapps.studentsmarks.Utility.makeFrameLWithNumPicker;
 
@@ -68,9 +71,27 @@ public class EliminaCorsoFragment extends Fragment {
                     case MotionEvent.ACTION_UP:
                         btnAnno.setBackgroundColor(Color.parseColor("#ffffff"));
 
+                        //Controllo se ci sono anni creati
+                        if (getListaAnni().size() == 0) {
+                            //se non ci sono anni creati avviso l'utente e poi interrompo la procedura
+                            AlertDialog.Builder builder = new AlertDialog.Builder(activity);
+                            builder.setCancelable(false);
+                            builder.setCustomTitle(Utility.customTitleDialog(activity, R.string.dialog_tit_avviso));
+                            builder.setPositiveButton(R.string.dialog_btn_ok, null);
+                            TextView messaggio = new TextView(activity);
+                            messaggio.setText(R.string.errore_msg8);
+                            messaggio.setPadding(20, 50, 20, 50);
+                            messaggio.setGravity(Gravity.CENTER);
+                            messaggio.setTextSize(18);
+                            builder.setView(messaggio);
+                            Dialog dialog = builder.create();
+                            dialog.show();
+                            //dopo che l'utente preme 'ok' interrompo la procedura
+                            return false;
+                        }
+
                         //recupero la lista degli anni creati dall'utente
-                        //qui dovro recuperarla da un arraylist di anni (attraverso un metodo implementato nella classe container degli anni)
-                        final String[] anniCreatiutente = Utility.makeSchoolYearList(2014);
+                        final String[] anniCreatiutente = CreaArrayNomiAnni();
 
                         //Mostro il Dialog che permette la scelta dell'anno del corso da eliminare
                         //setup del dialog
@@ -149,8 +170,28 @@ public class EliminaCorsoFragment extends Fragment {
                     case MotionEvent.ACTION_UP:
                         btnCorso.setBackgroundColor(Color.parseColor("#ffffff"));
 
-                        //qui prendo i corsi dell'anno selezionato
-                        final String[] lcAnnoSelezionato = {"Italiano", "Matematica", "Francese", "Fisica", "Tedesco", "Storia", "Scienze", "Latino", "Storia", "Scienze", "Latino"};
+                        //controllo se l'anno selezionato ha almeno 1 corso
+                        final Anno annoSelezionato = getAnno( (String)tvAnno.getText() );
+                        if ( annoSelezionato.getListaCorsi().size() == 0 ) {
+                            //mostro un messaggio che avvisa l'utente che nell'anno selezionato non ci sono corsi e poi interrompo la procedura
+                            AlertDialog.Builder builder = new AlertDialog.Builder(activity);
+                            builder.setCancelable(false);
+                            builder.setCustomTitle(Utility.customTitleDialog(activity, R.string.dialog_tit_avviso));
+                            builder.setPositiveButton(R.string.dialog_btn_ok, null);
+                            TextView messaggio = new TextView(activity);
+                            messaggio.setText(R.string.errore_msg10);
+                            messaggio.setPadding(20, 50, 20, 50);
+                            messaggio.setGravity(Gravity.CENTER);
+                            messaggio.setTextSize(18);
+                            builder.setView(messaggio);
+                            Dialog dialog = builder.create();
+                            dialog.show();
+                            //dopo che l'utente preme 'ok' interrompo la procedura
+                            return false;
+                        }
+
+                        //l'anno selezionato contiene corsi, li recupero
+                        final String[] lcAnnoSelezionato = annoSelezionato.CreaArrayNomiCorsi();
 
                         //Mostro un dialog che permette la scelta del corso da eliminare nell'anno selezionato
                         final AlertDialog.Builder builder = new AlertDialog.Builder(activity);
@@ -184,11 +225,6 @@ public class EliminaCorsoFragment extends Fragment {
                         Dialog dialog = builder.create();
                         dialog.show();
 
-                        //imposto le dimensioni della finestra dell'alertDialog
-                        WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
-                        lp.copyFrom(dialog.getWindow().getAttributes());
-                        lp.height = 1000;
-                        dialog.getWindow().setAttributes(lp);
                         return true;
                 }
                 return false;
@@ -204,7 +240,10 @@ public class EliminaCorsoFragment extends Fragment {
                     case MotionEvent.ACTION_UP:
                         btnSalva.setBackgroundColor(Color.parseColor("#d2d2d2"));
 
-                        //Elimino il corso (per ora ci metto solo un messaggio)
+                        //Elimino il corso
+                        Anno annoSelezionato = getAnno((String)tvAnno.getText());
+                        annoSelezionato.rimuoviCorso( (String)tvCorso.getText() );
+
                         //inizio output messaggio di modifica corso
                         Toast toast = Toast.makeText(activity, "Hai eliminato il corso: " + tvCorso.getText(), Toast.LENGTH_LONG);
                         TextView textView = (TextView) toast.getView().findViewById(android.R.id.message);

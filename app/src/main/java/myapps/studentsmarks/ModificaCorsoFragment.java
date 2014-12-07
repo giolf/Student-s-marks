@@ -163,7 +163,6 @@ public class ModificaCorsoFragment extends Fragment {
                         //visualizzo il dialog
                         Dialog dialog = builder.create();
                         dialog.show();
-
                         return true;
                 }
                 return false;
@@ -199,7 +198,7 @@ public class ModificaCorsoFragment extends Fragment {
                             return false;
                         }
 
-                        // l'anno selezionato contiene corsi, li recupero
+                        //l'anno selezionato contiene corsi, li recupero
                         final String[] lcAnnoSelezionato = annoSelezionato.CreaArrayNomiCorsi();
 
                         //Mostro un dialog che permette la scelta del corso da modificare nell'anno selezionato
@@ -237,12 +236,6 @@ public class ModificaCorsoFragment extends Fragment {
                         builder.setNegativeButton(R.string.dialog_btn_annulla, null);
                         Dialog dialog = builder.create();
                         dialog.show();
-
-                        //imposto le dimensioni della finestra dell'alertDialog
-                        WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
-                        lp.copyFrom(dialog.getWindow().getAttributes());
-                        lp.height = 1000;
-                        dialog.getWindow().setAttributes(lp);
                         return true;
                 }
                 return false;

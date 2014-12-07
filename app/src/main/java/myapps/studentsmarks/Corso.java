@@ -12,7 +12,8 @@ public class Corso {
     private ArrayList<Voto> listaVoti;
 
     public Corso (String nomeCorso) {
-        this.setNomeCorso(nomeCorso);
+        this.nomeCorso = nomeCorso;
+        this.listaVoti = new ArrayList<Voto>();
     }
 
 

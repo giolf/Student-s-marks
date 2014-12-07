@@ -248,8 +248,8 @@ public class EliminaVotoFragment extends Fragment {
                         btnVoto.setBackgroundColor(Color.parseColor("#ffffff"));
                         //prendo i voti del corso selezionato
                         final ArrayList<Voto> listaVoti = new ArrayList<Voto>();
-                        listaVoti.add(new Voto(1, 1, 2014, 4.5));
-                        listaVoti.add(new Voto(2, 2, 2014, 5.5));
+                        //listaVoti.add(new Voto(1, 1, 2014, 4.5));
+                        //listaVoti.add(new Voto(2, 2, 2014, 5.5));
 
                         //creo l'adapter passandogli la lista dei voti del corso selezionato
                         AdapterModificaCorsoSV adapter = new AdapterModificaCorsoSV(activity, R.layout.row_voto, listaVoti);
@@ -262,16 +262,14 @@ public class EliminaVotoFragment extends Fragment {
                             public void onClick(DialogInterface dialogInterface, int i) {
                                 //prendo il voto selezionato e lo mostro nella text view 'voto'
                                 Voto votoSelezionato = listaVoti.get(i);
-                                int giorno  = votoSelezionato.getGiornoData();
-                                int mese    = votoSelezionato.getMeseData();
-                                int anno    = votoSelezionato.getAnnoData();
+                                String data = votoSelezionato.getData();
                                 double nota = votoSelezionato.getNota();
 
                                 //mostro la sub-text view 'nota' e gli passo la nota del voto selezionato
                                 stvNota.setVisibility(View.VISIBLE);
                                 stvNota.setText(""+rootView.getResources().getString(R.string.layout_msg_mv5)+" "+nota);
                                 stvNota.setTextColor(Color.parseColor("#000000"));
-                                tvVoto.setText(rootView.getResources().getString(R.string.layout_msg_mv6)+" "+giorno+" "+monthFromIntToString(activity, mese)+" "+anno);
+                                tvVoto.setText(rootView.getResources().getString(R.string.layout_msg_mv6)+" "+data);
 
                                 //abilito il bottone 'salva'
                                 btnSalva.setBackgroundColor(Color.parseColor("#87a914"));

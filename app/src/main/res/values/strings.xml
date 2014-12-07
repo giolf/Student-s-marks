@@ -100,6 +100,9 @@
     <string name="errore_msg7">"Questo corso è gia presente nell'anno selezionato.\n\nNon è possibile creare il corso"</string>
     <string name="errore_msg8">"Non hai creato nessun anno scolastico.\n\nNon è possibile modificare il corso"</string>
     <string name="errore_msg9">"L\'anno selezionato non contiene corsi.\n\nNon è possibile modificare il corso"</string>
+    <string name="errore_msg10">"L\'anno selezionato non contiene corsi.\n\nNon è possibile eliminare il corso"</string>
+    <string name="errore_msg11">"Non hai creato nessun anno scolastico.\n\nNon è possibile creare il voto"</string>
+    <string name="errore_msg12">"L\'anno selezionato non contiene corsi.\n\nNon è possibile creare il voto"</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>

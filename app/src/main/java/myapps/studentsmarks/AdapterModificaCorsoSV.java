@@ -37,7 +37,7 @@ public class AdapterModificaCorsoSV extends ArrayAdapter<Voto> {
 
         TextView tvData = (TextView)convertView.findViewById(R.id.tv_data);
         TextView tvNota = (TextView)convertView.findViewById(R.id.tv_nota);
-        tvData.setText(""+voto.getGiornoData()+" "+Utility.monthFromIntToString((StudentMarks)context, voto.getMeseData())+" "+voto.getAnnoData());
+        tvData.setText(voto.getData());
         tvNota.setText(""+voto.getNota());
 
         return convertView;

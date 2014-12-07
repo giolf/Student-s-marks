@@ -5,50 +5,36 @@ package myapps.studentsmarks;
  */
 public class Voto {
     private int id;
-    private int annoData;
-    private int meseData;
-    private int giornoData;
+    private String nomeCorso;
+    private String data;
     private double nota;
 
-    public Voto(int giornoData, int meseData, int annoData, double nota) {
-        this.giornoData = giornoData;
-        this.meseData   = meseData;
-        this.annoData   = annoData;
-        this.nota       = nota;
+    public Voto(String nomeCorso, String data, double nota) {
+        this.setNomeCorso(nomeCorso);
+        this.setData(data);
+        this.setNota(nota);
     }
+
 
     public int getId() {
         return id;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public String getNomeCorso() {
+        return nomeCorso;
     }
 
-    public int getAnnoData() {
-        return annoData;
+    public void setNomeCorso(String nomeCorso) {
+        this.nomeCorso = nomeCorso;
     }
 
-    public void setAnnoData(int annoData) {
-        this.annoData = annoData;
+    public String getData() {
+        return data;
     }
 
-    public int getMeseData() {
-        return meseData;
+    public void setData(String data) {
+        this.data = data;
     }
-
-    public void setMeseData(int meseData) {
-        this.meseData = meseData;
-    }
-
-    public int getGiornoData() {
-        return giornoData;
-    }
-
-    public void setGiornoData(int giornoData) {
-        this.giornoData = giornoData;
-    }
-
 
     public double getNota() {
         return nota;
