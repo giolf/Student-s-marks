@@ -6,6 +6,7 @@ import android.app.Fragment;
 import android.content.DialogInterface;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.text.InputType;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -14,13 +15,19 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.NumberPicker;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Calendar;
 
+import static myapps.studentsmarks.GestioneAnniFragment.CreaArrayNomiAnni;
+import static myapps.studentsmarks.GestioneAnniFragment.getAnno;
+import static myapps.studentsmarks.GestioneAnniFragment.getListaAnni;
 import static myapps.studentsmarks.Utility.customTitleDialog;
 import static myapps.studentsmarks.Utility.makeFrameLWithNumPicker;
 import static myapps.studentsmarks.Utility.monthFromIntToString;
@@ -81,9 +88,27 @@ public class ModificaVotoFragment extends Fragment {
                     case MotionEvent.ACTION_UP:
                         btnAnno.setBackgroundColor(Color.parseColor("#ffffff"));
 
+                        //Controllo se ci sono anni creati
+                        if (getListaAnni().size() == 0) {
+                            //se non ci sono anni creati avviso l'utente e poi interrompo la procedura
+                            AlertDialog.Builder builder = new AlertDialog.Builder(activity);
+                            builder.setCancelable(false);
+                            builder.setCustomTitle(Utility.customTitleDialog(activity, R.string.dialog_tit_avviso));
+                            builder.setPositiveButton(R.string.dialog_btn_ok, null);
+                            TextView messaggio = new TextView(activity);
+                            messaggio.setText(R.string.errore_msg15);
+                            messaggio.setPadding(20, 50, 20, 50);
+                            messaggio.setGravity(Gravity.CENTER);
+                            messaggio.setTextSize(18);
+                            builder.setView(messaggio);
+                            Dialog dialog = builder.create();
+                            dialog.show();
+                            //dopo che l'utente preme 'ok' interrompo la procedura
+                            return false;
+                        }
+
                         //recupero la lista degli anni creati dall'utente
-                        //qui dovro recuperarla da un arraylist di anni (attraverso un metodo implementato nella classe container degli anni)
-                        final String[] anniCreatiutente = Utility.makeSchoolYearList(2014);
+                        final String[] anniCreatiutente = CreaArrayNomiAnni();
 
                         //mostro il dialog che permette la selezione dell'anno in cui modificare il voto
                         //setup del dialog
@@ -179,8 +204,28 @@ public class ModificaVotoFragment extends Fragment {
                     case MotionEvent.ACTION_UP:
                         btnCorso.setBackgroundColor(Color.parseColor("#ffffff"));
 
-                        //qui prendo i corsi dell'anno selezionato
-                        final String[] lcAnnoSelezionato = {"Italiano", "Matematica", "Francese", "Fisica", "Tedesco", "Storia", "Scienze", "Latino", "Storia", "Scienze", "Latino"};
+                        //controllo se l'anno selezionato ha almeno 1 corso
+                        final Anno annoSelezionato = getAnno( (String)tvAnno.getText() );
+                        if ( annoSelezionato.getListaCorsi().size() == 0 ) {
+                            //mostro un messaggio che avvisa l'utente che nell'anno selezionato non ci sono corsi e poi interrompo la procedura
+                            AlertDialog.Builder builder = new AlertDialog.Builder(activity);
+                            builder.setCancelable(false);
+                            builder.setCustomTitle(Utility.customTitleDialog(activity, R.string.dialog_tit_avviso));
+                            builder.setPositiveButton(R.string.dialog_btn_ok, null);
+                            TextView messaggio = new TextView(activity);
+                            messaggio.setText(R.string.errore_msg14);
+                            messaggio.setPadding(20, 50, 20, 50);
+                            messaggio.setGravity(Gravity.CENTER);
+                            messaggio.setTextSize(18);
+                            builder.setView(messaggio);
+                            Dialog dialog = builder.create();
+                            dialog.show();
+                            //dopo che l'utente preme 'ok' interrompo la procedura
+                            return false;
+                        }
+
+                        //l'anno selezionato contiene corsi, li recupero
+                        final String[] lcAnnoSelezionato = annoSelezionato.CreaArrayNomiCorsi();
 
                         //Mostro un dialog che permette la scelta del corso da selezionare nell'anno selezionato
                         final AlertDialog.Builder builder = new AlertDialog.Builder(activity);
@@ -273,10 +318,29 @@ public class ModificaVotoFragment extends Fragment {
                         return true;
                     case MotionEvent.ACTION_UP:
                         btnVoto.setBackgroundColor(Color.parseColor("#ffffff"));
+
                         //prendo i voti del corso selezionato
-                        final ArrayList<Voto> listaVoti = new ArrayList<Voto>();
-                        //listaVoti.add(new Voto(1, 1, 2014, 4.5));
-                        //listaVoti.add(new Voto(2, 2, 2014, 5.5));
+                        Anno annoSelezionato      = GestioneAnniFragment.getAnno( (String)tvAnno.getText() );
+                        Corso corsoSelezionato    = annoSelezionato.getCorso( (String)tvCorso.getText() );
+                        final ArrayList<Voto> listaVoti = corsoSelezionato.getListaVoti();
+                        //se il corso selezionato non ha voti, avverto l'utente e interrompo l'operazione
+                        if (listaVoti.size() == 0) {
+                            //mostro un messaggio che avvisa l'utente che nel corso selezionato non ci sono corsi e poi interrompo la procedura
+                            AlertDialog.Builder builder = new AlertDialog.Builder(activity);
+                            builder.setCancelable(false);
+                            builder.setCustomTitle(Utility.customTitleDialog(activity, R.string.dialog_tit_avviso));
+                            builder.setPositiveButton(R.string.dialog_btn_ok, null);
+                            TextView messaggio = new TextView(activity);
+                            messaggio.setText(R.string.errore_msg13);
+                            messaggio.setPadding(20, 50, 20, 50);
+                            messaggio.setGravity(Gravity.CENTER);
+                            messaggio.setTextSize(18);
+                            builder.setView(messaggio);
+                            Dialog dialog = builder.create();
+                            dialog.show();
+                            //dopo che l'utente preme 'ok' interrompo la procedura
+                            return false;
+                        }
 
                         //creo l'adapter passandogli la lista dei voti del corso selezionato
                         AdapterModificaCorsoSV adapter = new AdapterModificaCorsoSV(activity, R.layout.row_voto, listaVoti);
@@ -387,18 +451,11 @@ public class ModificaVotoFragment extends Fragment {
                         btnPunteggio.setBackgroundColor(Color.parseColor("#ffffff"));
 
                         //Mostro un dialog che si occupa di scegliere e salvare il voto della nota
-                        Calendar votoMinore = Calendar.getInstance();
-                        votoMinore.set(2014, Calendar.JANUARY, 1);
-                        Calendar votoMaggiore = Calendar.getInstance();
-                        votoMaggiore.set(2014, Calendar.JANUARY, 10);
                         AlertDialog.Builder builder = new AlertDialog.Builder(activity);
                         builder.setCancelable(false);
-                        final DatePicker picker = new DatePicker(activity);
-                        picker.setDescendantFocusability(DatePicker.FOCUS_BLOCK_DESCENDANTS);
-                        picker.setCalendarViewShown(false);
-                        picker.setMinDate(votoMinore.getTimeInMillis());
-                        picker.setMaxDate(votoMaggiore.getTimeInMillis());
-                        builder.setView(picker);
+                        final EditText voto = new EditText(activity);
+                        voto.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
+                        builder.setView(voto);
                         builder.setCustomTitle( customTitleDialog(activity, R.string.dialog_tit_mv3) );
 
                         //setup dei listener sul bottone 'seleziona'
@@ -406,17 +463,23 @@ public class ModificaVotoFragment extends Fragment {
                         builder.setPositiveButton(R.string.dialog_btn_seleziona, new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
+
+                                //se l'input non è valido interrompo il flusso del listener
+                                //stringa che inizia con un '.'
+                                String pattern = "^\\d+[.\\d]*$";
+                                //stringhe vuote con o senza spazi
+                                String pattern2 = "^ *$";
+                                if( !voto.getText().toString().matches(pattern) || voto.getText().toString().matches(pattern2) )
+                                    return;
+
                                 //salvo il voto nella TextView del bottone punteggio
-                                tvPunteggio.setText(""+picker.getDayOfMonth());
+                                tvPunteggio.setText(""+voto.getText());
 
                                 //abilito il bottone 'salva'
                                 btnSalva.setBackgroundColor(Color.parseColor("#87a914"));
                                 btnSalva.setEnabled(true);
                             }
                         });
-
-                        //mostro solo i giorni del datepicker (1-10 che corrisponderebbero al voto)
-                        Utility.showJustDay(picker);
 
                         //visualizzo il dialog
                         Dialog dialog = builder.create();
@@ -436,7 +499,17 @@ public class ModificaVotoFragment extends Fragment {
                     case MotionEvent.ACTION_UP:
                         btnSalva.setBackgroundColor(Color.parseColor("#d2d2d2"));
 
-                        //Salvo la modifica del voto (per ora ci metto solo un messaggio)
+                        //ottengo una sotto-stringa dalla text view del voto (che ora contiene una data) per avere la data pulita che mi servirà per prendere il voto corretto
+                        int inizioSubString = rootView.getResources().getString(R.string.layout_msg_mv6).length()+1;
+                        int fineSubString   = tvVoto.getText().length();
+                        String dataPulita   = (String)tvVoto.getText().subSequence(inizioSubString, fineSubString);
+
+                        //Salvo la modifica del voto
+                        Anno annoSelezionato   = GestioneAnniFragment.getAnno( (String)tvAnno.getText() );
+                        Corso corsoSelezionato = annoSelezionato.getCorso( (String)tvCorso.getText() );
+                        Voto votoSelezionato   = corsoSelezionato.getVoto( dataPulita );
+                        votoSelezionato.setData( (String)tvData.getText() );
+                        votoSelezionato.setNota( Double.parseDouble((String)tvPunteggio.getText()) );
                         //inizio output messaggio di modifica corso
                         Toast toast = Toast.makeText(activity, "Hai modificato un voto nell'anno: "+tvAnno.getText()+
                                 "\nnel corso: "+tvCorso.getText()+"\n\nData: "+tvData.getText()+"\nNota: "+

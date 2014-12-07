@@ -44,4 +44,11 @@ public class Corso {
     public void setListaVoti(ArrayList<Voto> listaVoti) {
         this.listaVoti = listaVoti;
     }
+
+    public Voto getVoto(String DataVotoSelezionato) {
+        for (Voto votoCreato : listaVoti)
+            if ( votoCreato.getData().equals(DataVotoSelezionato) )
+                return votoCreato;
+        return null;
+    }
 }

@@ -12,7 +12,6 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -20,7 +19,6 @@ import android.widget.FrameLayout;
 import android.widget.NumberPicker;
 import android.widget.TextView;
 import android.widget.Toast;
-import java.util.Calendar;
 
 import static myapps.studentsmarks.GestioneAnniFragment.CreaArrayNomiAnni;
 import static myapps.studentsmarks.GestioneAnniFragment.getAnno;
