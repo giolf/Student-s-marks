@@ -419,9 +419,34 @@ public class ModificaVotoFragment extends Fragment {
                         builder.setPositiveButton(R.string.dialog_btn_seleziona, new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
-                                //metto la data selezionata nella textView del bottone 'data'
+
+                                //recupero la data selezionata
                                 String meseSelezionato  = monthFromIntToString(activity, picker.getMonth());
                                 int giornoSelezionato   = picker.getDayOfMonth();
+
+                                //controllo se ce gia un voto con la medesima data nel corso selezionato
+                                Anno annoSelezionato   = GestioneAnniFragment.getAnno( (String)tvAnno.getText() );
+                                Corso corsoSelezionato = annoSelezionato.getCorso( (String)tvCorso.getText() );
+                                if ( corsoSelezionato.votoGiaEsistente(""+giornoSelezionato+" "+meseSelezionato) ) {
+                                    //ce gia un voto con la data selezionata nella lista dei voti nel corso selezionato
+                                    //interrompo la procedura e avviso l'utente con un dialog
+                                    AlertDialog.Builder builder = new AlertDialog.Builder(activity);
+                                    builder.setCancelable(false);
+                                    builder.setCustomTitle(Utility.customTitleDialog(activity, R.string.dialog_tit_avviso));
+                                    builder.setPositiveButton(R.string.dialog_btn_ok, null);
+                                    TextView messaggio = new TextView(activity);
+                                    messaggio.setText(R.string.errore_msg20);
+                                    messaggio.setPadding(20, 50, 20, 50);
+                                    messaggio.setGravity(Gravity.CENTER);
+                                    messaggio.setTextSize(18);
+                                    builder.setView(messaggio);
+                                    Dialog dialog = builder.create();
+                                    dialog.show();
+                                    //dopo che l'utente preme 'ok' interrompo la procedura
+                                    return;
+                                }
+
+                                //metto la data selezionata nella textView del bottone 'data'
                                 tvData.setText(""+giornoSelezionato+" "+meseSelezionato);
 
                                 //abilito il bottone 'salva'
@@ -511,6 +536,12 @@ public class ModificaVotoFragment extends Fragment {
                         Voto votoSelezionato   = corsoSelezionato.getVoto( dataPulita );
                         votoSelezionato.setData( (String)tvData.getText() );
                         votoSelezionato.setNota( Double.parseDouble((String)tvPunteggio.getText()) );
+
+                        //aggiorno la media del corso selezionato
+                        corsoSelezionato.aggiornaMedia();
+                        //aggiorno la media dell'anno selezionato
+                        annoSelezionato.aggiornaMedia();
+
                         //inizio output messaggio di modifica corso
                         Toast toast = Toast.makeText(activity, "Hai modificato un voto nell'anno: "+tvAnno.getText()+
                                 "\nnel corso: "+tvCorso.getText()+"\n\nData: "+tvData.getText()+"\nNota: "+

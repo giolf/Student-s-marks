@@ -244,6 +244,9 @@ public class EliminaCorsoFragment extends Fragment {
                         Anno annoSelezionato = getAnno((String)tvAnno.getText());
                         annoSelezionato.rimuoviCorso( (String)tvCorso.getText() );
 
+                        //aggiorno la media dell'anno selezionato
+                        annoSelezionato.aggiornaMedia();
+
                         //inizio output messaggio di modifica corso
                         Toast toast = Toast.makeText(activity, "Hai eliminato il corso: " + tvCorso.getText(), Toast.LENGTH_LONG);
                         TextView textView = (TextView) toast.getView().findViewById(android.R.id.message);

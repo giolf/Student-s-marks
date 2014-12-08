@@ -52,9 +52,30 @@ public class Corso {
         return null;
     }
 
+    public boolean votoGiaEsistente(String dataVotoSelezionato) {
+        for (Voto votoCreato : listaVoti) {
+            if ( votoCreato.getData().equalsIgnoreCase(dataVotoSelezionato) )
+                return true;
+        }
+        return false;
+    }
+
     public void rimuoviVoto(String dataVotoSelezionato) {
         for (int i = 0; i<listaVoti.size(); i++)
             if ( listaVoti.get(i).getData().equals(dataVotoSelezionato) )
                 listaVoti.remove(i);
+    }
+
+    public void aggiornaMedia() {
+        double sommaNote = 0;
+        double sommaVoti = listaVoti.size();
+        if (sommaVoti == 0) {
+            media = 0;
+            return;
+        }
+
+        for (Voto voto : listaVoti)
+            sommaNote += voto.getNota();
+        media = sommaNote/sommaVoti;
     }
 }

@@ -82,4 +82,26 @@ public class Anno {
         return false;
     }
 
+    public void aggiornaMedia() {
+        double sommaMedia = 0;
+        double sommaCorsi = listaCorsi.size();
+
+        if (sommaCorsi == 0) {
+            mediaPrecedente = mediaAttuale;
+            mediaAttuale    = 0;
+            return;
+        }
+
+        for (Corso corso : listaCorsi) {
+            if(corso.getMedia() == 0) {
+                sommaCorsi--;
+                continue;
+            }
+            else
+                sommaMedia += corso.getMedia();
+        }
+
+        mediaPrecedente = mediaAttuale;
+        mediaAttuale    = sommaMedia/sommaCorsi;
+    }
 }

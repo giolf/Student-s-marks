@@ -375,6 +375,11 @@ public class EliminaVotoFragment extends Fragment {
                         Corso corsoSelezionato = annoSelezionato.getCorso( (String)tvCorso.getText() );
                         corsoSelezionato.rimuoviVoto(dataPulita);
 
+                        //aggiorno la media del corso selezionato
+                        corsoSelezionato.aggiornaMedia();
+                        //aggiorno la media dell'anno selezionato
+                        annoSelezionato.aggiornaMedia();
+
                         //inizio output messaggio di modifica corso
                         Toast toast = Toast.makeText(activity, "Hai eliminato un voto nell'anno: "+tvAnno.getText()+
                                 "\nnel corso: "+tvCorso.getText()+"\n\n"+tvVoto.getText()+"\nNota: "+
