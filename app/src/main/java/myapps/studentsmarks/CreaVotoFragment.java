@@ -123,18 +123,12 @@ public class CreaVotoFragment extends Fragment {
                         Dialog.OnClickListener seleziona = new Dialog.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
-                                 /*Se l'utente cambia anno DOPO aver gia scelto un corso, deve rifare tutta la procedura
+                                 /*Se l'utente cambia anno DOPO aver gia scelto un corso, si resettano tutti i bottoni sotto l'anno
                                   *questo avviene perche non è detto che il corso selezionato nell'anno precedente ci sia
                                   *anche nell'anno appena selezionato
                                   */
                                 if( !tvCorso.getText().equals(getResources().getString(R.string.layout_msg_cv)) ) {
-                                    //resetto il fragment per renderlo disponibile per la modifica di un nuovo corso
-                                    tvAnno.setText(getResources().getText(R.string.layout_msg_cc));
                                     tvCorso.setText(getResources().getString(R.string.layout_msg_cv));
-                                    tvCorso.setTextColor(Color.parseColor("#ffffff"));
-                                    tvlCorso.setTextColor(Color.parseColor("#ffffff"));
-                                    btnCorso.setBackgroundColor(Color.parseColor("#dedede"));
-                                    btnCorso.setEnabled(false);
                                     tvData.setText(getResources().getString(R.string.layout_msg_cv2));
                                     tvData.setTextColor(Color.parseColor("#ffffff"));
                                     tvlData.setTextColor(Color.parseColor("#ffffff"));
@@ -147,13 +141,6 @@ public class CreaVotoFragment extends Fragment {
                                     btnVoto.setEnabled(false);
                                     btnSalva.setBackgroundColor(Color.parseColor("#d2d2d2"));
                                     btnSalva.setEnabled(false);
-                                    //mostro un messaggio che avverte l'utente
-                                    Toast toast = Toast.makeText(activity, getResources().getString(R.string.errore_msg), Toast.LENGTH_LONG);
-                                    TextView tv = (TextView)toast.getView().findViewById(android.R.id.message);
-                                    tv.setGravity(Gravity.CENTER);
-                                    toast.show();
-                                    //esco dal metodo interrompendo il flusso del listener
-                                    return;
                                 }
                                 //mostro l'anno selezionato dall'utente nella TextView dell'anno
                                 tvAnno.setText( ""+anniCreatiutente[picker.getValue()] );
@@ -233,6 +220,26 @@ public class CreaVotoFragment extends Fragment {
                         builder.setPositiveButton(R.string.dialog_btn_seleziona, new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
+                                /*Se l'utente cambia corso DOPO aver gia scelto una data, si resettano tutti i bottoni sotto il corso
+                                *questo avviene perche non si possono avere nel medesimo corso voti con la stessa data
+                                *quindi puo essere possibile che nel nuovo corso selezionato ci sia gia un voto
+                                *con la data selezionata precedentemente sul bottone data
+                                */
+                                if ( !tvData.getText().equals(getResources().getString(R.string.dialog_tit_cv)) ) {
+                                    tvData.setText(getResources().getString(R.string.layout_msg_cv2));
+                                    tvData.setTextColor(Color.parseColor("#ffffff"));
+                                    tvlData.setTextColor(Color.parseColor("#ffffff"));
+                                    btnData.setBackgroundColor(Color.parseColor("#dedede"));
+                                    btnData.setEnabled(false);
+                                    tvVoto.setText(getResources().getString(R.string.layout_msg_cv3));
+                                    tvVoto.setTextColor(Color.parseColor("#ffffff"));
+                                    tvlVoto.setTextColor(Color.parseColor("#ffffff"));
+                                    btnVoto.setBackgroundColor(Color.parseColor("#dedede"));
+                                    btnVoto.setEnabled(false);
+                                    btnSalva.setBackgroundColor(Color.parseColor("#d2d2d2"));
+                                    btnSalva.setEnabled(false);
+                                }
+
                                 //prendo il corso selezionato in base alla scelta dell'utente e lo metto nella TextView del corso
                                 tvCorso.setText(""+lcAnnoSelezionato[picker.getValue()]);
 
