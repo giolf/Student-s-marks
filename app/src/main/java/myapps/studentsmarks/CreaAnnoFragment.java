@@ -149,7 +149,13 @@ public class CreaAnnoFragment extends Fragment {
                     case MotionEvent.ACTION_UP:
                         //salvo i dati relativi all anno creato
                         getListaAnni().add( new Anno((String) tvAnno.getText()) );
-                        Toast.makeText(activity, "hai creato l'anno scolastico: "+tvAnno.getText(), Toast.LENGTH_LONG).show();
+
+                        //inizio messaggio output - creazione anno
+                        Toast toast = Toast.makeText(activity, getResources().getText(R.string.output_msg_ca), Toast.LENGTH_LONG);
+                        TextView textView = (TextView) toast.getView().findViewById(android.R.id.message);
+                        textView.setGravity(Gravity.CENTER);
+                        toast.show();
+                        //fine messaggio output - creazione anno
 
                         //e poi resetto il fragment per renderlo disponibile per la creazione di un nuovo anno
                         tvAnno.setText(getResources().getText(R.string.layout_msg_ca));
