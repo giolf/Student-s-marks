@@ -136,7 +136,14 @@ public class EliminaAnnoFragment extends Fragment {
                     case MotionEvent.ACTION_UP:
                         //elimino l'anno selezionato dall'utente
                         rimuoviAnno( (String)tvAnno.getText() );
-                        Toast.makeText(activity, "hai eliminato l'anno: "+tvAnno.getText(), Toast.LENGTH_LONG).show();
+
+                        //inizio messaggio output - elimina anno
+                        Toast toast = Toast.makeText(activity, getResources().getText(R.string.output_msg_ea), Toast.LENGTH_LONG);
+                        TextView textView = (TextView) toast.getView().findViewById(android.R.id.message);
+                        textView.setGravity(Gravity.CENTER);
+                        toast.show();
+                        //fine messaggio output - elimina anno
+
                         //e poi resetto il fragment per renderlo disponibile per l'eliminazione di un nuovo anno
                         tvAnno.setText(getResources().getText(R.string.layout_msg_ea));
                         btnElimina.setEnabled(false);

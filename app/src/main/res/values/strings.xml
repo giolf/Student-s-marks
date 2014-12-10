@@ -116,6 +116,16 @@
     <string name="errore_msg19">"Non è possibile avere più voti con la stessa data nel medesimo corso"</string>
     <string name="errore_msg20">"Non è possibile avere più voti con la stessa data nel medesimo corso"</string>
 
+    <string name="output_msg_ca">"Anno scolastico\ncreato correttamente"</string>
+    <string name="output_msg_ma">"Anno scolastico\nmodificato correttamente"</string>
+    <string name="output_msg_ea">"Anno scolastico\neliminato correttamente"</string>
+    <string name="output_msg_cc">"Corso creato\ncorrettamente"</string>
+    <string name="output_msg_mc">"Corso modificato\ncorrettamente"</string>
+    <string name="output_msg_ec">"Corso eliminato\ncorrettamente"</string>
+    <string name="output_msg_cv">"Voto creato\ncorrettamente"</string>
+    <string name="output_msg_mv">"Voto modificato\ncorrettamente"</string>
+    <string name="output_msg_ev">"Voto eliminato\ncorrettamente"</string>
+
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="action_selected_year">-</string>

@@ -227,9 +227,13 @@ public class ModificaAnnoFragment extends Fragment {
                         //salvo i dati relativi alla modifica dell'anno
                         //recupero l'anno che ha subito la modifica
                         Anno annoDaModificare = getAnno( (String)tvAnno.getText() );
-                        //modifico l'anno
-                        annoDaModificare.setNomeAnnoScolastico( (String)tvAnnoDM.getText() );
-                        Toast.makeText(activity, "hai modificato l'anno: "+tvAnno.getText()+"\nora è diventato: "+tvAnnoDM.getText(), Toast.LENGTH_LONG).show();
+
+                        //inizio messaggio output - modifica anno
+                        Toast toast = Toast.makeText(activity, getResources().getText(R.string.output_msg_ma), Toast.LENGTH_LONG);
+                        TextView textView = (TextView) toast.getView().findViewById(android.R.id.message);
+                        textView.setGravity(Gravity.CENTER);
+                        toast.show();
+                        //fine messaggio output - modifica anno
 
                         //e poi resetto il fragment per renderlo disponibile per la modifica di un nuovo anno
                         btnAnnoDM.setBackgroundColor(Color.parseColor("#dedede"));

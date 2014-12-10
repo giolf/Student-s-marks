@@ -515,14 +515,12 @@ public class ModificaVotoFragment extends Fragment {
                         //aggiorno la media dell'anno selezionato
                         annoSelezionato.aggiornaMedia();
 
-                        //inizio output messaggio di modifica corso
-                        Toast toast = Toast.makeText(activity, "Hai modificato un voto nell'anno: "+tvAnno.getText()+
-                                "\nnel corso: "+tvCorso.getText()+"\n\nData: "+tvData.getText()+"\nNota: "+
-                                tvPunteggio.getText(), Toast.LENGTH_LONG);
+                        //inzio messaggio output - modifica corso
+                        Toast toast = Toast.makeText(activity, getResources().getText(R.string.output_msg_mv), Toast.LENGTH_LONG);
                         TextView textView = (TextView) toast.getView().findViewById(android.R.id.message);
                         textView.setGravity(Gravity.CENTER);
                         toast.show();
-                        //fine output messaggio di modifica
+                        //fine messaggio output - modifica corso
 
                         //resetto il fragment per renderlo disponibile per la modifica di un nuovo voto
                         tvAnno.setText(getResources().getText(R.string.layout_msg_cc));

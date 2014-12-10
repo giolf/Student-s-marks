@@ -224,10 +224,12 @@ public class CreaCorsoFragment extends Fragment {
                         Anno annoSelezionato = getAnno( (String)tvAnno.getText() );
                         annoSelezionato.getListaCorsi().add( new Corso((String)tvCorso.getText()) );
 
-                        Toast toast = Toast.makeText(activity, "Hai creato il corso: "+tvCorso.getText()+"\nnell'anno: "+tvAnno.getText(), Toast.LENGTH_LONG);
+                        //inizio messaggio output - creazione corso
+                        Toast toast = Toast.makeText(activity, getResources().getText(R.string.output_msg_cc), Toast.LENGTH_LONG);
                         TextView textView = (TextView) toast.getView().findViewById(android.R.id.message);
                         textView.setGravity(Gravity.CENTER);
                         toast.show();
+                        //fine messaggio output - creazione corso
 
                         //e poi resetto il fragment per renderlo disponibile per la creazione di un nuovo corso
                         btnCorso.setEnabled(false);
