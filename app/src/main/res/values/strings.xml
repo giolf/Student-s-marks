@@ -57,6 +57,9 @@
     <string name="tab_crea_voto">Crea voto</string>
     <string name="tab_modifica_voto">Modifica voto</string>
     <string name="tab_elimina_voto">Elimina voto</string>
+    <string name="tab_media_annuale">Media annuale</string>
+    <string name="tab_corsi_annuali">Corsi annuali</string>
+    <string name="tab_voti_annuali">Voti annuali</string>
 
     <string name="layout_btn_salva">SALVA</string>
     <string name="layout_btn_elimina">ELIMINA</string>

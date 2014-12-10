@@ -62,8 +62,16 @@ public class StudentMarks extends Activity
     public void onNavigationDrawerItemSelected(int position) {
         // update the main content by replacing fragments
 
+        //istanzia il fragment-container per la voce 'Riepilogo annuale'
+        if (position == 0) {
+            FragmentManager fragmentManager = getFragmentManager();
+            fragmentManager.beginTransaction()
+                    .replace(R.id.container, GestioneRiepilogoAnnualeFragment.newInstance(position + 1))
+                    .commit();
+        }
+
         //istanzia il fragment-container per la voce 'Gestione anni'
-        if (position == 1) {
+        else if (position == 1) {
             FragmentManager fragmentManager = getFragmentManager();
             fragmentManager.beginTransaction()
                     .replace(R.id.container, GestioneAnniFragment.newInstance(position + 1))
