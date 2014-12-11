@@ -13,7 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.support.v4.widget.DrawerLayout;
 
-import static myapps.studentsmarks.GestioneAnniFragment.getAnnoSelezionato;
+import static myapps.studentsmarks.GestioneAnniFragment.getNomeAnnoSelezionato;
 import static myapps.studentsmarks.GestioneAnniFragment.getListaAnni;
 
 public class StudentMarks extends Activity
@@ -132,7 +132,7 @@ public class StudentMarks extends Activity
 
             // se l'utente ha almeno 1 anno creato, MA non ha ancora selezionato un anno per il quale
             // visualizzarne le relative statistiche, per default imposto l'ultimo anno creato
-            else if ( getListaAnni().size() > 0 && getAnnoSelezionato() == null ) {
+            else if ( getListaAnni().size() > 0 && getNomeAnnoSelezionato() == null ) {
                 int numeroAnniCreati        = getListaAnni().size();
                 Anno ultimoAnnoCreato       = getListaAnni().get(numeroAnniCreati-1);
                 String nomeUltimoAnnoCreato = ultimoAnnoCreato.getNomeAnnoScolastico();
@@ -142,8 +142,8 @@ public class StudentMarks extends Activity
 
             // se l'utente ha almeno 1 anno creato e ha selezionato un anno per il quale
             // visualizzarne le relative statistiche, imposto la selezione fatta dall utente
-            else if ( getListaAnni().size() > 0 && getAnnoSelezionato() != null )
-                menu.findItem(R.id.action_selected_year).setTitle(getAnnoSelezionato());
+            else if ( getListaAnni().size() > 0 && getNomeAnnoSelezionato() != null )
+                menu.findItem(R.id.action_selected_year).setTitle(getNomeAnnoSelezionato());
 
             //reimposto l'actionBar impostandogli il titolo
             restoreActionBar();

@@ -28,7 +28,7 @@ public class GestioneAnniFragment extends Fragment {
     /*Contiene la scelta dell'anno da parte dell'utente
      *per il quale visualizzarne le statistiche
      */
-    private static String annoSelezionato = null;
+    private static String NomeAnnoSelezionato = null;
 
     public GestioneAnniFragment() {
     }
@@ -37,12 +37,12 @@ public class GestioneAnniFragment extends Fragment {
         return listaAnni;
     }
 
-    public static String getAnnoSelezionato() {
-        return annoSelezionato;
+    public static String getNomeAnnoSelezionato() {
+        return NomeAnnoSelezionato;
     }
 
-    public static void setAnnoSelezionato(String anno) {
-        annoSelezionato = anno;
+    public static void setNomeAnnoSelezionatoo(String anno) {
+        NomeAnnoSelezionato = anno;
     }
 
     public static Anno getAnno(String nomeAnnoScolastico) {
