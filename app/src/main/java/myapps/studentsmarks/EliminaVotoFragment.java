@@ -286,7 +286,7 @@ public class EliminaVotoFragment extends Fragment {
                         }
 
                         //creo l'adapter passandogli la lista dei voti del corso selezionato
-                        AdapterModificaCorsoSV adapter = new AdapterModificaCorsoSV(activity, R.layout.row_voto, listaVoti);
+                        AdapterListaVotiGestione adapter = new AdapterListaVotiGestione(activity, R.layout.row_voto, listaVoti);
 
                         //creo un nuovo dialog che si occuperà di mostrare e salvare i voti del corso selezionato
                         AlertDialog.Builder builder = new AlertDialog.Builder(activity);

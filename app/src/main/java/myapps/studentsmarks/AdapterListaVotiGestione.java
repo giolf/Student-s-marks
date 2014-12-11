@@ -12,12 +12,12 @@ import java.util.List;
 /**
  * Created by Gio on 01.12.2014.
  */
-public class AdapterModificaCorsoSV extends ArrayAdapter<Voto> {
+public class AdapterListaVotiGestione extends ArrayAdapter<Voto> {
     Context context;
     int resource;
     /*costruttore dell adapter che prende come parametri:
      *un activity, l'id del layout e una lista*/
-    public AdapterModificaCorsoSV(Context context, int resource, List<Voto> objects) {
+    public AdapterListaVotiGestione(Context context, int resource, List<Voto> objects) {
         super(context, resource, objects);
         this.context = context;
         this.resource = resource;

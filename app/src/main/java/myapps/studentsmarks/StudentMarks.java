@@ -13,6 +13,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.support.v4.widget.DrawerLayout;
 
+import static myapps.studentsmarks.GestioneAnniFragment.getAnnoSelezionato;
+import static myapps.studentsmarks.GestioneAnniFragment.getListaAnni;
+
 public class StudentMarks extends Activity
         implements NavigationDrawerFragment.NavigationDrawerCallbacks {
 
@@ -123,10 +126,26 @@ public class StudentMarks extends Activity
             //salvo il menu nella variabile d'istanza dell'activity
             this.menu = menu;
 
-            // se l'utente ha selezionato un 'anno corrente'
-            // lo faccio visualizzare sempre sull'action bar
-            /*if (ce un anno corrente selezionato)
-                menu.findItem(R.id.action_selected_year).setTitle(getAnnoCorrenteSelezionato());*/
+            // se l'utente non ha creato nessun anno, per default visualizzo un '-'
+            if ( getListaAnni().size() == 0 )
+                menu.findItem(R.id.action_selected_year).setTitle(getResources().getString(R.string.action_selected_year));
+
+            // se l'utente ha almeno 1 anno creato, MA non ha ancora selezionato un anno per il quale
+            // visualizzarne le relative statistiche, per default imposto l'ultimo anno creato
+            else if ( getListaAnni().size() > 0 && getAnnoSelezionato() == null ) {
+                int numeroAnniCreati        = getListaAnni().size();
+                Anno ultimoAnnoCreato       = getListaAnni().get(numeroAnniCreati-1);
+                String nomeUltimoAnnoCreato = ultimoAnnoCreato.getNomeAnnoScolastico();
+
+                menu.findItem(R.id.action_selected_year).setTitle(nomeUltimoAnnoCreato);
+            }
+
+            // se l'utente ha almeno 1 anno creato e ha selezionato un anno per il quale
+            // visualizzarne le relative statistiche, imposto la selezione fatta dall utente
+            else if ( getListaAnni().size() > 0 && getAnnoSelezionato() != null )
+                menu.findItem(R.id.action_selected_year).setTitle(getAnnoSelezionato());
+
+            //reimposto l'actionBar impostandogli il titolo
             restoreActionBar();
 
             //dopo aver settato il titolo controllo in quale pagina l'utente si trova

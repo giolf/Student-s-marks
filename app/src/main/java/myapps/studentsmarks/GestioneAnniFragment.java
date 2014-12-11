@@ -25,11 +25,24 @@ public class GestioneAnniFragment extends Fragment {
     /*Contiene la lista degli anni creati*/
     private static ArrayList<Anno> listaAnni = new ArrayList<Anno>();
 
+    /*Contiene la scelta dell'anno da parte dell'utente
+     *per il quale visualizzarne le statistiche
+     */
+    private static String annoSelezionato = null;
+
     public GestioneAnniFragment() {
     }
 
     public static ArrayList<Anno> getListaAnni() {
         return listaAnni;
+    }
+
+    public static String getAnnoSelezionato() {
+        return annoSelezionato;
+    }
+
+    public static void setAnnoSelezionato(String anno) {
+        annoSelezionato = anno;
     }
 
     public static Anno getAnno(String nomeAnnoScolastico) {
