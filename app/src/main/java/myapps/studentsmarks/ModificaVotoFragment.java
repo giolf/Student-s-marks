@@ -28,6 +28,7 @@ import java.util.Calendar;
 import static myapps.studentsmarks.GestioneAnniFragment.CreaArrayNomiAnni;
 import static myapps.studentsmarks.GestioneAnniFragment.getAnno;
 import static myapps.studentsmarks.GestioneAnniFragment.getListaAnni;
+import static myapps.studentsmarks.Utility.convertiData;
 import static myapps.studentsmarks.Utility.customTitleDialog;
 import static myapps.studentsmarks.Utility.makeFrameLWithNumPicker;
 import static myapps.studentsmarks.Utility.monthFromIntToString;
@@ -507,11 +508,19 @@ public class ModificaVotoFragment extends Fragment {
                         Anno annoSelezionato   = GestioneAnniFragment.getAnno( (String)tvAnno.getText() );
                         Corso corsoSelezionato = annoSelezionato.getCorso( (String)tvCorso.getText() );
                         Voto votoSelezionato   = corsoSelezionato.getVoto( dataPulita );
+                        //rimuovo il voto (cosi lo posso reinserire ordinato per data)
+                        corsoSelezionato.rimuoviVoto( dataPulita );
+                        //converto la nuova data selezionata dall'utente in interi
+                        int[] nuovaDataInteri = convertiData((String)tvData.getText(), activity);
+                        votoSelezionato.setGiornoData(nuovaDataInteri[0]);
+                        votoSelezionato.setMeseData(nuovaDataInteri[1]);
                         votoSelezionato.setData( (String)tvData.getText() );
                         votoSelezionato.setNota( Double.parseDouble((String)tvPunteggio.getText()) );
+                        corsoSelezionato.aggiungiVotoOrdinatoPerData(votoSelezionato);
 
                         //aggiorno la media del corso selezionato
                         corsoSelezionato.aggiornaMedia();
+
                         //aggiorno la media dell'anno selezionato
                         annoSelezionato.aggiornaMedia();
 

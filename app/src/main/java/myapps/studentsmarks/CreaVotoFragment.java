@@ -23,6 +23,7 @@ import android.widget.Toast;
 import static myapps.studentsmarks.GestioneAnniFragment.CreaArrayNomiAnni;
 import static myapps.studentsmarks.GestioneAnniFragment.getAnno;
 import static myapps.studentsmarks.GestioneAnniFragment.getListaAnni;
+import static myapps.studentsmarks.Utility.convertiData;
 import static myapps.studentsmarks.Utility.customTitleDialog;
 import static myapps.studentsmarks.Utility.makeFrameLWithNumPicker;
 import static myapps.studentsmarks.Utility.monthFromIntToString;
@@ -390,16 +391,22 @@ public class CreaVotoFragment extends Fragment {
                     case MotionEvent.ACTION_UP:
                         btnSalva.setBackgroundColor(Color.parseColor("#d2d2d2"));
 
+                        //converto la data del voto in interi
+                        int[] dataVotoInteri = convertiData((String)tvData.getText(), activity);
+
                         //Salvo la creazione del voto
-                        Anno annoSelezionato   = GestioneAnniFragment.getAnno( (String)tvAnno.getText() );
+                        Anno annoSelezionato   = getAnno( (String)tvAnno.getText() );
                         Corso corsoSelezionato = annoSelezionato.getCorso( (String)tvCorso.getText() );
-                        corsoSelezionato.getListaVoti().add(
-                                new Voto( (String)tvCorso.getText(),
-                                        (String)tvData.getText(),
-                                        Double.parseDouble((String)tvVoto.getText())) );
+                        Voto voto = new Voto(
+                                (String)tvCorso.getText(),
+                                (String)tvData.getText(),
+                                dataVotoInteri[0], dataVotoInteri[1],
+                                Double.parseDouble((String)tvVoto.getText()));
+                        corsoSelezionato.aggiungiVotoOrdinatoPerData(voto);
 
                         //aggiorno la media del corso selezionato
                         corsoSelezionato.aggiornaMedia();
+
                         //aggiorno la media dell'anno selezionato
                         annoSelezionato.aggiornaMedia();
 

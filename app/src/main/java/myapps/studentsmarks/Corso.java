@@ -1,5 +1,6 @@
 package myapps.studentsmarks;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 /**
@@ -77,5 +78,82 @@ public class Corso {
         for (Voto voto : listaVoti)
             sommaNote += voto.getNota();
         media = sommaNote/sommaVoti;
+    }
+
+    public void aggiungiVotoOrdinatoPerData(Voto voto) {
+        if (listaVoti.size() == 0) {
+            listaVoti.add(voto);
+            return;
+        }
+        int meseData          = voto.getMeseData();
+        int giornoData        = voto.getGiornoData();
+        int start             = 0;
+        int end               = 0;
+        boolean startIsSetted = false;
+
+        for (int i = 0; i<listaVoti.size(); i++) {
+            Voto votoCorrente = listaVoti.get(i);
+            if (votoCorrente.getMeseData() == meseData) {
+                if (start == 0 && !startIsSetted) {
+                    start         = i;
+                    end           = i;
+                    startIsSetted = true;
+                }
+                else
+                    end++;
+            }
+        }
+        //non ci sono voti creati con lo stesso mese del voto da inserire
+        if (start == 0 && end == 0 && !startIsSetted) {
+            if (meseData >= 9 && meseData <= 12) {
+                for (int i = 0; i<listaVoti.size(); i++) {
+                    Voto votoCorrente = listaVoti.get(i);
+                    if (votoCorrente.getMeseData() >= 1 && votoCorrente.getMeseData() <= 8) {
+                        listaVoti.add(i, voto);
+                        return;
+                    }
+                    else {
+                        if (votoCorrente.getMeseData() > meseData) {
+                            listaVoti.add(i, voto);
+                            return;
+                        }
+                    }
+                }
+            }
+            else {
+                for (int i = 0; i<listaVoti.size(); i++) {
+                    Voto votoCorrente = listaVoti.get(i);
+                    if (votoCorrente.getMeseData() >= 9 && votoCorrente.getMeseData() <= 12) {
+                        continue;
+                    }
+                    else {
+                        if (votoCorrente.getMeseData() > meseData) {
+                            listaVoti.add(i, voto);
+                            return;
+                        }
+                    }
+                }
+            }
+            listaVoti.add(voto);
+            return;
+        }
+        //ce solo un voto creato che ha lo stesso mese del voto da inserire
+        if (start == end) {
+            int giornoDataVotoCreato = listaVoti.get(start).getGiornoData();
+            if (giornoDataVotoCreato > giornoData)
+                listaVoti.add(start, voto);
+            else
+                listaVoti.add(start+1, voto);
+        }
+        //ci sono piu voti creati con lo stesso mese del voto da inserire
+        if (start != end) {
+            for (; start <= end; start++) {
+                if (giornoData <= listaVoti.get(start).getGiornoData()) {
+                    listaVoti.add(start, voto);
+                    return;
+                }
+            }
+            listaVoti.add(end, voto);
+        }
     }
 }
