@@ -294,7 +294,7 @@ public class ModificaVotoFragment extends Fragment {
                         btnVoto.setBackgroundColor(Color.parseColor("#ffffff"));
 
                         //prendo i voti del corso selezionato
-                        Anno annoSelezionato      = GestioneAnniFragment.getAnno( (String)tvAnno.getText() );
+                        Anno annoSelezionato      = getAnno( (String)tvAnno.getText() );
                         Corso corsoSelezionato    = annoSelezionato.getCorso( (String)tvCorso.getText() );
                         final ArrayList<Voto> listaVoti = corsoSelezionato.getListaVoti();
 
@@ -337,7 +337,13 @@ public class ModificaVotoFragment extends Fragment {
                                 stvNota.setTextColor(Color.parseColor("#000000"));
                                 tvVoto.setText(rootView.getResources().getString(R.string.layout_msg_mv6)+" "+data);
 
-                                //abilito i bottoni 'modifica data' e 'modifica punteggio'
+                                /*
+                                 * abilito i bottoni 'modifica data' e 'modifica punteggio'
+                                 * e disattivo il bottone 'salva'
+                                 * (lo disattivo perche se l'utente aveva gia selezionato un voto e
+                                 * ora lo sta cambiando, il bottone 'salva' deve rimanere disabilitato
+                                 * fintanto che non si verifica una modifica sul voto selezionato
+                                 */
                                 btnData.setBackgroundColor(Color.parseColor("#ffffff"));
                                 tvData.setTextColor(Color.parseColor("#000000"));
                                 tvlData.setTextColor(Color.parseColor("#000000"));
@@ -348,6 +354,8 @@ public class ModificaVotoFragment extends Fragment {
                                 tvPunteggio.setText(""+nota);
                                 tvlPunteggio.setTextColor(Color.parseColor("#000000"));
                                 btnPunteggio.setEnabled(true);
+                                btnSalva.setBackgroundColor(Color.parseColor("#d2d2d2"));
+                                btnSalva.setEnabled(false);
                             }
                         });
 
