@@ -19,33 +19,31 @@ import android.widget.NumberPicker;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.util.ArrayList;
-
-import static myapps.studentsmarks.GestioneAnniFragment.CreaArrayNomiAnni;
-import static myapps.studentsmarks.GestioneAnniFragment.getAnno;
-import static myapps.studentsmarks.GestioneAnniFragment.getListaAnni;
+import static myapps.studentsmarks.GestioneAnni.CreaArrayNomiAnni;
+import static myapps.studentsmarks.GestioneAnni.getAnno;
+import static myapps.studentsmarks.GestioneAnni.getListaAnni;
 import static myapps.studentsmarks.Utility.customTitleDialog;
 import static myapps.studentsmarks.Utility.makeFrameLWithNumPicker;
 
 /**
  * Created by Gio on 15.11.2014.
  */
-public class CreaCorsoFragment extends Fragment {
+public class CreaCorso extends Fragment {
     /**
      * The fragment argument representing the section number for this
      * fragment.
      */
     private static final String ARG_SECTION_NUMBER = "section_number";
 
-    public CreaCorsoFragment() {
+    public CreaCorso() {
     }
 
     /**
      * Returns a new instance of this fragment for the given section
      * number.
      */
-    public static CreaCorsoFragment newInstance(int sectionNumber) {
-        CreaCorsoFragment fragment = new CreaCorsoFragment();
+    public static CreaCorso newInstance(int sectionNumber) {
+        CreaCorso fragment = new CreaCorso();
         Bundle args = new Bundle();
         args.putInt(ARG_SECTION_NUMBER, sectionNumber);
         fragment.setArguments(args);

@@ -18,8 +18,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 import java.util.Calendar;
 
-import static myapps.studentsmarks.GestioneAnniFragment.annoGiaEsistente;
-import static myapps.studentsmarks.GestioneAnniFragment.getListaAnni;
+import static myapps.studentsmarks.GestioneAnni.annoGiaEsistente;
+import static myapps.studentsmarks.GestioneAnni.getListaAnni;
 import static myapps.studentsmarks.Utility.makeSchoolYearList;
 import static myapps.studentsmarks.Utility.makeFrameLWithNumPicker;
 
@@ -28,22 +28,22 @@ import static myapps.studentsmarks.Utility.makeFrameLWithNumPicker;
 /**
  * Created by Giovanni far on 10.11.2014.
  */
-public class CreaAnnoFragment extends Fragment {
+public class CreaAnno extends Fragment {
     /**
      * The fragment argument representing the section number for this
      * fragment.
      */
     private static final String ARG_SECTION_NUMBER = "section_number";
 
-    public CreaAnnoFragment() {
+    public CreaAnno() {
     }
 
     /**
      * Returns a new instance of this fragment for the given section
      * number.
      */
-    public static CreaAnnoFragment newInstance(int sectionNumber) {
-        CreaAnnoFragment fragment = new CreaAnnoFragment();
+    public static CreaAnno newInstance(int sectionNumber) {
+        CreaAnno fragment = new CreaAnno();
         Bundle bundle = new Bundle();
         bundle.putInt(ARG_SECTION_NUMBER, sectionNumber);
         fragment.setArguments(bundle);

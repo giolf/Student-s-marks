@@ -2,19 +2,14 @@ package myapps.studentsmarks;
 
 import android.app.Activity;
 import android.app.ActionBar;
-import android.app.Fragment;
 import android.app.FragmentManager;
 import android.os.Bundle;
-import android.support.v13.app.FragmentTabHost;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
 import android.support.v4.widget.DrawerLayout;
 
-import static myapps.studentsmarks.GestioneAnniFragment.getNomeAnnoSelezionato;
-import static myapps.studentsmarks.GestioneAnniFragment.getListaAnni;
+import static myapps.studentsmarks.GestioneAnni.getNomeAnnoSelezionato;
+import static myapps.studentsmarks.GestioneAnni.getListaAnni;
 
 public class StudentMarks extends Activity
         implements NavigationDrawerFragment.NavigationDrawerCallbacks {
@@ -69,7 +64,7 @@ public class StudentMarks extends Activity
         if (position == 0) {
             FragmentManager fragmentManager = getFragmentManager();
             fragmentManager.beginTransaction()
-                    .replace(R.id.container, GestioneRiepilogoAnnualeFragment.newInstance(position + 1))
+                    .replace(R.id.container, GestioneRiepilogoAnnuale.newInstance(position + 1))
                     .commit();
         }
 
@@ -77,21 +72,21 @@ public class StudentMarks extends Activity
         else if (position == 1) {
             FragmentManager fragmentManager = getFragmentManager();
             fragmentManager.beginTransaction()
-                    .replace(R.id.container, GestioneAnniFragment.newInstance(position + 1))
+                    .replace(R.id.container, GestioneAnni.newInstance(position + 1))
                     .commit();
         }
         //istanzia il fragment-container per la voce 'Gestione corsi'
         else if (position == 2) {
             FragmentManager fragmentManager = getFragmentManager();
             fragmentManager.beginTransaction()
-                    .replace(R.id.container, GestioneCorsiFragment.newInstance(position + 1))
+                    .replace(R.id.container, GestioneCorsi.newInstance(position + 1))
                     .commit();
         }
         //istanzia il fragment per la voce 'Gestione voti'
         else if (position == 3) {
             FragmentManager fragmentManager = getFragmentManager();
             fragmentManager.beginTransaction()
-                    .replace(R.id.container, GestioneVotiFragment.newInstance(position + 1))
+                    .replace(R.id.container, GestioneVoti.newInstance(position + 1))
                     .commit();
         }
     }

@@ -17,31 +17,31 @@ import android.widget.NumberPicker;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import static myapps.studentsmarks.GestioneAnniFragment.CreaArrayNomiAnni;
-import static myapps.studentsmarks.GestioneAnniFragment.getListaAnni;
-import static myapps.studentsmarks.GestioneAnniFragment.rimuoviAnno;
+import static myapps.studentsmarks.GestioneAnni.CreaArrayNomiAnni;
+import static myapps.studentsmarks.GestioneAnni.getListaAnni;
+import static myapps.studentsmarks.GestioneAnni.rimuoviAnno;
 import static myapps.studentsmarks.Utility.customTitleDialog;
 import static myapps.studentsmarks.Utility.makeFrameLWithNumPicker;
 
 /**
  * Created by Gio on 11.11.2014.
  */
-public class EliminaAnnoFragment extends Fragment {
+public class EliminaAnno extends Fragment {
     /**
             * The fragment argument representing the section number for this
             * fragment.
     */
     private static final String ARG_SECTION_NUMBER = "section_number";
 
-    public EliminaAnnoFragment() {
+    public EliminaAnno() {
     }
 
     /**
      * Returns a new instance of this fragment for the given section
      * number.
      */
-    public static EliminaAnnoFragment newInstance(int sectionNumber) {
-        EliminaAnnoFragment fragment = new EliminaAnnoFragment();
+    public static EliminaAnno newInstance(int sectionNumber) {
+        EliminaAnno fragment = new EliminaAnno();
         Bundle args = new Bundle();
         args.putInt(ARG_SECTION_NUMBER, sectionNumber);
         fragment.setArguments(args);

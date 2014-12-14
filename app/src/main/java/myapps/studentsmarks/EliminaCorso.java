@@ -11,38 +11,37 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.NumberPicker;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import static myapps.studentsmarks.GestioneAnniFragment.CreaArrayNomiAnni;
-import static myapps.studentsmarks.GestioneAnniFragment.getAnno;
-import static myapps.studentsmarks.GestioneAnniFragment.getListaAnni;
+import static myapps.studentsmarks.GestioneAnni.CreaArrayNomiAnni;
+import static myapps.studentsmarks.GestioneAnni.getAnno;
+import static myapps.studentsmarks.GestioneAnni.getListaAnni;
 import static myapps.studentsmarks.Utility.customTitleDialog;
 import static myapps.studentsmarks.Utility.makeFrameLWithNumPicker;
 
 /**
  * Created by Gio on 16.11.2014.
  */
-public class EliminaCorsoFragment extends Fragment {
+public class EliminaCorso extends Fragment {
     /**
      * The fragment argument representing the section number for this
      * fragment.
      */
     private static final String ARG_SECTION_NUMBER = "section_number";
 
-    public EliminaCorsoFragment() {
+    public EliminaCorso() {
     }
 
     /**
      * Returns a new instance of this fragment for the given section
      * number.
      */
-    public static EliminaCorsoFragment newInstance(int sectionNumber) {
-        EliminaCorsoFragment fragment = new EliminaCorsoFragment();
+    public static EliminaCorso newInstance(int sectionNumber) {
+        EliminaCorso fragment = new EliminaCorso();
         Bundle args = new Bundle();
         args.putInt(ARG_SECTION_NUMBER, sectionNumber);
         fragment.setArguments(args);

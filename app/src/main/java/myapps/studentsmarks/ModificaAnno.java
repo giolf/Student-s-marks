@@ -22,10 +22,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 import java.util.Calendar;
 
-import static myapps.studentsmarks.GestioneAnniFragment.CreaArrayNomiAnni;
-import static myapps.studentsmarks.GestioneAnniFragment.annoGiaEsistente;
-import static myapps.studentsmarks.GestioneAnniFragment.getAnno;
-import static myapps.studentsmarks.GestioneAnniFragment.getListaAnni;
+import static myapps.studentsmarks.GestioneAnni.CreaArrayNomiAnni;
+import static myapps.studentsmarks.GestioneAnni.annoGiaEsistente;
+import static myapps.studentsmarks.GestioneAnni.getAnno;
+import static myapps.studentsmarks.GestioneAnni.getListaAnni;
 import static myapps.studentsmarks.Utility.customTitleDialog;
 import static myapps.studentsmarks.Utility.makeFrameLWithNumPicker;
 import static myapps.studentsmarks.Utility.makeSchoolYearList;
@@ -34,22 +34,22 @@ import static myapps.studentsmarks.Utility.makeSchoolYearList;
 /**
  * Created by Giovanni far on 10.11.2014.
  */
-public class ModificaAnnoFragment extends Fragment {
+public class ModificaAnno extends Fragment {
     /**
      * The fragment argument representing the section number for this
      * fragment.
      */
     private static final String ARG_SECTION_NUMBER = "section_number";
 
-    public ModificaAnnoFragment() {
+    public ModificaAnno() {
     }
 
     /**
      * Returns a new instance of this fragment for the given section
      * number.
      */
-    public static ModificaAnnoFragment newInstance(int sectionNumber) {
-        ModificaAnnoFragment fragment = new ModificaAnnoFragment();
+    public static ModificaAnno newInstance(int sectionNumber) {
+        ModificaAnno fragment = new ModificaAnno();
         Bundle args = new Bundle();
         args.putInt(ARG_SECTION_NUMBER, sectionNumber);
         fragment.setArguments(args);

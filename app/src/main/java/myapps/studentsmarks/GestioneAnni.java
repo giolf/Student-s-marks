@@ -14,7 +14,7 @@ import java.util.Arrays;
 /**
  * Created by Gio on 24.11.2014.
  */
-public class GestioneAnniFragment extends Fragment {
+public class GestioneAnni extends Fragment {
 
     /*The fragment argument representing the section number for this fragment.*/
     private static final String ARG_SECTION_NUMBER = "section_number";
@@ -30,7 +30,7 @@ public class GestioneAnniFragment extends Fragment {
      */
     private static String NomeAnnoSelezionato = null;
 
-    public GestioneAnniFragment() {
+    public GestioneAnni() {
     }
 
     public static ArrayList<Anno> getListaAnni() {
@@ -75,8 +75,8 @@ public class GestioneAnniFragment extends Fragment {
     }
 
     /*Returns a new instance of this fragment for the given section number.*/
-    public static GestioneAnniFragment newInstance(int sectionNumber) {
-        GestioneAnniFragment fragment = new GestioneAnniFragment();
+    public static GestioneAnni newInstance(int sectionNumber) {
+        GestioneAnni fragment = new GestioneAnni();
         Bundle args = new Bundle();
         args.putInt(ARG_SECTION_NUMBER, sectionNumber);
         fragment.setArguments(args);
@@ -90,9 +90,9 @@ public class GestioneAnniFragment extends Fragment {
         tabHost = new FragmentTabHost(getActivity());
         tabHost.setup(getActivity(), getChildFragmentManager(), R.id.gestione_anni_container);
 
-        tabHost.addTab(tabHost.newTabSpec(getResources().getString(R.string.tab_crea_anno)).setIndicator(getResources().getString(R.string.tab_crea_anno)), CreaAnnoFragment.class, null);
-        tabHost.addTab(tabHost.newTabSpec(getResources().getString(R.string.tab_modifica_anno)).setIndicator(getResources().getString(R.string.tab_modifica_anno)), ModificaAnnoFragment.class, null);
-        tabHost.addTab(tabHost.newTabSpec(getResources().getString(R.string.tab_elimina_anno)).setIndicator(getResources().getString(R.string.tab_elimina_anno)), EliminaAnnoFragment.class, null);
+        tabHost.addTab(tabHost.newTabSpec(getResources().getString(R.string.tab_crea_anno)).setIndicator(getResources().getString(R.string.tab_crea_anno)), CreaAnno.class, null);
+        tabHost.addTab(tabHost.newTabSpec(getResources().getString(R.string.tab_modifica_anno)).setIndicator(getResources().getString(R.string.tab_modifica_anno)), ModificaAnno.class, null);
+        tabHost.addTab(tabHost.newTabSpec(getResources().getString(R.string.tab_elimina_anno)).setIndicator(getResources().getString(R.string.tab_elimina_anno)), EliminaAnno.class, null);
 
         return tabHost;
     }
