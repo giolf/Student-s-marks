@@ -94,12 +94,6 @@ public class StudentMarks extends Activity
                     .replace(R.id.container, GestioneVotiFragment.newInstance(position + 1))
                     .commit();
         }
-        else {
-            FragmentManager fragmentManager = getFragmentManager();
-            fragmentManager.beginTransaction()
-                    .replace(R.id.container, PlaceholderFragment.newInstance(position + 1))
-                    .commit();
-        }
     }
 
 
@@ -169,85 +163,5 @@ public class StudentMarks extends Activity
             return true;
         }
         return super.onOptionsItemSelected(item);
-    }
-
-    /**
-     * A placeholder fragment containing a simple view.
-     */
-    public static class PlaceholderFragment extends Fragment {
-        /**
-         * The fragment argument representing the section number for this
-         * fragment.
-         */
-        private static final String ARG_SECTION_NUMBER = "section_number";
-        FragmentTabHost mTabHost;
-        /**
-         * Returns a new instance of this fragment for the given section
-         * number.
-         */
-        public static PlaceholderFragment newInstance(int sectionNumber) {
-            PlaceholderFragment fragment = new PlaceholderFragment();
-            Bundle args = new Bundle();
-            args.putInt(ARG_SECTION_NUMBER, sectionNumber);
-            fragment.setArguments(args);
-            return fragment;
-        }
-
-        public PlaceholderFragment() {
-        }
-
-        @Override
-        public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                Bundle savedInstanceState) {
-            View rootView = inflater.inflate(R.layout.fragment_student_marks, container, false);
-
-           // mTabHost = new FragmentTabHost(getActivity());
-           // mTabHost.setup(getActivity(), getChildFragmentManager(), R.id.fragment1);
-
-
-            //mTabHost.addTab(mTabHost.newTabSpec("simple").setIndicator("Simple"),
-            //        FragmentTest.class, null);
-           //mTabHost.addTab(mTabHost.newTabSpec("contacts").setIndicator("Contacts"),
-            //        FragmentTest2.class, null);
-           // mTabHost.addTab(mTabHost.newTabSpec("throttle").setIndicator("Throttle"),
-           //         FragmentTest.class, null);
-
-          /* mTabHost.setOnTabChangedListener(new TabHost.OnTabChangeListener() {
-               public void onTabChanged(String tabId) {
-
-                    View currentView = mTabHost.getCurrentView();
-                   Animation animation = inFromRightAnimation();
-                   //currentView.setAnimation(animation);
-                   currentView.startAnimation(animation);
-               }
-               public Animation inFromRightAnimation()
-               {
-                   Animation inFromRight = new TranslateAnimation(
-                           Animation.RELATIVE_TO_PARENT, +1.0f,
-                           Animation.RELATIVE_TO_PARENT, 0.0f,
-                           Animation.RELATIVE_TO_PARENT, 0.0f,
-                           Animation.RELATIVE_TO_PARENT, 0.0f);
-                   inFromRight.setDuration(240);
-                   inFromRight.setInterpolator(new AccelerateInterpolator());
-                   return inFromRight;
-               }
-           });
-
-            return mTabHost;*/
-            return rootView;
-        }
-
-        @Override
-        public void onDestroyView() {
-            super.onDestroyView();
-            mTabHost = null;
-        }
-
-        @Override
-        public void onAttach(Activity activity) {
-            super.onAttach(activity);
-            ((StudentMarks) activity).onSectionAttached(
-                    getArguments().getInt(ARG_SECTION_NUMBER));
-        }
     }
 }

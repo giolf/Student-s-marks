@@ -24,7 +24,6 @@ public class Voto {
         this.nota       = nota;
     }
 
-
     public int getId() {
         return id;
     }
