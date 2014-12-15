@@ -1,4 +1,4 @@
-package myapps.studentsmarks;
+package myapps.studentgrades;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -18,10 +18,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 import java.util.Calendar;
 
-import static myapps.studentsmarks.GestioneAnni.annoGiaEsistente;
-import static myapps.studentsmarks.GestioneAnni.getListaAnni;
-import static myapps.studentsmarks.Utility.makeSchoolYearList;
-import static myapps.studentsmarks.Utility.makeFrameLWithNumPicker;
+import static myapps.studentgrades.GestioneAnni.annoGiaEsistente;
+import static myapps.studentgrades.GestioneAnni.getListaAnni;
+import static myapps.studentgrades.Utility.makeSchoolYearList;
+import static myapps.studentgrades.Utility.makeFrameLWithNumPicker;
 
 
 
@@ -53,7 +53,7 @@ public class CreaAnno extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView               = inflater.inflate(R.layout.fragment_crea_anno, container, false);
-        final StudentMarks activity = ((StudentMarks)getActivity());
+        final StudentGrades activity = ((StudentGrades)getActivity());
         final Button btnSalva       = (Button)rootView.findViewById(R.id.salva);
         final Button btnAnno        = (Button)rootView.findViewById(R.id.anno);
         final TextView tvAnno       = (TextView)rootView.findViewById(R.id.tv_anno);

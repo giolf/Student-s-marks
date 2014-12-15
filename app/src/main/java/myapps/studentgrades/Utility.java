@@ -1,6 +1,5 @@
-package myapps.studentsmarks;
+package myapps.studentgrades;
 
-import android.content.res.Resources;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
@@ -85,7 +84,7 @@ public class Utility {
         }
     }
 
-    public static TextView customTitleDialog(StudentMarks activity, int title) {
+    public static TextView customTitleDialog(StudentGrades activity, int title) {
         //setup del titolo
         TextView tv = new TextView(activity);
         tv.setText(title);
@@ -97,7 +96,7 @@ public class Utility {
     }
 
     //forse in futuro avrà piu senso inserirlo nella classe voto
-    public static String monthFromIntToString(StudentMarks activity, int month) {
+    public static String monthFromIntToString(StudentGrades activity, int month) {
         return activity.getResources().getStringArray(R.array.mesi)[month];
     }
 
@@ -109,7 +108,7 @@ public class Utility {
         return schoolYearList;
     }
 
-    public static FrameLayout makeFrameLWithNumPicker(NumberPicker picker, StudentMarks activity) {
+    public static FrameLayout makeFrameLWithNumPicker(NumberPicker picker, StudentGrades activity) {
         final FrameLayout parent = new FrameLayout(activity);
         parent.addView(picker, new FrameLayout.LayoutParams(
                 FrameLayout.LayoutParams.WRAP_CONTENT,
@@ -118,7 +117,7 @@ public class Utility {
         return parent;
     }
 
-    public static int[] convertiData(String data, StudentMarks activity) {
+    public static int[] convertiData(String data, StudentGrades activity) {
         String[] mesi = activity.getResources().getStringArray(R.array.mesi);
         HashMap<String, Integer> mappaMesi = new HashMap<String, Integer>();
         mappaMesi.put(mesi[0], 1);

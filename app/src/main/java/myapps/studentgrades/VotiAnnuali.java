@@ -1,4 +1,4 @@
-package myapps.studentsmarks;
+package myapps.studentgrades;
 
 import android.app.Fragment;
 import android.os.Bundle;

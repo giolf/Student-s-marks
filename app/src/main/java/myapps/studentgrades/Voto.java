@@ -1,4 +1,4 @@
-package myapps.studentsmarks;
+package myapps.studentgrades;
 
 /**
  * Created by Gio on 01.12.2014.

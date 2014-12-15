@@ -1,4 +1,4 @@
-package myapps.studentsmarks;
+package myapps.studentgrades;
 
 import android.app.Activity;
 import android.app.Fragment;
@@ -9,9 +9,9 @@ import android.view.View;
 import android.view.ViewGroup;
 
 /**
- * Created by Gio on 24.11.2014.
+ * Created by Gio on 10.12.2014.
  */
-public class GestioneCorsi extends Fragment {
+public class GestioneRiepilogoAnnuale extends Fragment {
     /**
      * The fragment argument representing the section number for this
      * fragment.
@@ -22,27 +22,27 @@ public class GestioneCorsi extends Fragment {
      * Returns a new instance of this fragment for the given section
      * number.
      */
-    public static GestioneCorsi newInstance(int sectionNumber) {
-        GestioneCorsi fragment = new GestioneCorsi();
+    public static GestioneRiepilogoAnnuale newInstance(int sectionNumber) {
+        GestioneRiepilogoAnnuale fragment = new GestioneRiepilogoAnnuale();
         Bundle args = new Bundle();
         args.putInt(ARG_SECTION_NUMBER, sectionNumber);
         fragment.setArguments(args);
         return fragment;
     }
 
-    public GestioneCorsi() {
+    public GestioneRiepilogoAnnuale() {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+
         //View rootView = inflater.inflate(R.layout.fragment_student_marks, container, false);
         tabHost = new FragmentTabHost(getActivity());
-        tabHost.setup(getActivity(), getChildFragmentManager(), R.id.gestione_corsi_container);
+        tabHost.setup(getActivity(), getChildFragmentManager(), R.id.riepilogo_annuale_container);
 
-        tabHost.addTab(tabHost.newTabSpec(getResources().getString(R.string.tab_crea_corso)).setIndicator(getResources().getString(R.string.tab_crea_corso)), CreaCorso.class, null);
-        tabHost.addTab(tabHost.newTabSpec(getResources().getString(R.string.tab_modifica_corso)).setIndicator(getResources().getString(R.string.tab_modifica_corso)), ModificaCorso.class, null);
-        tabHost.addTab(tabHost.newTabSpec(getResources().getString(R.string.tab_elimina_corso)).setIndicator(getResources().getString(R.string.tab_elimina_corso)), EliminaCorso.class, null);
+        tabHost.addTab(tabHost.newTabSpec(getResources().getString(R.string.tab_media_annuale)).setIndicator(getResources().getString(R.string.tab_media_annuale)), MediaAnnuale.class, null);
+        tabHost.addTab(tabHost.newTabSpec(getResources().getString(R.string.tab_corsi_annuali)).setIndicator(getResources().getString(R.string.tab_corsi_annuali)), CorsiAnnuali.class, null);
+        tabHost.addTab(tabHost.newTabSpec(getResources().getString(R.string.tab_voti_annuali)).setIndicator(getResources().getString(R.string.tab_voti_annuali)), VotiAnnuali.class, null);
 
         return tabHost;
     }
@@ -56,7 +56,7 @@ public class GestioneCorsi extends Fragment {
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
-        ((StudentMarks) activity).onSectionAttached(
+        ((StudentGrades) activity).onSectionAttached(
                 getArguments().getInt(ARG_SECTION_NUMBER));
     }
 }

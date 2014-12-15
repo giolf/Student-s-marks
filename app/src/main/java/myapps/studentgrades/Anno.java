@@ -1,4 +1,4 @@
-package myapps.studentsmarks;
+package myapps.studentgrades;
 
 import java.util.ArrayList;
 import java.util.Arrays;

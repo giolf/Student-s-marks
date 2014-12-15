@@ -1,4 +1,4 @@
-package myapps.studentsmarks;
+package myapps.studentgrades;
 
 import android.content.Context;
 import android.view.LayoutInflater;

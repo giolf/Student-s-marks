@@ -1,4 +1,4 @@
-package myapps.studentsmarks;
+package myapps.studentgrades;
 
 import android.app.Activity;
 import android.app.Fragment;
@@ -106,7 +106,7 @@ public class GestioneAnni extends Fragment {
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
-        ((StudentMarks) activity).onSectionAttached(
+        ((StudentGrades) activity).onSectionAttached(
                 getArguments().getInt(ARG_SECTION_NUMBER));
     }
 }

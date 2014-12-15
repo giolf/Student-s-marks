@@ -1,4 +1,4 @@
-package myapps.studentsmarks;
+package myapps.studentgrades;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -17,11 +17,11 @@ import android.widget.NumberPicker;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import static myapps.studentsmarks.GestioneAnni.CreaArrayNomiAnni;
-import static myapps.studentsmarks.GestioneAnni.getListaAnni;
-import static myapps.studentsmarks.GestioneAnni.rimuoviAnno;
-import static myapps.studentsmarks.Utility.customTitleDialog;
-import static myapps.studentsmarks.Utility.makeFrameLWithNumPicker;
+import static myapps.studentgrades.GestioneAnni.CreaArrayNomiAnni;
+import static myapps.studentgrades.GestioneAnni.getListaAnni;
+import static myapps.studentgrades.GestioneAnni.rimuoviAnno;
+import static myapps.studentgrades.Utility.customTitleDialog;
+import static myapps.studentgrades.Utility.makeFrameLWithNumPicker;
 
 /**
  * Created by Gio on 11.11.2014.
@@ -51,7 +51,7 @@ public class EliminaAnno extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView               = inflater.inflate(R.layout.fragment_elimina_anno, container, false);
-        final StudentMarks activity = ((StudentMarks)getActivity());
+        final StudentGrades activity = ((StudentGrades)getActivity());
         final Button btnAnno        = (Button)rootView.findViewById(R.id.anno);
         final Button btnElimina     = (Button)rootView.findViewById(R.id.salva);
         final TextView tvAnno       = (TextView)rootView.findViewById(R.id.tv_anno);

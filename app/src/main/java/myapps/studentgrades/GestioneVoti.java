@@ -1,4 +1,4 @@
-package myapps.studentsmarks;
+package myapps.studentgrades;
 
 import android.app.Activity;
 import android.app.Fragment;
@@ -9,9 +9,9 @@ import android.view.View;
 import android.view.ViewGroup;
 
 /**
- * Created by Gio on 10.12.2014.
+ * Created by Gio on 30.11.2014.
  */
-public class GestioneRiepilogoAnnuale extends Fragment {
+public class GestioneVoti extends Fragment {
     /**
      * The fragment argument representing the section number for this
      * fragment.
@@ -22,15 +22,15 @@ public class GestioneRiepilogoAnnuale extends Fragment {
      * Returns a new instance of this fragment for the given section
      * number.
      */
-    public static GestioneRiepilogoAnnuale newInstance(int sectionNumber) {
-        GestioneRiepilogoAnnuale fragment = new GestioneRiepilogoAnnuale();
+    public static GestioneVoti newInstance(int sectionNumber) {
+        GestioneVoti fragment = new GestioneVoti();
         Bundle args = new Bundle();
         args.putInt(ARG_SECTION_NUMBER, sectionNumber);
         fragment.setArguments(args);
         return fragment;
     }
 
-    public GestioneRiepilogoAnnuale() {
+    public GestioneVoti() {
     }
 
     @Override
@@ -38,11 +38,11 @@ public class GestioneRiepilogoAnnuale extends Fragment {
 
         //View rootView = inflater.inflate(R.layout.fragment_student_marks, container, false);
         tabHost = new FragmentTabHost(getActivity());
-        tabHost.setup(getActivity(), getChildFragmentManager(), R.id.riepilogo_annuale_container);
+        tabHost.setup(getActivity(), getChildFragmentManager(), R.id.gestione_voti_container);
 
-        tabHost.addTab(tabHost.newTabSpec(getResources().getString(R.string.tab_media_annuale)).setIndicator(getResources().getString(R.string.tab_media_annuale)), MediaAnnuale.class, null);
-        tabHost.addTab(tabHost.newTabSpec(getResources().getString(R.string.tab_corsi_annuali)).setIndicator(getResources().getString(R.string.tab_corsi_annuali)), CorsiAnnuali.class, null);
-        tabHost.addTab(tabHost.newTabSpec(getResources().getString(R.string.tab_voti_annuali)).setIndicator(getResources().getString(R.string.tab_voti_annuali)), VotiAnnuali.class, null);
+        tabHost.addTab(tabHost.newTabSpec(getResources().getString(R.string.tab_crea_voto)).setIndicator(getResources().getString(R.string.tab_crea_voto)), CreaVoto.class, null);
+        tabHost.addTab(tabHost.newTabSpec(getResources().getString(R.string.tab_modifica_voto)).setIndicator(getResources().getString(R.string.tab_modifica_voto)), ModificaVoto.class, null);
+        tabHost.addTab(tabHost.newTabSpec(getResources().getString(R.string.tab_elimina_voto)).setIndicator(getResources().getString(R.string.tab_elimina_voto)), EliminaVoto.class, null);
 
         return tabHost;
     }
@@ -56,7 +56,7 @@ public class GestioneRiepilogoAnnuale extends Fragment {
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
-        ((StudentMarks) activity).onSectionAttached(
+        ((StudentGrades) activity).onSectionAttached(
                 getArguments().getInt(ARG_SECTION_NUMBER));
     }
 }

@@ -1,4 +1,4 @@
-package myapps.studentsmarks;
+package myapps.studentgrades;
 
 import android.app.Activity;
 import android.app.ActionBar;
@@ -8,10 +8,10 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.support.v4.widget.DrawerLayout;
 
-import static myapps.studentsmarks.GestioneAnni.getNomeAnnoSelezionato;
-import static myapps.studentsmarks.GestioneAnni.getListaAnni;
+import static myapps.studentgrades.GestioneAnni.getNomeAnnoSelezionato;
+import static myapps.studentgrades.GestioneAnni.getListaAnni;
 
-public class StudentMarks extends Activity
+public class StudentGrades extends Activity
         implements NavigationDrawerFragment.NavigationDrawerCallbacks {
 
     /**

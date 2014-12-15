@@ -1,4 +1,4 @@
-package myapps.studentsmarks;
+package myapps.studentgrades;
 
 import android.app.Activity;
 import android.app.Fragment;
@@ -9,9 +9,9 @@ import android.view.View;
 import android.view.ViewGroup;
 
 /**
- * Created by Gio on 30.11.2014.
+ * Created by Gio on 24.11.2014.
  */
-public class GestioneVoti extends Fragment {
+public class GestioneCorsi extends Fragment {
     /**
      * The fragment argument representing the section number for this
      * fragment.
@@ -22,27 +22,27 @@ public class GestioneVoti extends Fragment {
      * Returns a new instance of this fragment for the given section
      * number.
      */
-    public static GestioneVoti newInstance(int sectionNumber) {
-        GestioneVoti fragment = new GestioneVoti();
+    public static GestioneCorsi newInstance(int sectionNumber) {
+        GestioneCorsi fragment = new GestioneCorsi();
         Bundle args = new Bundle();
         args.putInt(ARG_SECTION_NUMBER, sectionNumber);
         fragment.setArguments(args);
         return fragment;
     }
 
-    public GestioneVoti() {
+    public GestioneCorsi() {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
         //View rootView = inflater.inflate(R.layout.fragment_student_marks, container, false);
         tabHost = new FragmentTabHost(getActivity());
-        tabHost.setup(getActivity(), getChildFragmentManager(), R.id.gestione_voti_container);
+        tabHost.setup(getActivity(), getChildFragmentManager(), R.id.gestione_corsi_container);
 
-        tabHost.addTab(tabHost.newTabSpec(getResources().getString(R.string.tab_crea_voto)).setIndicator(getResources().getString(R.string.tab_crea_voto)), CreaVoto.class, null);
-        tabHost.addTab(tabHost.newTabSpec(getResources().getString(R.string.tab_modifica_voto)).setIndicator(getResources().getString(R.string.tab_modifica_voto)), ModificaVoto.class, null);
-        tabHost.addTab(tabHost.newTabSpec(getResources().getString(R.string.tab_elimina_voto)).setIndicator(getResources().getString(R.string.tab_elimina_voto)), EliminaVoto.class, null);
+        tabHost.addTab(tabHost.newTabSpec(getResources().getString(R.string.tab_crea_corso)).setIndicator(getResources().getString(R.string.tab_crea_corso)), CreaCorso.class, null);
+        tabHost.addTab(tabHost.newTabSpec(getResources().getString(R.string.tab_modifica_corso)).setIndicator(getResources().getString(R.string.tab_modifica_corso)), ModificaCorso.class, null);
+        tabHost.addTab(tabHost.newTabSpec(getResources().getString(R.string.tab_elimina_corso)).setIndicator(getResources().getString(R.string.tab_elimina_corso)), EliminaCorso.class, null);
 
         return tabHost;
     }
@@ -56,7 +56,7 @@ public class GestioneVoti extends Fragment {
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
-        ((StudentMarks) activity).onSectionAttached(
+        ((StudentGrades) activity).onSectionAttached(
                 getArguments().getInt(ARG_SECTION_NUMBER));
     }
 }

@@ -21,7 +21,7 @@
         <item>Dicembre</item>
     </string-array>
 
-    <string name="app_name">Student\'s marks</string>
+    <string name="app_name">Student\'s grades</string>
     <string name="dialog_tit_avviso">AVVISO</string>
     <string name="dialog_tit_ca">Seleziona l\'anno scolastico da creare</string>
     <string name="dialog_tit_ma">Seleziona l\'anno scolastico da modificare</string>

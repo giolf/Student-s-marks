@@ -1,6 +1,5 @@
-package myapps.studentsmarks;
+package myapps.studentgrades;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 /**

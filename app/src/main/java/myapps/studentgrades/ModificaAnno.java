@@ -1,4 +1,4 @@
-package myapps.studentsmarks;
+package myapps.studentgrades;
 
 /**
  * Created by Gio on 10.11.2014.
@@ -22,13 +22,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 import java.util.Calendar;
 
-import static myapps.studentsmarks.GestioneAnni.CreaArrayNomiAnni;
-import static myapps.studentsmarks.GestioneAnni.annoGiaEsistente;
-import static myapps.studentsmarks.GestioneAnni.getAnno;
-import static myapps.studentsmarks.GestioneAnni.getListaAnni;
-import static myapps.studentsmarks.Utility.customTitleDialog;
-import static myapps.studentsmarks.Utility.makeFrameLWithNumPicker;
-import static myapps.studentsmarks.Utility.makeSchoolYearList;
+import static myapps.studentgrades.GestioneAnni.CreaArrayNomiAnni;
+import static myapps.studentgrades.GestioneAnni.annoGiaEsistente;
+import static myapps.studentgrades.GestioneAnni.getAnno;
+import static myapps.studentgrades.GestioneAnni.getListaAnni;
+import static myapps.studentgrades.Utility.customTitleDialog;
+import static myapps.studentgrades.Utility.makeFrameLWithNumPicker;
+import static myapps.studentgrades.Utility.makeSchoolYearList;
 
 
 /**
@@ -59,7 +59,7 @@ public class ModificaAnno extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_modifica_anno, container, false);
-        final StudentMarks activity = ((StudentMarks)getActivity());
+        final StudentGrades activity = ((StudentGrades)getActivity());
         final Button btnSalva       = (Button)rootView.findViewById(R.id.salva);
         final Button btnAnno        = (Button)rootView.findViewById(R.id.anno);
         final Button btnAnnoDM      = (Button)rootView.findViewById(R.id.anno_dm);
