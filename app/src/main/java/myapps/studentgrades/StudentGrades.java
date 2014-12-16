@@ -104,7 +104,6 @@ public class StudentGrades extends Activity
         actionBar.setTitle(mTitle);
     }
 
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         if ( !mNavigationDrawerFragment.isDrawerOpen() ) {
@@ -112,6 +111,7 @@ public class StudentGrades extends Activity
             // if the drawer is not showing. Otherwise, let the drawer
             // decide what to show in the action bar.
             getMenuInflater().inflate(R.menu.student_marks, menu);
+
             //salvo il menu nella variabile d'istanza dell'activity
             this.menu = menu;
 

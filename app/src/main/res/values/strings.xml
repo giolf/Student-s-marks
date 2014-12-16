@@ -22,6 +22,7 @@
     </string-array>
 
     <string name="app_name">Student\'s grades</string>
+
     <string name="dialog_tit_avviso">AVVISO</string>
     <string name="dialog_tit_ca">Seleziona l\'anno scolastico da creare</string>
     <string name="dialog_tit_ma">Seleziona l\'anno scolastico da modificare</string>
@@ -40,6 +41,7 @@
     <string name="dialog_tit_mv">Seleziona il voto del corso</string>
     <string name="dialog_tit_mv2">Modifica la data del voto selezionato</string>
     <string name="dialog_tit_mv3">Modifica il punteggio del voto selezionato</string>
+    <string name="dialog_tit_menu_sa">Seleziona l\'anno scolastico</string>
     <string name="dialog_btn_salva">Salva</string>
     <string name="dialog_btn_seleziona">Seleziona</string>
     <string name="dialog_btn_modifica">Modifica</string>
@@ -94,6 +96,7 @@
     <string name="layout_tvl_voto">VOTO</string>
     <string name="layout_tvl_md_voto">MODIFICA DATA VOTO</string>
     <string name="layout_tvl_md_punteggio">MODIFICA PUNTEGGIO VOTO</string>
+    <string name="layout_tv_ma_mnd">DATI INSUFFICIENTI\nMEDIA NON DISPONIBILE</string>
 
     <string name="errore_msg">"Non puoi cambiare anno scolastico\ndopo aver scelto un corso.\nPer favore ripeti la procedura"</string>
     <string name="errore_msg2">"Non puoi cambiare corso\ndopo aver scelto un voto.\nPer favore ripeti la procedura"</string>

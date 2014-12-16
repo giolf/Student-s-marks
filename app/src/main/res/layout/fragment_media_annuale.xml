@@ -1,6 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent" android:layout_height="match_parent">
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:background="#ededed">
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text=""
+        android:id="@+id/mediaAnnuale"
+        android:textSize="60dp"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        android:visibility="invisible" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text=""
+        android:id="@+id/varMediaAnnuale"
+        android:layout_below="@+id/mediaAnnuale"
+        android:layout_centerHorizontal="true"
+        android:textSize="20dp"
+        android:visibility="invisible" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="@string/layout_tv_ma_mnd"
+        android:id="@+id/msgMediaNonDisp"
+        android:singleLine="false"
+        android:textIsSelectable="false"
+        android:layout_marginTop="45dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:phoneNumber="false"
+        android:textColor="#ff7b7b7b"
+        android:gravity="center"
+        android:textSize="15dp"
+        android:typeface="normal"
+        android:textStyle="bold"
+        android:visibility="invisible" />
 </RelativeLayout>

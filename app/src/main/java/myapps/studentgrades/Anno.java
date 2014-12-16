@@ -34,7 +34,7 @@ public class Anno {
     }
 
     public double getMediaAttuale() {
-        return mediaAttuale;
+        return arrotondaMedia(mediaAttuale, 2);
     }
 
     public void setMediaAttuale(double mediaAttuale) {
@@ -42,7 +42,7 @@ public class Anno {
     }
 
     public double getMediaPrecedente() {
-        return mediaPrecedente;
+        return arrotondaMedia(mediaPrecedente, 2);
     }
 
     public void setMediaPrecedente(double mediaPrecedente) {
@@ -80,6 +80,24 @@ public class Anno {
                 return true;
         }
         return false;
+    }
+
+    public int numeroVotiAnnuali() {
+        int numVoti = 0;
+        for (Corso corso : listaCorsi)
+            numVoti += corso.getListaVoti().size();
+        return numVoti;
+    }
+
+    public double getDifferenzaMediaAttualePrecedente() {
+        return arrotondaMedia(mediaAttuale - mediaPrecedente, 2);
+    }
+
+    private double arrotondaMedia(double valore, int precisione) {
+        long factor = (long) Math.pow(10, precisione);
+        valore = valore * factor;
+        long tmp = Math.round(valore);
+        return (double) tmp / factor;
     }
 
     public void aggiornaMedia() {
