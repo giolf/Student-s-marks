@@ -18,8 +18,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 import java.util.Calendar;
 
-import static myapps.studentgrades.GestioneAnni.annoGiaEsistente;
-import static myapps.studentgrades.GestioneAnni.getListaAnni;
+import static myapps.studentgrades.DataSource.annoGiaEsistente;
+import static myapps.studentgrades.DataSource.getListaAnni;
 import static myapps.studentgrades.Utility.makeSchoolYearList;
 import static myapps.studentgrades.Utility.makeFrameLWithNumPicker;
 

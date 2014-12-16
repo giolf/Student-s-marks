@@ -20,11 +20,11 @@ import android.widget.NumberPicker;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import static myapps.studentgrades.GestioneAnni.CreaArrayNomiAnni;
-import static myapps.studentgrades.GestioneAnni.getAnno;
-import static myapps.studentgrades.GestioneAnni.getListaAnni;
-import static myapps.studentgrades.GestioneAnni.getNomeAnnoSelezionato;
-import static myapps.studentgrades.GestioneAnni.setNomeAnnoSelezionatoo;
+import static myapps.studentgrades.DataSource.CreaArrayNomiAnni;
+import static myapps.studentgrades.DataSource.getAnno;
+import static myapps.studentgrades.DataSource.getListaAnni;
+import static myapps.studentgrades.DataSource.getNomeAnnoSelezionato;
+import static myapps.studentgrades.DataSource.setNomeAnnoSelezionatoo;
 import static myapps.studentgrades.Utility.customTitleDialog;
 import static myapps.studentgrades.Utility.makeFrameLWithNumPicker;
 
@@ -77,7 +77,7 @@ public class MediaAnnuale extends Fragment {
         if ( !activity.getMNavigationDrawerFragment().isDrawerOpen() ) {
             View rootView = getView();
             String AnnoSelezionato = (String)menu.findItem(R.id.action_selected_year).getTitle();
-            Anno anno = GestioneAnni.getAnno(AnnoSelezionato);
+            Anno anno = getAnno(AnnoSelezionato);
             //se non ce selezionato nessun anno avverto l'utente che non è possibile visualizzare la media
             if ( AnnoSelezionato.equals("-") ) {
                 //trovarsi dentro a questo blocco significa, indirettamente, a non aver creato nessun anno

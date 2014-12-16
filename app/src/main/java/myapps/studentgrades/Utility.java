@@ -13,59 +13,13 @@ import java.util.HashMap;
 /**
  * Created by Gio on 10.11.2014.
  */
-public class Utility {
-
-    public static void showJustYear(DatePicker picker) {
-        try {
-            Field f[] = picker.getClass().getDeclaredFields();
-            for (Field field : f) {
-                if (field.getName().equals("mDaySpinner") || field.getName().equals("mMonthSpinner")) {
-                    field.setAccessible(true);
-                    Object yearPicker = new Object();
-                    yearPicker = field.get(picker);
-                    ((View) yearPicker).setVisibility(View.GONE);
-                }
-            }
-        }
-        catch (SecurityException e) {
-            Log.d("ERROR", e.getMessage());
-        }
-        catch (IllegalArgumentException e) {
-            Log.d("ERROR", e.getMessage());
-        }
-        catch (IllegalAccessException e) {
-            Log.d("ERROR", e.getMessage());
-        }
-    }
+public abstract class Utility {
 
     public static void showJustDayAndMonth(DatePicker picker) {
         try {
             Field f[] = picker.getClass().getDeclaredFields();
             for (Field field : f) {
                 if (field.getName().equals("mYearSpinner")) {
-                    field.setAccessible(true);
-                    Object yearPicker = new Object();
-                    yearPicker = field.get(picker);
-                    ((View) yearPicker).setVisibility(View.GONE);
-                }
-            }
-        }
-        catch (SecurityException e) {
-            Log.d("ERROR", e.getMessage());
-        }
-        catch (IllegalArgumentException e) {
-            Log.d("ERROR", e.getMessage());
-        }
-        catch (IllegalAccessException e) {
-            Log.d("ERROR", e.getMessage());
-        }
-    }
-
-    public static void showJustDay(DatePicker picker) {
-        try {
-            Field f[] = picker.getClass().getDeclaredFields();
-            for (Field field : f) {
-                if (field.getName().equals("mYearSpinner") || field.getName().equals("mMonthSpinner")) {
                     field.setAccessible(true);
                     Object yearPicker = new Object();
                     yearPicker = field.get(picker);

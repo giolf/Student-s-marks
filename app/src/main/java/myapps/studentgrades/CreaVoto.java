@@ -20,9 +20,9 @@ import android.widget.NumberPicker;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import static myapps.studentgrades.GestioneAnni.CreaArrayNomiAnni;
-import static myapps.studentgrades.GestioneAnni.getAnno;
-import static myapps.studentgrades.GestioneAnni.getListaAnni;
+import static myapps.studentgrades.DataSource.CreaArrayNomiAnni;
+import static myapps.studentgrades.DataSource.getAnno;
+import static myapps.studentgrades.DataSource.getListaAnni;
 import static myapps.studentgrades.Utility.convertiData;
 import static myapps.studentgrades.Utility.customTitleDialog;
 import static myapps.studentgrades.Utility.makeFrameLWithNumPicker;
@@ -290,7 +290,7 @@ public class CreaVoto extends Fragment {
                                 int giornoSelezionato   = picker.getDayOfMonth();
 
                                 //controllo se ce gia un voto con la medesima data nel corso selezionato
-                                Anno annoSelezionato   = GestioneAnni.getAnno((String) tvAnno.getText());
+                                Anno annoSelezionato   = getAnno((String) tvAnno.getText());
                                 Corso corsoSelezionato = annoSelezionato.getCorso( (String)tvCorso.getText() );
                                 if ( corsoSelezionato.votoGiaEsistente(""+giornoSelezionato+" "+meseSelezionato) ) {
                                     //ce gia un voto con la data selezionata nella lista dei voti nel corso selezionato

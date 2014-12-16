@@ -19,9 +19,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 import java.util.ArrayList;
 
-import static myapps.studentgrades.GestioneAnni.CreaArrayNomiAnni;
-import static myapps.studentgrades.GestioneAnni.getAnno;
-import static myapps.studentgrades.GestioneAnni.getListaAnni;
+import static myapps.studentgrades.DataSource.CreaArrayNomiAnni;
+import static myapps.studentgrades.DataSource.getAnno;
+import static myapps.studentgrades.DataSource.getListaAnni;
 import static myapps.studentgrades.Utility.customTitleDialog;
 import static myapps.studentgrades.Utility.makeFrameLWithNumPicker;
 
@@ -261,7 +261,7 @@ public class EliminaVoto extends Fragment {
                         btnVoto.setBackgroundColor(Color.parseColor("#ffffff"));
 
                         //prendo i voti del corso selezionato
-                        Anno annoSelezionato      = GestioneAnni.getAnno((String) tvAnno.getText());
+                        Anno annoSelezionato      = getAnno((String) tvAnno.getText());
                         Corso corsoSelezionato    = annoSelezionato.getCorso( (String)tvCorso.getText() );
                         final ArrayList<Voto> listaVoti = corsoSelezionato.getListaVoti();
 
@@ -343,7 +343,7 @@ public class EliminaVoto extends Fragment {
                         int inizioSubString = rootView.getResources().getString(R.string.layout_msg_mv6).length()+1;
                         int fineSubString   = tvVoto.getText().length();
                         String dataPulita   = (String)tvVoto.getText().subSequence(inizioSubString, fineSubString);
-                        Anno annoSelezionato   = GestioneAnni.getAnno((String) tvAnno.getText());
+                        Anno annoSelezionato   = getAnno((String) tvAnno.getText());
                         Corso corsoSelezionato = annoSelezionato.getCorso( (String)tvCorso.getText() );
                         corsoSelezionato.rimuoviVoto(dataPulita);
 

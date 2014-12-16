@@ -22,10 +22,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 import java.util.Calendar;
 
-import static myapps.studentgrades.GestioneAnni.CreaArrayNomiAnni;
-import static myapps.studentgrades.GestioneAnni.annoGiaEsistente;
-import static myapps.studentgrades.GestioneAnni.getAnno;
-import static myapps.studentgrades.GestioneAnni.getListaAnni;
+import static myapps.studentgrades.DataSource.CreaArrayNomiAnni;
+import static myapps.studentgrades.DataSource.annoGiaEsistente;
+import static myapps.studentgrades.DataSource.getAnno;
+import static myapps.studentgrades.DataSource.getListaAnni;
 import static myapps.studentgrades.Utility.customTitleDialog;
 import static myapps.studentgrades.Utility.makeFrameLWithNumPicker;
 import static myapps.studentgrades.Utility.makeSchoolYearList;

@@ -17,9 +17,9 @@ import android.widget.NumberPicker;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import static myapps.studentgrades.GestioneAnni.CreaArrayNomiAnni;
-import static myapps.studentgrades.GestioneAnni.getListaAnni;
-import static myapps.studentgrades.GestioneAnni.rimuoviAnno;
+import static myapps.studentgrades.DataSource.CreaArrayNomiAnni;
+import static myapps.studentgrades.DataSource.getListaAnni;
+import static myapps.studentgrades.DataSource.rimuoviAnno;
 import static myapps.studentgrades.Utility.customTitleDialog;
 import static myapps.studentgrades.Utility.makeFrameLWithNumPicker;
 

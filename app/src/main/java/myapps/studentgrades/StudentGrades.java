@@ -8,8 +8,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.support.v4.widget.DrawerLayout;
 
-import static myapps.studentgrades.GestioneAnni.getNomeAnnoSelezionato;
-import static myapps.studentgrades.GestioneAnni.getListaAnni;
+import static myapps.studentgrades.DataSource.getNomeAnnoSelezionato;
+import static myapps.studentgrades.DataSource.getListaAnni;
 
 public class StudentGrades extends Activity
         implements NavigationDrawerFragment.NavigationDrawerCallbacks {
