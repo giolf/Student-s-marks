@@ -236,6 +236,9 @@ public class NavigationDrawerFragment extends Fragment {
         // showGlobalContextActionBar, which controls the top-left area of the action bar.
         if (mDrawerLayout != null && isDrawerOpen()) {
             inflater.inflate(R.menu.global, menu);
+
+            //se il drawer è aperto nascondo il bottone delle impostazioni
+            menu.findItem(R.id.action_settings).setVisible(false);
             showGlobalContextActionBar();
         }
         super.onCreateOptionsMenu(menu, inflater);

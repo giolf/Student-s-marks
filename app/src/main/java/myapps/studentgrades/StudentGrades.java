@@ -24,19 +24,6 @@ public class StudentGrades extends Activity
      */
     private CharSequence mTitle;
 
-    /**
-     * Usato per gestire il menu, nello specifico i bottoni di selezione anno e delle impostazioni
-     */
-    private Menu menu;
-
-    public Menu getMenu() {
-        return menu;
-    }
-
-    public void setMenu(Menu menu) {
-        this.menu = menu;
-    }
-
     public NavigationDrawerFragment getMNavigationDrawerFragment() {
         return mNavigationDrawerFragment;
     }
@@ -112,9 +99,6 @@ public class StudentGrades extends Activity
             // decide what to show in the action bar.
             getMenuInflater().inflate(R.menu.student_marks, menu);
 
-            //salvo il menu nella variabile d'istanza dell'activity
-            this.menu = menu;
-
             // se l'utente non ha creato nessun anno, per default visualizzo un '-'
             if ( getListaAnni().size() == 0 )
                 menu.findItem(R.id.action_selected_year).setTitle(getResources().getString(R.string.action_selected_year));
@@ -140,8 +124,8 @@ public class StudentGrades extends Activity
             //dopo aver settato il titolo controllo in quale pagina l'utente si trova
             //se non sono in 'riepilogo annuale' nascondo i 2 bottoni nell'actionbar
             if ( !mTitle.equals(getResources().getStringArray(R.array.menu)[0]) ) {
-                getMenu().findItem(R.id.action_selected_year).setVisible(false);
-                getMenu().findItem(R.id.action_settings).setVisible(false);
+                menu.findItem(R.id.action_selected_year).setVisible(false);
+                menu.findItem(R.id.action_settings).setVisible(false);
             }
             return true;
         }
