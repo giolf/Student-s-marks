@@ -20,6 +20,7 @@ import java.util.Calendar;
 
 import static myapps.studentgrades.DataSource.annoGiaEsistente;
 import static myapps.studentgrades.DataSource.getListaAnni;
+import static myapps.studentgrades.DataSource.aggiungiAnno;
 import static myapps.studentgrades.Utility.makeSchoolYearList;
 import static myapps.studentgrades.Utility.makeFrameLWithNumPicker;
 
@@ -148,7 +149,7 @@ public class CreaAnno extends Fragment {
                         return true;
                     case MotionEvent.ACTION_UP:
                         //salvo i dati relativi all anno creato
-                        getListaAnni().add( new Anno((String) tvAnno.getText()) );
+                        aggiungiAnno( new Anno((String) tvAnno.getText()) );
 
                         //inizio messaggio output - creazione anno
                         Toast toast = Toast.makeText(activity, getResources().getText(R.string.output_msg_ca), Toast.LENGTH_LONG);

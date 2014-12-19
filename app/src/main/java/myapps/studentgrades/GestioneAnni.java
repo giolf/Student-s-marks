@@ -8,8 +8,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 
 /**
  * Created by Gio on 24.11.2014.
@@ -20,7 +18,7 @@ public class GestioneAnni extends Fragment {
     private static final String ARG_SECTION_NUMBER = "section_number";
 
     /*Gestisce i fragments di creazione, modifica ed eliminazione anno*/
-    FragmentTabHost tabHost;
+    private FragmentTabHost tabHost;
 
     public GestioneAnni() {
     }

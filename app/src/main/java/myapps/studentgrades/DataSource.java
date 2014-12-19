@@ -33,6 +33,10 @@ public abstract class DataSource {
         return null;
     }
 
+    public static void aggiungiAnno(Anno anno) {
+        listaAnni.add(anno);
+    }
+
     public static void rimuoviAnno(String nomeAnnoScolastico) {
         for (int i = 0; i<listaAnni.size(); i++)
             if ( listaAnni.get(i).getNomeAnnoScolastico().equals(nomeAnnoScolastico) )

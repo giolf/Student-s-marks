@@ -1,12 +1,9 @@
 package myapps.studentgrades;
 
-import android.app.ActionBar;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.Fragment;
-import android.content.ClipData;
 import android.content.DialogInterface;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -18,7 +15,6 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.NumberPicker;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import static myapps.studentgrades.DataSource.CreaArrayNomiAnni;
 import static myapps.studentgrades.DataSource.getAnno;
@@ -56,7 +52,7 @@ public class MediaAnnuale extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_media_annuale, container, false);
-        //mi permette di chiamare onCreateOptionMenu() in questa classe subito dopo il termine di questo metodo
+        //mi permette di chiamare il metodo onCreateOptionMenu() di questa classe dopo il termine di questo metodo
         setHasOptionsMenu(true);
 
 
@@ -69,12 +65,35 @@ public class MediaAnnuale extends Fragment {
      * quindi in tale metodo non potrei fare i controlli necessari con il bottone di selezione dell'anno del menu in quanto non è ancora stato settato il menu
      * quindi li faccio all'interno di questo metodo che mi da a dispozione il menu che è lo stesso di quello che ha settato l'activity
      * QUI DENTRO IL MENU E' GIA SETTATO NON HO BISOGNO DI SETTARLO UN ALTRA VOLTA MA LO USO PER FARE DEI CONTROLLI DI GESTIONE
+     * onCreateView--->onCreateOptionMenu dell'activity--->onCreateOptionMenu dell fragment (il metodo qui sotto)
      */
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         StudentGrades activity = (StudentGrades)getActivity();
 
         if ( !activity.getMNavigationDrawerFragment().isDrawerOpen() ) {
+            /*INIZIO impostazione bottone del selettore dell'anno scolastico*/
+            // se l'utente non ha creato nessun anno, per default visualizzo un '-'
+            if ( getListaAnni().size() == 0 )
+                menu.findItem(R.id.action_selected_year).setTitle(getResources().getString(R.string.action_selected_year));
+
+                // se l'utente ha almeno 1 anno creato, MA non ha ancora selezionato un anno per il quale
+                // visualizzarne le relative statistiche, per default imposto l'ultimo anno creato
+            else if ( getListaAnni().size() > 0 && getNomeAnnoSelezionato() == null ) {
+                int numeroAnniCreati        = getListaAnni().size();
+                Anno ultimoAnnoCreato       = getListaAnni().get(numeroAnniCreati-1);
+                String nomeUltimoAnnoCreato = ultimoAnnoCreato.getNomeAnnoScolastico();
+
+                menu.findItem(R.id.action_selected_year).setTitle(nomeUltimoAnnoCreato);
+            }
+
+            // se l'utente ha almeno 1 anno creato e ha selezionato un anno per il quale
+            // visualizzarne le relative statistiche, imposto la selezione fatta dall utente
+            else if ( getListaAnni().size() > 0 && getNomeAnnoSelezionato() != null )
+                menu.findItem(R.id.action_selected_year).setTitle(getNomeAnnoSelezionato());
+            /*FINE impostazione bottone del selettore dell'anno scolastico*/
+
+            /*INIZIO impostazioni view della pagina 'media annuale'*/
             View rootView = getView();
             String AnnoSelezionato = (String)menu.findItem(R.id.action_selected_year).getTitle();
             Anno anno = getAnno(AnnoSelezionato);
@@ -100,21 +119,23 @@ public class MediaAnnuale extends Fragment {
                 double mediaAttuale = anno.getMediaAttuale();
 
                 //calcolo il valore della differenza della media annuale (mediaAttuale - mediaPrecedente)
-                double diffMedia    = anno.getDifferenzaMediaAttualePrecedente();
+                double diffMedia = anno.getDifferenzaMediaAttualePrecedente();
 
-                //mostro le media e la differenza di media sulle relative textView
+                //mostro le media e la differenza di media sulle relative textView della pagina 'media annuale'
                 ((TextView)rootView.findViewById(R.id.mediaAnnuale)).setText(""+mediaAttuale);
                 ((TextView)rootView.findViewById(R.id.varMediaAnnuale)).setText(""+diffMedia);
                 rootView.findViewById(R.id.msgMediaNonDisp).setVisibility(View.INVISIBLE);
                 rootView.findViewById(R.id.mediaAnnuale).setVisibility(View.VISIBLE);
                 rootView.findViewById(R.id.varMediaAnnuale).setVisibility(View.VISIBLE);
             }
+            /*FINE impostazioni view della pagina 'media annuale'*/
         }
     }
 
     @Override
     public boolean onOptionsItemSelected(final MenuItem item) {
         StudentGrades activity = (StudentGrades)getActivity();
+        final View rootView          = getView();
 
         //se il bottone del menu cliccato è il selettore dell'anno
         if (item.getItemId() == R.id.action_selected_year) {
@@ -161,21 +182,40 @@ public class MediaAnnuale extends Fragment {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         //recupero la selezione dell'anno fatta tramite il dialog
-                        String annoSelezionato = anniCreatiutente[picker.getValue()];
+                        String nomeAnnoSelezionato = anniCreatiutente[picker.getValue()];
 
                         //salvo la selezione dell'anno
-                        setNomeAnnoSelezionatoo(annoSelezionato);
+                        setNomeAnnoSelezionatoo(nomeAnnoSelezionato);
 
                         //mostro l'anno selezionato nel bottone del menu
-                        item.setTitle(annoSelezionato);
+                        item.setTitle(nomeAnnoSelezionato);
 
-                        //recupero la media e la differenza di media dell'anno selezionato
-                        double mediaAttuale = getAnno(annoSelezionato).getMediaAttuale();
-                        double diffMedia    = getAnno(annoSelezionato).getDifferenzaMediaAttualePrecedente();
+                        //recupero l'anno selezionato
+                        Anno annoSelezionato = getAnno(nomeAnnoSelezionato);
 
-                        //mostro la media e la differenza di media nelle TextView 'mediaAnnuale', 'varMediaAnnuale'
-                        ((TextView)getView().findViewById(R.id.mediaAnnuale)).setText(""+mediaAttuale);
-                        ((TextView)getView().findViewById(R.id.varMediaAnnuale)).setText(""+diffMedia);
+                        //se l'anno selezionato non ha voti avverto l'utente che non è possibile visualizzare la media
+                        if (annoSelezionato.numeroVotiAnnuali() == 0) {
+                            rootView.findViewById(R.id.mediaAnnuale).setVisibility(View.INVISIBLE);
+                            rootView.findViewById(R.id.varMediaAnnuale).setVisibility(View.INVISIBLE);
+                            rootView.findViewById(R.id.msgMediaNonDisp).setVisibility(View.VISIBLE);
+                            //dopo di che termino qui il metodo
+                            return;
+                        }
+                        else {
+                            //l'anno selezionato ha voti: recupero la media e la differenza di media dell'anno selezionato
+                            double mediaAttuale = getAnno(nomeAnnoSelezionato).getMediaAttuale();
+                            double diffMedia = getAnno(nomeAnnoSelezionato).getDifferenzaMediaAttualePrecedente();
+
+                            //e poi mostro la media e la differenza di media nelle TextView 'mediaAnnuale', 'varMediaAnnuale'
+                            ((TextView) rootView.findViewById(R.id.mediaAnnuale)).setText("" + mediaAttuale);
+                            ((TextView) rootView.findViewById(R.id.varMediaAnnuale)).setText("" + diffMedia);
+
+                            //infine rendo visibili le textview 'mediaAnnuale', 'varMediaAnnuale'
+                            //e per sicurezza nascondo la textview del messaggio 'media non disponibile' (in quanto potrebbe essere ancora visibile)
+                            rootView.findViewById(R.id.msgMediaNonDisp).setVisibility(View.INVISIBLE);
+                            rootView.findViewById(R.id.mediaAnnuale).setVisibility(View.VISIBLE);
+                            rootView.findViewById(R.id.varMediaAnnuale).setVisibility(View.VISIBLE);
+                        }
                     }
                 };
 
