@@ -68,6 +68,10 @@ public class Anno {
         return null;
     }
 
+    public void aggiungiCorso(Corso corso) {
+        listaCorsi.add(corso);
+    }
+
     public void rimuoviCorso(String nomeCorso) {
         for (int i = 0; i<listaCorsi.size(); i++)
             if ( listaCorsi.get(i).getNomeCorso().equals(nomeCorso) )
