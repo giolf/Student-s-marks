@@ -61,6 +61,20 @@ public class Anno {
         return listaNomiCorsi;
     }
 
+    private void ordinaCorsiPerMedia() {
+        for (int i = 0; i < listaCorsi.size(); i++) {
+            for (int k = i+1; k < listaCorsi.size(); k++) {
+                if (listaCorsi.get(i).getMedia() < listaCorsi.get(k).getMedia()) {
+                    Corso corsoMediaMaggiore = listaCorsi.get(k);
+                    listaCorsi.remove(k);
+                    listaCorsi.add(i, corsoMediaMaggiore);
+                }
+                else
+                    continue;
+            }
+        }
+    }
+
     public Corso getCorso(String nomeCorso) {
         for (Corso corsoCreato : listaCorsi)
             if ( corsoCreato.getNomeCorso().equals(nomeCorso) )
@@ -125,5 +139,15 @@ public class Anno {
 
         mediaPrecedente = mediaAttuale;
         mediaAttuale    = sommaMedia/sommaCorsi;
+
+
+        /*
+        * aggiornare la media di un anno implica che prima sia stata aggiornata
+        * la media di un corso di tale anno. Quindi se la media di un corso è stata aggiornata,
+        * tale corso dev'essere riordinato per media, tra gli altri corsi del medesimo anno
+        */
+        //se nell'anno ce piu di un corso ri-ordino i corsi per media
+        if ( listaCorsi.size() > 1)
+            ordinaCorsiPerMedia();
     }
 }
