@@ -20,7 +20,9 @@ import static myapps.studentgrades.DataSource.CreaArrayNomiAnni;
 import static myapps.studentgrades.DataSource.getAnno;
 import static myapps.studentgrades.DataSource.getListaAnni;
 import static myapps.studentgrades.DataSource.getNomeAnnoSelezionato;
-import static myapps.studentgrades.DataSource.setNomeAnnoSelezionatoo;
+import static myapps.studentgrades.DataSource.getNomeUltimoAnnoCreato;
+import static myapps.studentgrades.DataSource.getPosizioneAnno;
+import static myapps.studentgrades.DataSource.setNomeAnnoSelezionato;
 import static myapps.studentgrades.Utility.customTitleDialog;
 import static myapps.studentgrades.Utility.makeFrameLWithNumPicker;
 
@@ -77,28 +79,37 @@ public class MediaAnnuale extends Fragment {
             if ( getListaAnni().size() == 0 )
                 menu.findItem(R.id.action_selected_year).setTitle(getResources().getString(R.string.action_selected_year));
 
-                // se l'utente ha almeno 1 anno creato, MA non ha ancora selezionato un anno per il quale
-                // visualizzarne le relative statistiche, per default imposto l'ultimo anno creato
+            // se l'utente ha almeno 1 anno creato, MA non ha ancora selezionato un anno per il quale
+            // visualizzarne le relative statistiche, per default imposto l'ultimo anno creato
             else if ( getListaAnni().size() > 0 && getNomeAnnoSelezionato() == null ) {
-                int numeroAnniCreati        = getListaAnni().size();
-                Anno ultimoAnnoCreato       = getListaAnni().get(numeroAnniCreati-1);
-                String nomeUltimoAnnoCreato = ultimoAnnoCreato.getNomeAnnoScolastico();
-
+                String nomeUltimoAnnoCreato = getNomeUltimoAnnoCreato();
+                setNomeAnnoSelezionato(nomeUltimoAnnoCreato);
                 menu.findItem(R.id.action_selected_year).setTitle(nomeUltimoAnnoCreato);
             }
 
             // se l'utente ha almeno 1 anno creato e ha selezionato un anno per il quale
             // visualizzarne le relative statistiche, imposto la selezione fatta dall utente
-            else if ( getListaAnni().size() > 0 && getNomeAnnoSelezionato() != null )
-                menu.findItem(R.id.action_selected_year).setTitle(getNomeAnnoSelezionato());
+            else if ( getListaAnni().size() > 0 && getNomeAnnoSelezionato() != null ) {
+                //controllo se l'anno selezionato esiste ancora (non è stato rimosso)
+                Anno annoSelezionato = getAnno(getNomeAnnoSelezionato());
+                if ( annoSelezionato != null )
+                    menu.findItem(R.id.action_selected_year).setTitle(getNomeAnnoSelezionato());
+                else {
+                    //l'anno selezionato non c'è piu (quindi è stato eliminato), imposto quindi l'ultimo anno creato
+                    String NomeultimoAnnoCreato = getNomeUltimoAnnoCreato();
+                    setNomeAnnoSelezionato(NomeultimoAnnoCreato);
+                    menu.findItem(R.id.action_selected_year).setTitle(NomeultimoAnnoCreato);
+                }
+            }
             /*FINE impostazione bottone del selettore dell'anno scolastico*/
 
             /*INIZIO impostazioni view della pagina 'media annuale'*/
             View rootView = getView();
-            String AnnoSelezionato = (String)menu.findItem(R.id.action_selected_year).getTitle();
-            Anno anno = getAnno(AnnoSelezionato);
+            String nomeAnnoSelezionato = (String)menu.findItem(R.id.action_selected_year).getTitle();
+            Anno anno = getAnno(nomeAnnoSelezionato);
+
             //se non ce selezionato nessun anno avverto l'utente che non è possibile visualizzare la media
-            if ( AnnoSelezionato.equals("-") ) {
+            if ( nomeAnnoSelezionato.equals("-") ) {
                 //trovarsi dentro a questo blocco significa, indirettamente, a non aver creato nessun anno
                 rootView.findViewById(R.id.mediaAnnuale).setVisibility(View.INVISIBLE);
                 rootView.findViewById(R.id.varMediaAnnuale).setVisibility(View.INVISIBLE);
@@ -162,6 +173,9 @@ public class MediaAnnuale extends Fragment {
                 //recupero la lista degli anni creati dall'utente
                 final String[] anniCreatiutente = CreaArrayNomiAnni();
 
+                //recupero la posizione dell'anno creato (quando il dialog verrà aperto, il cursore sarà sull'anno attualmente selezionato)
+                int posizioneAnno = getPosizioneAnno( anniCreatiutente, (String)item.getTitle() );
+
                 //mostro il dialog che permette la selezione dell'anno scolastico
                 //setup del dialog
                 AlertDialog.Builder builder = new AlertDialog.Builder(activity);
@@ -170,7 +184,7 @@ public class MediaAnnuale extends Fragment {
                 picker.setDescendantFocusability(NumberPicker.FOCUS_BLOCK_DESCENDANTS);
                 picker.setMinValue(0);
                 picker.setMaxValue(anniCreatiutente.length-1);
-                picker.setValue(anniCreatiutente.length-1);
+                picker.setValue(posizioneAnno);
                 picker.setWrapSelectorWheel(false);
                 picker.setDisplayedValues(anniCreatiutente);
                 FrameLayout frameLayout = makeFrameLWithNumPicker(picker, activity);
@@ -185,7 +199,7 @@ public class MediaAnnuale extends Fragment {
                         String nomeAnnoSelezionato = anniCreatiutente[picker.getValue()];
 
                         //salvo la selezione dell'anno
-                        setNomeAnnoSelezionatoo(nomeAnnoSelezionato);
+                        setNomeAnnoSelezionato(nomeAnnoSelezionato);
 
                         //mostro l'anno selezionato nel bottone del menu
                         item.setTitle(nomeAnnoSelezionato);

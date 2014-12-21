@@ -22,7 +22,7 @@ public abstract class DataSource {
         return NomeAnnoSelezionato;
     }
 
-    public static void setNomeAnnoSelezionatoo(String anno) {
+    public static void setNomeAnnoSelezionato(String anno) {
         NomeAnnoSelezionato = anno;
     }
 
@@ -59,4 +59,18 @@ public abstract class DataSource {
         return listaNomiAnni;
     }
 
+    public static String getNomeUltimoAnnoCreato() {
+        return listaAnni.get(listaAnni.size()-1).getNomeAnnoScolastico();
+    }
+
+    public static int getPosizioneAnno(String[] listaNomiAnni, String nomeAnno) {
+        int posizioneAnno = 0;
+        for (int i = 0; i<listaNomiAnni.length; i++) {
+            if (listaNomiAnni[i].equals(nomeAnno)) {
+                posizioneAnno = i;
+                break;
+            }
+        }
+        return posizioneAnno;
+    }
 }
