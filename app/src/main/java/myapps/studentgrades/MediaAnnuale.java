@@ -82,6 +82,8 @@ public class MediaAnnuale extends Fragment {
             View rootView = getView();
             String nomeAnnoSelezionato = (String)menu.findItem(R.id.action_selected_year).getTitle();
             Anno anno = getAnno(nomeAnnoSelezionato);
+            //quando tutto è pronto per essere visualizzato nascondo il progress bar
+            rootView.findViewById(R.id.pb).setVisibility(View.INVISIBLE);
 
             //se non ce selezionato nessun anno avverto l'utente che non è possibile visualizzare la media
             if ( nomeAnnoSelezionato.equals("-") ) {
