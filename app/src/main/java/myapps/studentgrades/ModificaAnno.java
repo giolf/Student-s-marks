@@ -26,6 +26,7 @@ import static myapps.studentgrades.DataSource.CreaArrayNomiAnni;
 import static myapps.studentgrades.DataSource.annoGiaEsistente;
 import static myapps.studentgrades.DataSource.getAnno;
 import static myapps.studentgrades.DataSource.getListaAnni;
+import static myapps.studentgrades.DataSource.getPosizioneAnno;
 import static myapps.studentgrades.Utility.customTitleDialog;
 import static myapps.studentgrades.Utility.makeFrameLWithNumPicker;
 import static myapps.studentgrades.Utility.makeSchoolYearList;
@@ -160,6 +161,8 @@ public class ModificaAnno extends Fragment {
 
                         //creo una lista di anni, da: annocorrente-10 a: annocorrente
                         final String[] listaAnniScolastici = makeSchoolYearList(annoCorrente);
+                        //recupero la posizione dell'anno creato (quando il dialog verrà aperto, il cursore sarà sull'anno attualmente selezionato)
+                        int posizioneAnno = getPosizioneAnno( listaAnniScolastici, (String)tvAnno.getText() );
 
                         //creo un nuovo Dialog per la modifica dell'anno selezionato
                         AlertDialog.Builder builder = new AlertDialog.Builder(activity);
@@ -168,7 +171,7 @@ public class ModificaAnno extends Fragment {
                         picker.setDescendantFocusability(NumberPicker.FOCUS_BLOCK_DESCENDANTS);
                         picker.setMinValue(0);
                         picker.setMaxValue(listaAnniScolastici.length-1);
-                        picker.setValue(listaAnniScolastici.length-1);
+                        picker.setValue(posizioneAnno);
                         picker.setWrapSelectorWheel(false);
                         picker.setDisplayedValues(listaAnniScolastici);
                         FrameLayout frameLayout = makeFrameLWithNumPicker(picker, activity);
