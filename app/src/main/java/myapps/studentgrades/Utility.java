@@ -1,7 +1,9 @@
 package myapps.studentgrades;
 
+import android.app.Fragment;
 import android.util.Log;
 import android.view.Gravity;
+import android.view.Menu;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.FrameLayout;
@@ -10,10 +12,48 @@ import android.widget.TextView;
 import java.lang.reflect.Field;
 import java.util.HashMap;
 
+import static myapps.studentgrades.DataSource.getAnno;
+import static myapps.studentgrades.DataSource.getListaAnni;
+import static myapps.studentgrades.DataSource.getNomeAnnoSelezionato;
+import static myapps.studentgrades.DataSource.getNomeUltimoAnnoCreato;
+import static myapps.studentgrades.DataSource.setNomeAnnoSelezionato;
+
 /**
  * Created by Gio on 10.11.2014.
  */
 public abstract class Utility {
+
+    public static void setupMenuRiepilogoAnnuale(Menu menu, Fragment fragment) {
+
+        /*INIZIO impostazione bottone del selettore dell'anno scolastico*/
+        // se l'utente non ha creato nessun anno, per default visualizzo un '-'
+        if ( getListaAnni().size() == 0 )
+            menu.findItem(R.id.action_selected_year).setTitle(fragment.getResources().getString(R.string.action_selected_year));
+
+            // se l'utente ha almeno 1 anno creato, MA non ha ancora selezionato un anno per il quale
+            // visualizzarne le relative statistiche, per default imposto l'ultimo anno creato
+        else if ( getListaAnni().size() > 0 && getNomeAnnoSelezionato() == null ) {
+            String nomeUltimoAnnoCreato = getNomeUltimoAnnoCreato();
+            setNomeAnnoSelezionato(nomeUltimoAnnoCreato);
+            menu.findItem(R.id.action_selected_year).setTitle(nomeUltimoAnnoCreato);
+        }
+
+        // se l'utente ha almeno 1 anno creato e ha selezionato un anno per il quale
+        // visualizzarne le relative statistiche, imposto la selezione fatta dall utente
+        else if ( getListaAnni().size() > 0 && getNomeAnnoSelezionato() != null ) {
+            //controllo se l'anno selezionato esiste ancora (non è stato rimosso)
+            Anno annoSelezionato = getAnno(getNomeAnnoSelezionato());
+            if ( annoSelezionato != null )
+                menu.findItem(R.id.action_selected_year).setTitle(getNomeAnnoSelezionato());
+            else {
+                //l'anno selezionato non c'è piu (quindi è stato eliminato), imposto quindi l'ultimo anno creato
+                String NomeultimoAnnoCreato = getNomeUltimoAnnoCreato();
+                setNomeAnnoSelezionato(NomeultimoAnnoCreato);
+                menu.findItem(R.id.action_selected_year).setTitle(NomeultimoAnnoCreato);
+            }
+        }
+        /*FINE impostazione bottone del selettore dell'anno scolastico*/
+    }
 
     public static void showJustDayAndMonth(DatePicker picker) {
         try {
