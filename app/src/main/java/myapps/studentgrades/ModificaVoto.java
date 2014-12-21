@@ -22,6 +22,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 
 import static myapps.studentgrades.DataSource.CreaArrayNomiAnni;
 import static myapps.studentgrades.DataSource.getAnno;
@@ -384,12 +385,17 @@ public class ModificaVoto extends Fragment {
                     case MotionEvent.ACTION_UP:
                         btnData.setBackgroundColor(Color.parseColor("#ffffff"));
 
+                        //recupero la data attualmente presente sulla textview del bottone data
+                        int[]data = convertiData((String)tvData.getText(), activity);
+
                         //creo un nuovo dialog che si occuperà di mostrare e salvare la data del voto
                         AlertDialog.Builder builder = new AlertDialog.Builder(activity);
                         builder.setCancelable(false);
                         final DatePicker picker = new DatePicker(activity);
                         picker.setDescendantFocusability(DatePicker.FOCUS_BLOCK_DESCENDANTS);
                         picker.setCalendarViewShown(false);
+                        //setto nel dialog la data impostata sulla text view data
+                        picker.updateDate(picker.getYear(), data[1]-1, data[0]);
                         builder.setView(picker);
 
                         //titolo del dialog
