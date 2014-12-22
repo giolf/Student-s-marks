@@ -53,12 +53,20 @@ public class Anno {
         return listaCorsi;
     }
 
-    public String[] CreaArrayNomiCorsi() {
+    public String[] creaArrayNomiCorsi() {
         String[] listaNomiCorsi = new String[listaCorsi.size()];
         for (int i = 0; i<listaCorsi.size(); i++)
             listaNomiCorsi[i] = listaCorsi.get(i).getNomeCorso();
         Arrays.sort(listaNomiCorsi);
         return listaNomiCorsi;
+    }
+
+    public ArrayList<Corso> creaListaCorsiConVoti() {
+        ArrayList<Corso> listaCorsi = new ArrayList<Corso>();
+        for (Corso corso : this.listaCorsi)
+            if (corso.getListaVoti().size() > 0)
+                listaCorsi.add(corso);
+        return listaCorsi;
     }
 
     private void ordinaCorsiPerMedia() {
@@ -69,8 +77,6 @@ public class Anno {
                     listaCorsi.remove(k);
                     listaCorsi.add(i, corsoMediaMaggiore);
                 }
-                else
-                    continue;
             }
         }
     }
@@ -131,7 +137,6 @@ public class Anno {
         for (Corso corso : listaCorsi) {
             if(corso.getMedia() == 0) {
                 sommaCorsi--;
-                continue;
             }
             else
                 sommaMedia += corso.getMedia();

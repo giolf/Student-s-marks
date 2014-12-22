@@ -189,7 +189,7 @@ public class EliminaVoto extends Fragment {
                         }
 
                         //l'anno selezionato contiene corsi, li recupero
-                        final String[] lcAnnoSelezionato = annoSelezionato.CreaArrayNomiCorsi();
+                        final String[] lcAnnoSelezionato = annoSelezionato.creaArrayNomiCorsi();
 
                         //Mostro un dialog che permette la scelta del corso da selezionare nell'anno selezionato
                         final AlertDialog.Builder builder = new AlertDialog.Builder(activity);

@@ -19,8 +19,6 @@ import android.widget.TextView;
 import static myapps.studentgrades.DataSource.CreaArrayNomiAnni;
 import static myapps.studentgrades.DataSource.getAnno;
 import static myapps.studentgrades.DataSource.getListaAnni;
-import static myapps.studentgrades.DataSource.getNomeAnnoSelezionato;
-import static myapps.studentgrades.DataSource.getNomeUltimoAnnoCreato;
 import static myapps.studentgrades.DataSource.getPosizioneAnno;
 import static myapps.studentgrades.DataSource.setNomeAnnoSelezionato;
 import static myapps.studentgrades.Utility.customTitleDialog;
@@ -57,7 +55,6 @@ public class MediaAnnuale extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_media_annuale, container, false);
         //mi permette di chiamare il metodo onCreateOptionMenu() di questa classe dopo il termine di questo metodo
         setHasOptionsMenu(true);
-
 
         return rootView;
     }
@@ -123,7 +120,7 @@ public class MediaAnnuale extends Fragment {
     @Override
     public boolean onOptionsItemSelected(final MenuItem item) {
         StudentGrades activity = (StudentGrades)getActivity();
-        final View rootView          = getView();
+        final View rootView    = getView();
 
         //se il bottone del menu cliccato è il selettore dell'anno
         if (item.getItemId() == R.id.action_selected_year) {

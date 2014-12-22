@@ -30,8 +30,8 @@ public abstract class Utility {
         if ( getListaAnni().size() == 0 )
             menu.findItem(R.id.action_selected_year).setTitle(fragment.getResources().getString(R.string.action_selected_year));
 
-            // se l'utente ha almeno 1 anno creato, MA non ha ancora selezionato un anno per il quale
-            // visualizzarne le relative statistiche, per default imposto l'ultimo anno creato
+        // se l'utente ha almeno 1 anno creato, MA non ha ancora selezionato un anno per il quale
+        // visualizzarne le relative statistiche, per default imposto l'ultimo anno creato
         else if ( getListaAnni().size() > 0 && getNomeAnnoSelezionato() == null ) {
             String nomeUltimoAnnoCreato = getNomeUltimoAnnoCreato();
             setNomeAnnoSelezionato(nomeUltimoAnnoCreato);

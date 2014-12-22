@@ -97,6 +97,7 @@
     <string name="layout_tvl_md_voto">MODIFICA DATA VOTO</string>
     <string name="layout_tvl_md_punteggio">MODIFICA PUNTEGGIO VOTO</string>
     <string name="layout_tv_ma_mnd">DATI INSUFFICIENTI\nMEDIA NON DISPONIBILE</string>
+    <string name="layout_tv_mc_mcd">DATI INSUFFICIENTI\nMEDIA DEI CORSI NON DISPONIBILE</string>
 
     <string name="errore_msg">"Non puoi cambiare anno scolastico\ndopo aver scelto un corso.\nPer favore ripeti la procedura"</string>
     <string name="errore_msg2">"Non puoi cambiare corso\ndopo aver scelto un voto.\nPer favore ripeti la procedura"</string>

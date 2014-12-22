@@ -17,7 +17,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="28 maggio 2014"
+        android:text=""
         android:id="@+id/tv_data"
         android:layout_toEndOf="@+id/tvl_data"
         android:layout_marginLeft="5dp"
@@ -36,7 +36,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="6"
+        android:text=""
         android:id="@+id/tv_nota"
         android:layout_alignBottom="@+id/tvl_nota"
         android:layout_alignLeft="@+id/tv_data"
