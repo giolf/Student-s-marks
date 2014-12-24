@@ -178,7 +178,7 @@ public class CorsiAnnuali extends Fragment {
                             return;
                         }
                         else {
-                            //l'anno selezionato ha voti:recupero i suoi corsi
+                            //l'anno selezionato ha voti: recupero i suoi corsi
                             ArrayList<Corso> listaCorsi = getAnno(nomeAnnoSelezionato).creaListaCorsiConVoti();
 
                             //passo la lista dei corsi dell'anno selezionato all'adapter

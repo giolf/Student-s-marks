@@ -21,7 +21,7 @@ public class Voto {
         this.data       = data;
         this.giornoData = giornoData;
         this.meseData   = meseData;
-        this.nota       = nota;
+        this.nota       = arrotondaMedia(nota, 2);
     }
 
     public int getId() {
@@ -64,7 +64,14 @@ public class Voto {
         return nota;
     }
 
+    private double arrotondaMedia(double valore, int precisione) {
+        long factor = (long) Math.pow(10, precisione);
+        valore = valore * factor;
+        long tmp = Math.round(valore);
+        return (double) tmp / factor;
+    }
+
     public void setNota(double nota) {
-        this.nota = nota;
+        this.nota = arrotondaMedia(nota, 2);
     }
 }

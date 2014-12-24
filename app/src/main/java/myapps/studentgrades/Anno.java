@@ -34,7 +34,7 @@ public class Anno {
     }
 
     public double getMediaAttuale() {
-        return arrotondaMedia(mediaAttuale, 2);
+        return mediaAttuale;
     }
 
     public void setMediaAttuale(double mediaAttuale) {
@@ -42,7 +42,7 @@ public class Anno {
     }
 
     public double getMediaPrecedente() {
-        return arrotondaMedia(mediaPrecedente, 2);
+        return mediaPrecedente;
     }
 
     public void setMediaPrecedente(double mediaPrecedente) {
@@ -67,6 +67,15 @@ public class Anno {
             if (corso.getListaVoti().size() > 0)
                 listaCorsi.add(corso);
         return listaCorsi;
+    }
+
+    public ArrayList<Voto> creaListaVotiAnnuali() {
+        ArrayList<Voto> listaVoti = new ArrayList<Voto>();
+        for (Corso corso : this.listaCorsi)
+            if (corso.getListaVoti().size() > 0)
+                for (Voto voto : corso.getListaVoti())
+                    listaVoti.add(voto);
+        return listaVoti;
     }
 
     private void ordinaCorsiPerMedia() {
@@ -129,7 +138,7 @@ public class Anno {
         double sommaCorsi = listaCorsi.size();
 
         if (sommaCorsi == 0) {
-            mediaPrecedente = mediaAttuale;
+            mediaPrecedente = arrotondaMedia(mediaAttuale, 2);
             mediaAttuale    = 0;
             return;
         }
@@ -143,7 +152,7 @@ public class Anno {
         }
 
         mediaPrecedente = mediaAttuale;
-        mediaAttuale    = sommaMedia/sommaCorsi;
+        mediaAttuale    = arrotondaMedia(sommaMedia/sommaCorsi, 2);
 
 
         /*

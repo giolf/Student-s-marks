@@ -66,6 +66,13 @@ public class Corso {
                 listaVoti.remove(i);
     }
 
+    private double arrotondaMedia(double valore, int precisione) {
+        long factor = (long) Math.pow(10, precisione);
+        valore = valore * factor;
+        long tmp = Math.round(valore);
+        return (double) tmp / factor;
+    }
+
     public void aggiornaMedia() {
         double sommaNote = 0;
         double sommaVoti = listaVoti.size();
@@ -76,7 +83,7 @@ public class Corso {
 
         for (Voto voto : listaVoti)
             sommaNote += voto.getNota();
-        media = sommaNote/sommaVoti;
+        media = arrotondaMedia(sommaNote/sommaVoti, 2);
     }
 
     public void aggiungiVotoOrdinatoPerData(Voto voto) {
