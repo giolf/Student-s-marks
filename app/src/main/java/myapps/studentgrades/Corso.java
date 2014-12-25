@@ -8,12 +8,15 @@ import java.util.ArrayList;
 public class Corso {
     private int id;
     private String nomeCorso;
-    private double media;
+    private double mediaAttuale;
+    private double mediaPrecedente;
     private ArrayList<Voto> listaVoti;
 
     public Corso (String nomeCorso) {
-        this.nomeCorso = nomeCorso;
-        this.listaVoti = new ArrayList<Voto>();
+        this.nomeCorso          = nomeCorso;
+        this.mediaAttuale       = 0;
+        this.mediaPrecedente    = 0;
+        this.listaVoti          = new ArrayList<Voto>();
     }
 
 
@@ -29,12 +32,12 @@ public class Corso {
         this.nomeCorso = nomeCorso;
     }
 
-    public double getMedia() {
-        return media;
+    public double getMediaAttuale() {
+        return mediaAttuale;
     }
 
-    public void setMedia(double media) {
-        this.media = media;
+    public void setMediaAttuale(double media) {
+        this.mediaAttuale = media;
     }
 
     public ArrayList<Voto> getListaVoti() {
@@ -77,13 +80,16 @@ public class Corso {
         double sommaNote = 0;
         double sommaVoti = listaVoti.size();
         if (sommaVoti == 0) {
-            media = 0;
+            mediaPrecedente = arrotondaMedia(mediaAttuale, 2);
+            mediaAttuale    = 0;
             return;
         }
 
         for (Voto voto : listaVoti)
             sommaNote += voto.getNota();
-        media = arrotondaMedia(sommaNote/sommaVoti, 2);
+
+        mediaPrecedente = mediaAttuale;
+        mediaAttuale    = arrotondaMedia(sommaNote/sommaVoti, 2);
     }
 
     public void aggiungiVotoOrdinatoPerData(Voto voto) {

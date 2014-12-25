@@ -81,7 +81,7 @@ public class Anno {
     private void ordinaCorsiPerMedia() {
         for (int i = 0; i < listaCorsi.size(); i++) {
             for (int k = i+1; k < listaCorsi.size(); k++) {
-                if (listaCorsi.get(i).getMedia() < listaCorsi.get(k).getMedia()) {
+                if (listaCorsi.get(i).getMediaAttuale() < listaCorsi.get(k).getMediaAttuale()) {
                     Corso corsoMediaMaggiore = listaCorsi.get(k);
                     listaCorsi.remove(k);
                     listaCorsi.add(i, corsoMediaMaggiore);
@@ -144,11 +144,11 @@ public class Anno {
         }
 
         for (Corso corso : listaCorsi) {
-            if(corso.getMedia() == 0) {
+            if(corso.getMediaAttuale() == 0) {
                 sommaCorsi--;
             }
             else
-                sommaMedia += corso.getMedia();
+                sommaMedia += corso.getMediaAttuale();
         }
 
         mediaPrecedente = mediaAttuale;

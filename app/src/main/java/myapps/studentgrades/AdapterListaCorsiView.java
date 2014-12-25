@@ -48,7 +48,7 @@ public class AdapterListaCorsiView extends ArrayAdapter<Corso> {
         TextView tvCorso = (TextView)convertView.findViewById(R.id.tv_corso);
         TextView tvMedia = (TextView)convertView.findViewById(R.id.tv_media);
         tvCorso.setText(corso.getNomeCorso());
-        tvMedia.setText(""+corso.getMedia());
+        tvMedia.setText(""+corso.getMediaAttuale());
 
         return convertView;
     }
