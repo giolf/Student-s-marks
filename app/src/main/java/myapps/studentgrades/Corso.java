@@ -55,6 +55,10 @@ public class Corso {
         return null;
     }
 
+    public double getDifferenzaMediaAttualePrecedente() {
+        return arrotondaMedia(mediaAttuale - mediaPrecedente, 2);
+    }
+
     public boolean votoGiaEsistente(String dataVotoSelezionato) {
         for (Voto votoCreato : listaVoti) {
             if ( votoCreato.getData().equalsIgnoreCase(dataVotoSelezionato) )

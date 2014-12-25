@@ -49,6 +49,10 @@ public class Anno {
         this.mediaPrecedente = mediaPrecedente;
     }
 
+    public double getDifferenzaMediaAttualePrecedente() {
+        return arrotondaMedia(mediaAttuale - mediaPrecedente, 2);
+    }
+
     public ArrayList<Corso> getListaCorsi() {
         return listaCorsi;
     }
@@ -120,10 +124,6 @@ public class Anno {
         for (Corso corso : listaCorsi)
             numVoti += corso.getListaVoti().size();
         return numVoti;
-    }
-
-    public double getDifferenzaMediaAttualePrecedente() {
-        return arrotondaMedia(mediaAttuale - mediaPrecedente, 2);
     }
 
     private double arrotondaMedia(double valore, int precisione) {

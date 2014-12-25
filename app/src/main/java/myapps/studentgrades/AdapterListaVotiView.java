@@ -8,6 +8,8 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -45,14 +47,20 @@ public class AdapterListaVotiView extends ArrayAdapter<Voto> {
         }
 
         Voto voto = listaVotiAnnuali.get(position);
+        NumberFormat formatter = new DecimalFormat("#0.00");
 
         TextView tvData      = (TextView)convertView.findViewById(R.id.tv_data_voto);
         TextView tvCorso     = (TextView)convertView.findViewById(R.id.tv_corso_voto);
         TextView tvPunteggio = (TextView)convertView.findViewById(R.id.tv_punteggio_voto);
         tvData.setText(voto.getData());
         tvCorso.setText(""+voto.getNomeCorso().toUpperCase());
-        tvPunteggio.setText(""+voto.getNota());
+        tvPunteggio.setText( ""+formatter.format( voto.getNota() ) );
 
         return convertView;
+    }
+
+    @Override
+    public boolean isEnabled(int position) {
+        return false;
     }
 }

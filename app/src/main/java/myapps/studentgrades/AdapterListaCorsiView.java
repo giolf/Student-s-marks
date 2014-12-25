@@ -7,6 +7,8 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -44,12 +46,21 @@ public class AdapterListaCorsiView extends ArrayAdapter<Corso> {
         }
 
         Corso corso = listaCorsiAnnuali.get(position);
+        NumberFormat formatter = new DecimalFormat("#0.00");
 
-        TextView tvCorso = (TextView)convertView.findViewById(R.id.tv_corso);
-        TextView tvMedia = (TextView)convertView.findViewById(R.id.tv_media);
-        tvCorso.setText(corso.getNomeCorso());
-        tvMedia.setText(""+corso.getMediaAttuale());
+
+        TextView tvCorso     = (TextView)convertView.findViewById(R.id.tv_corso);
+        TextView tvMedia     = (TextView)convertView.findViewById(R.id.tv_media);
+        TextView tvDiffMEdia = (TextView)convertView.findViewById(R.id.tv_diff_media);
+        tvCorso.setText(corso.getNomeCorso().toUpperCase());
+        tvMedia.setText( ""+formatter.format( corso.getMediaAttuale() ) );
+        tvDiffMEdia.setText( ""+ formatter.format( corso.getDifferenzaMediaAttualePrecedente() ) );
 
         return convertView;
+    }
+
+    @Override
+    public boolean isEnabled(int position) {
+        return false;
     }
 }

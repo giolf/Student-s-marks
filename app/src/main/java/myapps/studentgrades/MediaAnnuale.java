@@ -16,6 +16,9 @@ import android.widget.FrameLayout;
 import android.widget.NumberPicker;
 import android.widget.TextView;
 
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
+
 import static myapps.studentgrades.DataSource.CreaArrayNomiAnni;
 import static myapps.studentgrades.DataSource.getAnno;
 import static myapps.studentgrades.DataSource.getListaAnni;
@@ -70,6 +73,7 @@ public class MediaAnnuale extends Fragment {
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         StudentGrades activity = (StudentGrades)getActivity();
+        NumberFormat formatter = new DecimalFormat("#0.00");
 
         if ( !activity.getMNavigationDrawerFragment().isDrawerOpen() ) {
 
@@ -107,8 +111,8 @@ public class MediaAnnuale extends Fragment {
                 double diffMedia = anno.getDifferenzaMediaAttualePrecedente();
 
                 //mostro le media e la differenza di media sulle relative textView della pagina 'media annuale'
-                ((TextView)rootView.findViewById(R.id.mediaAnnuale)).setText(""+mediaAttuale);
-                ((TextView)rootView.findViewById(R.id.varMediaAnnuale)).setText(""+diffMedia);
+                ((TextView)rootView.findViewById(R.id.mediaAnnuale)).setText(""+formatter.format(mediaAttuale));
+                ((TextView)rootView.findViewById(R.id.varMediaAnnuale)).setText(""+formatter.format(diffMedia));
                 rootView.findViewById(R.id.msgMediaNonDisp).setVisibility(View.INVISIBLE);
                 rootView.findViewById(R.id.mediaAnnuale).setVisibility(View.VISIBLE);
                 rootView.findViewById(R.id.varMediaAnnuale).setVisibility(View.VISIBLE);
@@ -119,8 +123,10 @@ public class MediaAnnuale extends Fragment {
 
     @Override
     public boolean onOptionsItemSelected(final MenuItem item) {
-        StudentGrades activity = (StudentGrades)getActivity();
-        final View rootView    = getView();
+        StudentGrades activity       = (StudentGrades)getActivity();
+        final View rootView          = getView();
+        final NumberFormat formatter = new DecimalFormat("#0.00");
+
 
         //se il bottone del menu cliccato è il selettore dell'anno
         if (item.getItemId() == R.id.action_selected_year) {
@@ -195,8 +201,8 @@ public class MediaAnnuale extends Fragment {
                             double diffMedia = getAnno(nomeAnnoSelezionato).getDifferenzaMediaAttualePrecedente();
 
                             //e poi mostro la media e la differenza di media nelle TextView 'mediaAnnuale', 'varMediaAnnuale'
-                            ((TextView) rootView.findViewById(R.id.mediaAnnuale)).setText("" + mediaAttuale);
-                            ((TextView) rootView.findViewById(R.id.varMediaAnnuale)).setText("" + diffMedia);
+                            ((TextView) rootView.findViewById(R.id.mediaAnnuale)).setText("" + formatter.format(mediaAttuale));
+                            ((TextView) rootView.findViewById(R.id.varMediaAnnuale)).setText("" + formatter.format(diffMedia));
 
                             //infine rendo visibili le textview 'mediaAnnuale', 'varMediaAnnuale'
                             //e per sicurezza nascondo la textview del messaggio 'media non disponibile' (in quanto potrebbe essere ancora visibile)
