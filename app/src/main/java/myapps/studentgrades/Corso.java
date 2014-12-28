@@ -28,8 +28,10 @@ public class Corso {
         return nomeCorso;
     }
 
-    public void setNomeCorso(String nomeCorso) {
+    public void modificaNomeCorso(String nomeCorso) {
         this.nomeCorso = nomeCorso;
+        for (Voto voto : listaVoti)
+            voto.setNomeCorso(nomeCorso);
     }
 
     public double getMediaAttuale() {
@@ -172,4 +174,5 @@ public class Corso {
             listaVoti.add(end, voto);
         }
     }
+
 }

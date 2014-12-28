@@ -303,7 +303,7 @@ public class ModificaCorso extends Fragment {
                         //Salvo la modifica del corso
                         Anno annoSelezionato   = getAnno((String)tvAnno.getText());
                         Corso corsoSelezionato = annoSelezionato.getCorso( (String)tvCorso.getText() );
-                        corsoSelezionato.setNomeCorso( tvCorsoDM.getText().toString() );
+                        corsoSelezionato.modificaNomeCorso( tvCorsoDM.getText().toString() );
 
                         //inizio messaggio output - modifica corso
                         Toast toast = Toast.makeText(activity, getResources().getText(R.string.output_msg_mc), Toast.LENGTH_LONG);
