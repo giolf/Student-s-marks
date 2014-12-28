@@ -226,12 +226,9 @@ public class EliminaCorso extends Fragment {
                     case MotionEvent.ACTION_UP:
                         btnSalva.setBackgroundColor(Color.parseColor("#d2d2d2"));
 
-                        //Elimino il corso
+                        //Elimino il corso e aggiorno la media dell'anno
                         Anno annoSelezionato = getAnno((String)tvAnno.getText());
                         annoSelezionato.rimuoviCorso( (String)tvCorso.getText() );
-
-                        //aggiorno la media dell'anno selezionato
-                        annoSelezionato.aggiornaMedia();
 
                         //inizio messaggio output - elimina corso
                         Toast toast = Toast.makeText(activity, getResources().getText(R.string.output_msg_ec), Toast.LENGTH_LONG);

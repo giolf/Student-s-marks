@@ -128,6 +128,9 @@ public class Anno {
                 DBAdapter.open();
                 DBAdapter.rimuoviCorso(corso);
                 DBAdapter.close();
+
+                // dopo la rimozione del corso aggiorno la media dell'anno
+                this.aggiornaMedia();
                 return;
             }
     }
@@ -155,12 +158,18 @@ public class Anno {
     }
 
     public void aggiornaMedia() {
+        DBAdapter DBAdapter = getDBAdapter();
         double sommaMedia = 0;
         double sommaCorsi = listaCorsi.size();
 
         if (sommaCorsi == 0) {
             mediaPrecedente = arrotondaMedia(mediaAttuale, 2);
             mediaAttuale    = 0;
+
+            // Aggiorno la media dell'anno anche nel db
+            DBAdapter.open();
+            DBAdapter.aggiornaMediaAnno(this);
+            DBAdapter.close();
             return;
         }
 
@@ -175,6 +184,10 @@ public class Anno {
         mediaPrecedente = mediaAttuale;
         mediaAttuale    = arrotondaMedia(sommaMedia/sommaCorsi, 2);
 
+        // Aggiorno la media dell'anno anche nel db
+        DBAdapter.open();
+        DBAdapter.aggiornaMediaAnno(this);
+        DBAdapter.close();
 
         /*
         * aggiornare la media di un anno implica che prima sia stata aggiornata

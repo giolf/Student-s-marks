@@ -125,4 +125,15 @@ public class DBAdapter {
         long idCorso = corso.getId();
         database.delete(TBL_CORSO, F_CORSO_ID + "=" + idCorso, null);
     }
+
+    public void aggiornaMediaAnno(Anno anno) {
+        long idAnno   = anno.getId();
+        double mediaP = anno.getMediaPrecedente();
+        double mediaA = anno.getMediaAttuale();
+
+        ContentValues cv = new ContentValues();
+        cv.put(F_ANNO_MP, mediaP);
+        cv.put(F_ANNO_MA, mediaA);
+        database.update(TBL_ANNO, cv, F_ANNO_ID+"="+idAnno, null);
+    }
 }
