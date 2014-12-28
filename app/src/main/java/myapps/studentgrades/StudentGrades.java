@@ -8,8 +8,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.support.v4.widget.DrawerLayout;
 
-import static myapps.studentgrades.DataSource.getNomeAnnoSelezionato;
-import static myapps.studentgrades.DataSource.getListaAnni;
+import static myapps.studentgrades.DataSource.inizializzazioneStrutDati;
 
 public class StudentGrades extends Activity
         implements NavigationDrawerFragment.NavigationDrawerCallbacks {
@@ -32,6 +31,9 @@ public class StudentGrades extends Activity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_student_marks);
+
+        // Recupero dati dal DB e inserimento degli stessi nella struttura dati
+        inizializzazioneStrutDati(this);
 
         mNavigationDrawerFragment = (NavigationDrawerFragment)
                 getFragmentManager().findFragmentById(R.id.navigation_drawer);

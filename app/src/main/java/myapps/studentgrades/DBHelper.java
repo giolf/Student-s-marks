@@ -20,23 +20,23 @@ public class DBHelper extends SQLiteOpenHelper {
                                                         "media_a REAL NOT NULL"                       +
                                                      ");";
 
-    private static final String DB_CREATE_TAB_CORSO = "CREATE TABLE corso ("                         +
-                                                         "_id INTEGER PRIMARY KEY AUTOINCREMENT,"    +
-                                                         "id_anno INTEGER NOT NULL,"                 +
-                                                         "nome_corso TEXT NOT NULL,"                 +
-                                                         "media_p REAL NOT NULL,"                    +
-                                                         "media_a REAL NOT NULL,"                    +
-                                                         "FOREIGN KEY(id_anno) REFERENCES anno(_id)" +
+    private static final String DB_CREATE_TAB_CORSO = "CREATE TABLE corso ("                                           +
+                                                         "_id INTEGER PRIMARY KEY AUTOINCREMENT,"                      +
+                                                         "id_anno INTEGER NOT NULL,"                                   +
+                                                         "nome_corso TEXT NOT NULL,"                                   +
+                                                         "media_p REAL NOT NULL,"                                      +
+                                                         "media_a REAL NOT NULL,"                                      +
+                                                         "FOREIGN KEY(id_anno) REFERENCES anno(_id) ON DELETE CASCADE" +
                                                       ");";
 
-    private static final String DB_CREATE_TAB_VOTO = "CREATE TABLE voto ("                            +
-                                                        "_id INTEGER PRIMARY KEY AUTOINCREMENT,"      +
-                                                        "id_corso INTEGER NOT NULL,"                  +
-                                                        "data TEXT NOT NULL,"                         +
-                                                        "mese_data INTEGER NOT NULL,"                 +
-                                                        "giorno_data INTEGER NOT NULL,"               +
-                                                        "nota REAL NOT NULL,"                         +
-                                                        "FOREIGN KEY(id_corso) REFERENCES corso(_id)" +
+    private static final String DB_CREATE_TAB_VOTO = "CREATE TABLE voto ("                                              +
+                                                        "_id INTEGER PRIMARY KEY AUTOINCREMENT,"                        +
+                                                        "id_corso INTEGER NOT NULL,"                                    +
+                                                        "data TEXT NOT NULL,"                                           +
+                                                        "mese_data INTEGER NOT NULL,"                                   +
+                                                        "giorno_data INTEGER NOT NULL,"                                 +
+                                                        "nota REAL NOT NULL,"                                           +
+                                                        "FOREIGN KEY(id_corso) REFERENCES corso(_id) ON DELETE CASCADE" +
                                                      ");";
 
     public DBHelper(Context context) {

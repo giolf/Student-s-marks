@@ -8,7 +8,7 @@ import java.util.Arrays;
  */
 public class Anno {
 
-    private int id;
+    private long id;
     private String nomeAnnoScolastico;
     private double mediaAttuale;
     private double mediaPrecedente;
@@ -21,8 +21,12 @@ public class Anno {
         this.listaCorsi         = new ArrayList<Corso>();
     }
 
-    public int getId() {
+    public long getId() {
         return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 
     public String getNomeAnnoScolastico() {

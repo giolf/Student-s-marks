@@ -27,6 +27,7 @@ import static myapps.studentgrades.DataSource.annoGiaEsistente;
 import static myapps.studentgrades.DataSource.getAnno;
 import static myapps.studentgrades.DataSource.getListaAnni;
 import static myapps.studentgrades.DataSource.getPosizioneAnno;
+import static myapps.studentgrades.DataSource.modificaAnno;
 import static myapps.studentgrades.Utility.customTitleDialog;
 import static myapps.studentgrades.Utility.makeFrameLWithNumPicker;
 import static myapps.studentgrades.Utility.makeSchoolYearList;
@@ -227,12 +228,9 @@ public class ModificaAnno extends Fragment {
                         btnSalva.setBackgroundColor(Color.parseColor("#537719"));
                         return true;
                     case MotionEvent.ACTION_UP:
-                        //salvo i dati relativi alla modifica dell'anno
-                        //recupero l'anno che ha subito la modifica
-                        Anno annoDaModificare = getAnno( (String)tvAnno.getText() );
 
-                        //infine modifico l'anno
-                        annoDaModificare.setNomeAnnoScolastico( (String)tvAnnoDM.getText() );
+                        //modifico l'anno
+                        modificaAnno((String)tvAnno.getText(), (String)tvAnnoDM.getText());
 
                         //inizio messaggio output - modifica anno
                         Toast toast = Toast.makeText(activity, getResources().getText(R.string.output_msg_ma), Toast.LENGTH_LONG);

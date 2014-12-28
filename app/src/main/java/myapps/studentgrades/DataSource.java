@@ -1,5 +1,7 @@
 package myapps.studentgrades;
 
+import android.content.Context;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -13,6 +15,13 @@ public abstract class DataSource {
 
     /*Contiene la scelta dell'anno da parte dell'utente per il quale visualizzarne le statistiche*/
     private static String NomeAnnoSelezionato = null;
+
+    /*Contiente l'adapter del DB*/
+    private static DBAdapter DBAdapter = null;
+
+    public static void inizializzazioneStrutDati(Context context) {
+        DBAdapter = new DBAdapter(context);
+    }
 
     public static ArrayList<Anno> getListaAnni() {
         return listaAnni;
@@ -35,12 +44,40 @@ public abstract class DataSource {
 
     public static void aggiungiAnno(Anno anno) {
         listaAnni.add(anno);
+
+        // Aggiungo l'anno nel db
+        DBAdapter.open();
+        DBAdapter.aggiungiAnno(anno);
+        DBAdapter.close();
+    }
+
+    public static void modificaAnno(String oldNomeAnnoScolastico, String newNomeAnnoScolastico) {
+        for (Anno annoCreato : listaAnni) {
+            if ( annoCreato.getNomeAnnoScolastico().equals(oldNomeAnnoScolastico) ) {
+                annoCreato.setNomeAnnoScolastico(newNomeAnnoScolastico);
+
+                // Apporto la modifica anche sul db
+                DBAdapter.open();
+                DBAdapter.modificaAnno(annoCreato);
+                DBAdapter.close();
+                return;
+            }
+        }
     }
 
     public static void rimuoviAnno(String nomeAnnoScolastico) {
-        for (int i = 0; i<listaAnni.size(); i++)
-            if ( listaAnni.get(i).getNomeAnnoScolastico().equals(nomeAnnoScolastico) )
+        for (int i = 0; i<listaAnni.size(); i++) {
+            if ( listaAnni.get(i).getNomeAnnoScolastico().equals(nomeAnnoScolastico) ) {
+                Anno annoDaRimuovere = listaAnni.get(i);
                 listaAnni.remove(i);
+
+                // Apporto la modifica anche sul db
+                DBAdapter.open();
+                DBAdapter.rimuoviAnno(annoDaRimuovere);
+                DBAdapter.close();
+                return;
+            }
+        }
     }
 
     public static boolean annoGiaEsistente(String annoSelezionato) {
