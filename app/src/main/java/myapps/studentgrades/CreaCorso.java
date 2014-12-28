@@ -220,7 +220,7 @@ public class CreaCorso extends Fragment {
 
                         //salvo il corso nell'anno selezionato
                         Anno annoSelezionato = getAnno( (String)tvAnno.getText() );
-                        annoSelezionato.aggiungiCorso( new Corso((String)tvCorso.getText()) );
+                        annoSelezionato.aggiungiCorso( new Corso( annoSelezionato.getId(), (String)tvCorso.getText()) );
 
                         //inizio messaggio output - creazione corso
                         Toast toast = Toast.makeText(activity, getResources().getText(R.string.output_msg_cc), Toast.LENGTH_LONG);

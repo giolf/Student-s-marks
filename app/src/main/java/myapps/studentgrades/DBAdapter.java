@@ -69,7 +69,7 @@ public class DBAdapter {
         database.insert(TBL_ANNO, null, cv);
 
         // Recupero l'anno appena inserito dal DB
-        Cursor cursor = database.rawQuery("SELECT * FROM "+TBL_ANNO+" ORDER BY "+F_ANNO_ID+" DESC LIMIT 1", null);
+        Cursor cursor = database.rawQuery("SELECT "+F_ANNO_ID+" FROM "+TBL_ANNO+" ORDER BY "+F_ANNO_ID+" DESC LIMIT 1", null);
         cursor.moveToFirst();
 
         // Recupero l'id dell'anno appena inserito (è l'id che gli ha assegnato il DB)
@@ -87,6 +87,42 @@ public class DBAdapter {
 
     public void rimuoviAnno(Anno anno) {
         long idAnno = anno.getId();
-        database.delete(TBL_ANNO, F_ANNO_ID+"="+idAnno, null);
+        database.delete(TBL_ANNO, F_ANNO_ID + "=" + idAnno, null);
+    }
+
+    public void aggiungiCorso(Corso corso) {
+        long idAnno       = corso.getIdAnno();
+        String nomeCorso  = corso.getNomeCorso();
+        double mediaP     = corso.getMediaPrecedente();
+        double mediaA     = corso.getMediaAttuale();
+        ContentValues cv  = new ContentValues();
+        cv.put(F_CORSO_ID_A, idAnno);
+        cv.put(F_CORSO_NC, nomeCorso);
+        cv.put(F_CORSO_MP, mediaP);
+        cv.put(F_CORSO_MA, mediaA);
+
+        // Inserisco il corso nel DB
+        database.insert(TBL_CORSO, null, cv);
+
+        // Recupero il corso appena inserito dal DB
+        Cursor cursor = database.rawQuery("SELECT "+F_CORSO_ID+" FROM "+TBL_CORSO+" ORDER BY "+F_CORSO_ID+" DESC LIMIT 1", null);
+        cursor.moveToFirst();
+
+        // Recupero l'id del corso appena inserito (è l'id che gli ha assegnato il DB)
+        long id = cursor.getLong( cursor.getColumnIndex(F_CORSO_ID) );
+        corso.setId(id);
+    }
+
+    public void modificaCorso(Corso corso) {
+        long idCorso      = corso.getId();
+        String nuovoNome = corso.getNomeCorso();
+        ContentValues cv = new ContentValues();
+        cv.put(F_CORSO_NC, nuovoNome);
+        database.update(TBL_CORSO, cv, F_CORSO_ID+"="+idCorso, null);
+    }
+
+    public void rimuoviCorso(Corso corso) {
+        long idCorso = corso.getId();
+        database.delete(TBL_CORSO, F_CORSO_ID + "=" + idCorso, null);
     }
 }

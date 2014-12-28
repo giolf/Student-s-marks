@@ -3,6 +3,8 @@ package myapps.studentgrades;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import static myapps.studentgrades.DataSource.getDBAdapter;
+
 /**
  * Created by Gio on 06.12.2014.
  */
@@ -107,12 +109,27 @@ public class Anno {
 
     public void aggiungiCorso(Corso corso) {
         listaCorsi.add(corso);
+
+        // Aggiungo il corso nel db
+        DBAdapter DBAdapter = getDBAdapter();
+        DBAdapter.open();
+        DBAdapter.aggiungiCorso(corso);
+        DBAdapter.close();
     }
 
     public void rimuoviCorso(String nomeCorso) {
         for (int i = 0; i<listaCorsi.size(); i++)
-            if ( listaCorsi.get(i).getNomeCorso().equals(nomeCorso) )
+            if ( listaCorsi.get(i).getNomeCorso().equals(nomeCorso) ) {
+                Corso corso = listaCorsi.get(i);
                 listaCorsi.remove(i);
+
+                // Apporto la rimozione anche sul db
+                DBAdapter DBAdapter = getDBAdapter();
+                DBAdapter.open();
+                DBAdapter.rimuoviCorso(corso);
+                DBAdapter.close();
+                return;
+            }
     }
 
     public boolean corsoGiaEsistente(String corsoSelezionato) {

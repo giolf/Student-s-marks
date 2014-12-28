@@ -23,6 +23,10 @@ public abstract class DataSource {
         DBAdapter = new DBAdapter(context);
     }
 
+    public static DBAdapter getDBAdapter() {
+        return DBAdapter;
+    }
+
     public static ArrayList<Anno> getListaAnni() {
         return listaAnni;
     }
@@ -71,7 +75,7 @@ public abstract class DataSource {
                 Anno annoDaRimuovere = listaAnni.get(i);
                 listaAnni.remove(i);
 
-                // Apporto la modifica anche sul db
+                // Apporto la rimozione anche sul db
                 DBAdapter.open();
                 DBAdapter.rimuoviAnno(annoDaRimuovere);
                 DBAdapter.close();

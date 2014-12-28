@@ -2,17 +2,21 @@ package myapps.studentgrades;
 
 import java.util.ArrayList;
 
+import static myapps.studentgrades.DataSource.getDBAdapter;
+
 /**
  * Created by Gio on 06.12.2014.
  */
 public class Corso {
-    private int id;
+    private long id;
+    private long idAnno;
     private String nomeCorso;
     private double mediaAttuale;
     private double mediaPrecedente;
     private ArrayList<Voto> listaVoti;
 
-    public Corso (String nomeCorso) {
+    public Corso (long idAnno, String nomeCorso) {
+        this.idAnno             = idAnno;
         this.nomeCorso          = nomeCorso;
         this.mediaAttuale       = 0;
         this.mediaPrecedente    = 0;
@@ -20,8 +24,16 @@ public class Corso {
     }
 
 
-    public int getId() {
+    public long getId() {
         return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public long getIdAnno() {
+        return idAnno;
     }
 
     public String getNomeCorso() {
@@ -30,12 +42,23 @@ public class Corso {
 
     public void modificaNomeCorso(String nomeCorso) {
         this.nomeCorso = nomeCorso;
+
+        // Apporto la modifica anche sul db
+        DBAdapter DBAdapter = getDBAdapter();
+        DBAdapter.open();
+        DBAdapter.modificaCorso(this);
+        DBAdapter.close();
+
         for (Voto voto : listaVoti)
             voto.setNomeCorso(nomeCorso);
     }
 
     public double getMediaAttuale() {
         return mediaAttuale;
+    }
+
+    public double getMediaPrecedente() {
+        return mediaPrecedente;
     }
 
     public void setMediaAttuale(double media) {
@@ -174,5 +197,4 @@ public class Corso {
             listaVoti.add(end, voto);
         }
     }
-
 }
