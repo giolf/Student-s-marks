@@ -5,7 +5,7 @@ android {
     buildToolsVersion "20.0.0"
 
     defaultConfig {
-        applicationId "myapps.studentsmarks"
+        applicationId "ch.studentgrades"
         minSdkVersion 17
         targetSdkVersion 20
         versionCode 1
