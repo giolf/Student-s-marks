@@ -93,9 +93,18 @@ public class Corso {
     }
 
     public void rimuoviVoto(String dataVotoSelezionato) {
-        for (int i = 0; i<listaVoti.size(); i++)
-            if ( listaVoti.get(i).getData().equals(dataVotoSelezionato) )
+        for (int i = 0; i<listaVoti.size(); i++) {
+            if (listaVoti.get(i).getData().equals(dataVotoSelezionato)) {
+                Voto voto = listaVoti.get(i);
                 listaVoti.remove(i);
+
+                // Apporto la rimozione anche sul db
+                DBAdapter DBAdapter = getDBAdapter();
+                DBAdapter.open();
+                DBAdapter.rimuoviVoto(voto);
+                DBAdapter.close();
+            }
+        }
     }
 
     private double arrotondaMedia(double valore, int precisione) {
@@ -106,11 +115,17 @@ public class Corso {
     }
 
     public void aggiornaMedia() {
+        DBAdapter DBAdapter = getDBAdapter();
         double sommaNote = 0;
         double sommaVoti = listaVoti.size();
         if (sommaVoti == 0) {
             mediaPrecedente = arrotondaMedia(mediaAttuale, 2);
             mediaAttuale    = 0;
+
+            // Aggiorno la media del corso anche nel db
+            DBAdapter.open();
+            DBAdapter.aggiornaMediaCorso(this);
+            DBAdapter.close();
             return;
         }
 
@@ -119,9 +134,20 @@ public class Corso {
 
         mediaPrecedente = mediaAttuale;
         mediaAttuale    = arrotondaMedia(sommaNote/sommaVoti, 2);
+
+        // Aggiorno la media dell'anno anche nel db
+        DBAdapter.open();
+        DBAdapter.aggiornaMediaCorso(this);
+        DBAdapter.close();
     }
 
     public void aggiungiVotoOrdinatoPerData(Voto voto) {
+        // Aggiungo il voto appena creato nel DB
+        DBAdapter DBAdapter = getDBAdapter();
+        DBAdapter.open();
+        DBAdapter.aggiungiVoto(id, voto);
+        DBAdapter.close();
+
         if (listaVoti.size() == 0) {
             listaVoti.add(voto);
             return;

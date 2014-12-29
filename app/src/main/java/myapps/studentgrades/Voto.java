@@ -4,7 +4,7 @@ package myapps.studentgrades;
  * Created by Gio on 01.12.2014.
  */
 public class Voto {
-    private int id;
+    private long id;
     private String nomeCorso;
     /*viene solo salvato il campo data nel db*/
     private String data;
@@ -24,8 +24,12 @@ public class Voto {
         this.nota       = arrotondaMedia(nota, 2);
     }
 
-    public int getId() {
+    public long getId() {
         return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 
     public String getNomeCorso() {

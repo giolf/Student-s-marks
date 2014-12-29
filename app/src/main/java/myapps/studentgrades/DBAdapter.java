@@ -136,4 +136,44 @@ public class DBAdapter {
         cv.put(F_ANNO_MA, mediaA);
         database.update(TBL_ANNO, cv, F_ANNO_ID+"="+idAnno, null);
     }
+
+    public void aggiungiVoto(long idCorso, Voto voto) {
+        String data      = voto.getData();
+        int meseD        = voto.getMeseData();
+        int giornoD      = voto.getGiornoData();
+        double nota      = voto.getNota();
+        ContentValues cv = new ContentValues();
+        cv.put(F_VOTO_ID_C, idCorso);
+        cv.put(F_VOTO_D, data);
+        cv.put(F_VOTO_MD, meseD);
+        cv.put(F_VOTO_GD, giornoD);
+        cv.put(F_VOTO_N, nota);
+
+        // Inserisco il voto nel DB
+        database.insert(TBL_VOTO, null, cv);
+
+        // Recupero il voto appena inserito dal DB
+        Cursor cursor = database.rawQuery("SELECT "+F_VOTO_ID+" FROM "+TBL_VOTO+" ORDER BY "+F_VOTO_ID+" DESC LIMIT 1", null);
+        cursor.moveToFirst();
+
+        // Recupero l'id del voto inserito (è l'id che gli ha assegnato il DB)
+        long id = cursor.getLong( cursor.getColumnIndex(F_VOTO_ID) );
+        voto.setId(id);
+    }
+
+    public void aggiornaMediaCorso(Corso corso) {
+        long idCorso   = corso.getId();
+        double mediaP  = corso.getMediaPrecedente();
+        double mediaA  = corso.getMediaAttuale();
+
+        ContentValues cv = new ContentValues();
+        cv.put(F_CORSO_MP, mediaP);
+        cv.put(F_CORSO_MA, mediaA);
+        database.update(TBL_CORSO, cv, F_CORSO_ID+"="+idCorso, null);
+    }
+
+    public void rimuoviVoto(Voto voto) {
+        long idVoto = voto.getId();
+        database.delete(TBL_VOTO, F_VOTO_ID + "=" + idVoto, null);
+    }
 }

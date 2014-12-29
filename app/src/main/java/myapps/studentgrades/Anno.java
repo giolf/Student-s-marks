@@ -128,9 +128,6 @@ public class Anno {
                 DBAdapter.open();
                 DBAdapter.rimuoviCorso(corso);
                 DBAdapter.close();
-
-                // dopo la rimozione del corso aggiorno la media dell'anno
-                this.aggiornaMedia();
                 return;
             }
     }
