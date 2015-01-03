@@ -1,7 +1,14 @@
 package ch.studentgrades;
 
+import android.database.Cursor;
+
 import java.util.ArrayList;
 
+import static ch.studentgrades.DBAdapter.getF_CORSO_ID;
+import static ch.studentgrades.DBAdapter.getF_CORSO_ID_A;
+import static ch.studentgrades.DBAdapter.getF_CORSO_MA;
+import static ch.studentgrades.DBAdapter.getF_CORSO_MP;
+import static ch.studentgrades.DBAdapter.getF_CORSO_NC;
 import static ch.studentgrades.DataSource.getDBAdapter;
 
 /**
@@ -23,6 +30,15 @@ public class Corso {
         this.listaVoti          = new ArrayList<Voto>();
     }
 
+    // Costruttore utilizzato se i dati vengono recuperati dal DB
+    public Corso (Cursor cursor) {
+        this.id                 = cursor.getLong( cursor.getColumnIndex( getF_CORSO_ID() ) );
+        this.idAnno             = cursor.getLong( cursor.getColumnIndex( getF_CORSO_ID_A() ) );
+        this.nomeCorso          = cursor.getString( cursor.getColumnIndex( getF_CORSO_NC() ) );
+        this.mediaAttuale       = cursor.getDouble( cursor.getColumnIndex( getF_CORSO_MA() ) );
+        this.mediaPrecedente    = cursor.getDouble( cursor.getColumnIndex( getF_CORSO_MP() ) );
+        this.listaVoti          = new ArrayList<Voto>();
+    }
 
     public long getId() {
         return id;
@@ -141,12 +157,15 @@ public class Corso {
         DBAdapter.close();
     }
 
-    public void aggiungiVotoOrdinatoPerData(Voto voto) {
-        // Aggiungo il voto appena creato nel DB
-        DBAdapter DBAdapter = getDBAdapter();
-        DBAdapter.open();
-        DBAdapter.aggiungiVoto(id, voto);
-        DBAdapter.close();
+    public void aggiungiVotoOrdinatoPerData(Voto voto, boolean utilizzoDB) {
+
+        if (utilizzoDB) {
+            // Aggiungo il voto appena creato nel DB
+            DBAdapter DBAdapter = getDBAdapter();
+            DBAdapter.open();
+            DBAdapter.aggiungiVoto(id, voto);
+            DBAdapter.close();
+        }
 
         if (listaVoti.size() == 0) {
             listaVoti.add(voto);

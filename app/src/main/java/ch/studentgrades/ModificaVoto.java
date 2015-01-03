@@ -527,7 +527,7 @@ public class ModificaVoto extends Fragment {
                         votoSelezionato.setMeseData(nuovaDataInteri[1]);
                         votoSelezionato.setData( (String)tvData.getText() );
                         votoSelezionato.setNota( Double.parseDouble((String)tvPunteggio.getText()) );
-                        corsoSelezionato.aggiungiVotoOrdinatoPerData(votoSelezionato);
+                        corsoSelezionato.aggiungiVotoOrdinatoPerData(votoSelezionato, true);
 
                         //aggiorno la media del corso selezionato
                         corsoSelezionato.aggiornaMedia();

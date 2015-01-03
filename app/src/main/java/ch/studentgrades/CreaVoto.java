@@ -397,8 +397,8 @@ public class CreaVoto extends Fragment {
                         //Salvo la creazione del voto
                         Anno annoSelezionato   = getAnno( (String)tvAnno.getText() );
                         Corso corsoSelezionato = annoSelezionato.getCorso( (String)tvCorso.getText() );
-                        Voto voto = new Voto( (String)tvCorso.getText(),  (String)tvData.getText(), dataVotoInteri[0], dataVotoInteri[1], Double.parseDouble((String)tvVoto.getText()) );
-                        corsoSelezionato.aggiungiVotoOrdinatoPerData(voto);
+                        Voto voto = new Voto(corsoSelezionato.getId(), (String)tvCorso.getText(),  (String)tvData.getText(), dataVotoInteri[0], dataVotoInteri[1], Double.parseDouble((String)tvVoto.getText()) );
+                        corsoSelezionato.aggiungiVotoOrdinatoPerData(voto, true);
 
                         //aggiorno la media del corso selezionato
                         corsoSelezionato.aggiornaMedia();

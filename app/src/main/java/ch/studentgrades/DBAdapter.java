@@ -6,6 +6,9 @@ import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by Gio on 27.12.2014.
  */
@@ -21,28 +24,88 @@ public class DBAdapter {
     private static final String TBL_VOTO   = "voto";
 
     // Database campi tabella anno
-    public static final String F_ANNO_ID = "_id";
-    public static final String F_ANNO_NA = "nome_anno";
-    public static final String F_ANNO_MP = "media_p";
-    public static final String F_ANNO_MA = "media_a";
+    private static final String F_ANNO_ID = "_id";
+    private static final String F_ANNO_NA = "nome_anno";
+    private static final String F_ANNO_MP = "media_p";
+    private static final String F_ANNO_MA = "media_a";
 
     // Database campi tabella corso
-    public static final String F_CORSO_ID = "_id";
-    public static final String F_CORSO_ID_A = "id_anno";
-    public static final String F_CORSO_NC = "nome_corso";
-    public static final String F_CORSO_MP = "media_p";
-    public static final String F_CORSO_MA = "media_a";
+    private static final String F_CORSO_ID = "_id";
+    private static final String F_CORSO_ID_A = "id_anno";
+    private static final String F_CORSO_NC = "nome_corso";
+    private static final String F_CORSO_MP = "media_p";
+    private static final String F_CORSO_MA = "media_a";
 
     // Database campi tabella voto
-    public static final String F_VOTO_ID = "_id";
-    public static final String F_VOTO_ID_C = "id_corso";
-    public static final String F_VOTO_D = "data";
-    public static final String F_VOTO_MD = "mese_data";
-    public static final String F_VOTO_GD = "giorno_data";
-    public static final String F_VOTO_N = "nota";
+    private static final String F_VOTO_ID = "_id";
+    private static final String F_VOTO_ID_C = "id_corso";
+    private static final String F_VOTO_D = "data";
+    private static final String F_VOTO_MD = "mese_data";
+    private static final String F_VOTO_GD = "giorno_data";
+    private static final String F_VOTO_N = "nota";
 
     public DBAdapter(Context context) {
         this.context = context;
+    }
+
+    public static String getF_ANNO_ID() {
+        return F_ANNO_ID;
+    }
+
+    public static String getF_ANNO_NA() {
+        return F_ANNO_NA;
+    }
+
+    public static String getF_ANNO_MP() {
+        return F_ANNO_MP;
+    }
+
+    public static String getF_ANNO_MA() {
+        return F_ANNO_MA;
+    }
+
+    public static String getF_CORSO_ID() {
+        return F_CORSO_ID;
+    }
+
+    public static String getF_CORSO_ID_A() {
+        return F_CORSO_ID_A;
+    }
+
+    public static String getF_CORSO_NC() {
+        return F_CORSO_NC;
+    }
+
+    public static String getF_CORSO_MP() {
+        return F_CORSO_MP;
+    }
+
+    public static String getF_CORSO_MA() {
+        return F_CORSO_MA;
+    }
+
+    public static String getF_VOTO_ID() {
+        return F_VOTO_ID;
+    }
+
+    public static String getF_VOTO_ID_C() {
+        return F_VOTO_ID_C;
+    }
+
+    public static String getF_VOTO_D() {
+        return F_VOTO_D;
+    }
+
+    public static String getF_VOTO_MD() {
+        return F_VOTO_MD;
+    }
+
+    public static String getF_VOTO_GD() {
+        return F_VOTO_GD;
+    }
+
+    public static String getF_VOTO_N() {
+        return F_VOTO_N;
     }
 
     public DBAdapter open() throws SQLException {
@@ -54,6 +117,35 @@ public class DBAdapter {
 
     public void close() {
         DBHelper.close();
+    }
+
+    public ArrayList<Anno> recuperoStrutturaCompleta() {
+        ArrayList<Anno> listaAnni = new ArrayList<Anno>();
+        Cursor cursorAnni = database.rawQuery("SELECT * FROM " +TBL_ANNO, null);
+
+        while ( cursorAnni.moveToNext() ) {
+            Anno anno   = new Anno(cursorAnni);
+            long idAnno = anno.getId();
+            listaAnni.add(anno);
+
+            Cursor cursorCorsi = database.rawQuery("SELECT * FROM "+TBL_CORSO+" WHERE "+F_CORSO_ID_A+" = "+idAnno, null);
+            while ( cursorCorsi.moveToNext() ) {
+                Corso corso  = new Corso(cursorCorsi);
+                long idCorso = corso.getId();
+                anno.aggiungiCorso(corso, false);
+
+                Cursor cursorVoti = database.rawQuery("SELECT * FROM "+TBL_VOTO+" WHERE "+F_VOTO_ID_C+" = "+idCorso, null);
+                while ( cursorVoti.moveToNext() ) {
+                    Voto voto = new Voto( cursorVoti, corso.getNomeCorso() );
+                    corso.aggiungiVotoOrdinatoPerData(voto, false);
+
+                    if ( cursorCorsi.isLast() && cursorVoti.isLast() )
+                        anno.ordinaCorsiPerMedia();
+                }
+            }
+        }
+
+        return listaAnni;
     }
 
     public void aggiungiAnno(Anno anno) {

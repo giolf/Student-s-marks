@@ -1,27 +1,45 @@
 package ch.studentgrades;
 
+import android.database.Cursor;
+
+import static ch.studentgrades.DBAdapter.getF_VOTO_D;
+import static ch.studentgrades.DBAdapter.getF_VOTO_GD;
+import static ch.studentgrades.DBAdapter.getF_VOTO_ID;
+import static ch.studentgrades.DBAdapter.getF_VOTO_ID_C;
+import static ch.studentgrades.DBAdapter.getF_VOTO_MD;
+import static ch.studentgrades.DBAdapter.getF_VOTO_N;
+
 /**
  * Created by Gio on 01.12.2014.
  */
 public class Voto {
     private long id;
+    private long idCorso;
     private String nomeCorso;
-    /*viene solo salvato il campo data nel db*/
     private String data;
-    /* meseData e giornoData sono campi di supporto
-     * che non vengono salvati nel db
-     * sono utili per ordinare i voti per data
-    */
+    // Utili per ordinare i voti per data
     private int meseData;
     private int giornoData;
     private double nota;
 
-    public Voto(String nomeCorso, String data, int giornoData, int meseData, double nota) {
+    public Voto(long idCorso, String nomeCorso, String data, int giornoData, int meseData, double nota) {
+        this.idCorso    = idCorso;
         this.nomeCorso  = nomeCorso;
         this.data       = data;
         this.giornoData = giornoData;
         this.meseData   = meseData;
         this.nota       = arrotondaMedia(nota, 2);
+    }
+
+    // Costruttore utilizzato se i dati vengono recuperati dal DB
+    public Voto (Cursor cursor, String nomeCorso) {
+        this.id                 = cursor.getLong( cursor.getColumnIndex( getF_VOTO_ID() ) );
+        this.idCorso            = cursor.getLong( cursor.getColumnIndex( getF_VOTO_ID_C() ) );
+        this.nomeCorso          = nomeCorso;
+        this.data               = cursor.getString( cursor.getColumnIndex( getF_VOTO_D() ) );
+        this.giornoData         = cursor.getInt( cursor.getColumnIndex( getF_VOTO_GD() ) );
+        this.meseData           = cursor.getInt( cursor.getColumnIndex( getF_VOTO_MD() ) );
+        this.nota               = cursor.getDouble( cursor.getColumnIndex( getF_VOTO_N() ) );
     }
 
     public long getId() {

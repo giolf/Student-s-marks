@@ -11,7 +11,7 @@ import java.util.Arrays;
 public abstract class DataSource {
 
     /*Contiene la lista degli anni creati*/
-    private static ArrayList<Anno> listaAnni = new ArrayList<Anno>();
+    private static ArrayList<Anno> listaAnni = null;
 
     /*Contiene la scelta dell'anno da parte dell'utente per il quale visualizzarne le statistiche*/
     private static String NomeAnnoSelezionato = null;
@@ -21,6 +21,9 @@ public abstract class DataSource {
 
     public static void inizializzazioneStrutDati(Context context) {
         DBAdapter = new DBAdapter(context);
+        DBAdapter.open();
+        listaAnni = DBAdapter.recuperoStrutturaCompleta();
+        DBAdapter.close();
     }
 
     public static DBAdapter getDBAdapter() {

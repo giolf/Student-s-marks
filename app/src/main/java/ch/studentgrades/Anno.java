@@ -1,8 +1,14 @@
 package ch.studentgrades;
 
+import android.database.Cursor;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import static ch.studentgrades.DBAdapter.getF_ANNO_ID;
+import static ch.studentgrades.DBAdapter.getF_ANNO_MA;
+import static ch.studentgrades.DBAdapter.getF_ANNO_MP;
+import static ch.studentgrades.DBAdapter.getF_ANNO_NA;
 import static ch.studentgrades.DataSource.getDBAdapter;
 
 /**
@@ -20,6 +26,15 @@ public class Anno {
         this.nomeAnnoScolastico = nome;
         this.mediaAttuale       = 0;
         this.mediaPrecedente    = 0;
+        this.listaCorsi         = new ArrayList<Corso>();
+    }
+
+    // Costruttore utilizzato se i dati vengono recuperati dal DB
+    public Anno (Cursor cursor) {
+        this.id                 = cursor.getLong( cursor.getColumnIndex( getF_ANNO_ID() ) );
+        this.nomeAnnoScolastico = cursor.getString( cursor.getColumnIndex( getF_ANNO_NA() ) );
+        this.mediaAttuale       = cursor.getDouble( cursor.getColumnIndex( getF_ANNO_MA() ) );
+        this.mediaPrecedente    = cursor.getDouble( cursor.getColumnIndex( getF_ANNO_MP() ) );
         this.listaCorsi         = new ArrayList<Corso>();
     }
 
@@ -88,7 +103,7 @@ public class Anno {
         return listaVoti;
     }
 
-    private void ordinaCorsiPerMedia() {
+    public void ordinaCorsiPerMedia() {
         for (int i = 0; i < listaCorsi.size(); i++) {
             for (int k = i+1; k < listaCorsi.size(); k++) {
                 if (listaCorsi.get(i).getMediaAttuale() < listaCorsi.get(k).getMediaAttuale()) {
@@ -107,14 +122,16 @@ public class Anno {
         return null;
     }
 
-    public void aggiungiCorso(Corso corso) {
+    public void aggiungiCorso(Corso corso, boolean utilizzoDB) {
         listaCorsi.add(corso);
 
-        // Aggiungo il corso nel db
-        DBAdapter DBAdapter = getDBAdapter();
-        DBAdapter.open();
-        DBAdapter.aggiungiCorso(corso);
-        DBAdapter.close();
+        if (utilizzoDB) {
+            // Aggiungo il corso nel db
+            DBAdapter DBAdapter = getDBAdapter();
+            DBAdapter.open();
+            DBAdapter.aggiungiCorso(corso);
+            DBAdapter.close();
+        }
     }
 
     public void rimuoviCorso(String nomeCorso) {
