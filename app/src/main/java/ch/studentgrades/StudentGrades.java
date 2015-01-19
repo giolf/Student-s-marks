@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.support.v4.widget.DrawerLayout;
+import android.widget.Toast;
 
 import static ch.studentgrades.DataSource.inizializzazioneStrutDati;
 
@@ -124,6 +125,18 @@ public class StudentGrades extends Activity
         if (id == R.id.action_settings) {
             return true;
         }
+
+        if (id == android.R.id.home) {
+            if ( !mNavigationDrawerFragment.isDrawerOpen() ) {
+                mNavigationDrawerFragment.openDrawer();
+                return true;
+            }
+            else {
+                mNavigationDrawerFragment.closeDrawer();
+                return true;
+            }
+        }
+
         return super.onOptionsItemSelected(item);
     }
 }

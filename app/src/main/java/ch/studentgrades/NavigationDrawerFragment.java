@@ -103,6 +103,9 @@ public class NavigationDrawerFragment extends Fragment {
                 android.R.id.text1,
                 getResources().getStringArray(R.array.menu)
         ));
+        // dato che questo metodo viene chiamato una volta sola (sull'apertura dell'app),
+        // appena viene assegnato l'adapter alla lw, passiamo all'adapter
+        // come selezione corrente la 0, cioe la prima voce del menu
 
         mDrawerListView.setItemChecked(mCurrentSelectedPosition, true);
         return mDrawerListView;
@@ -188,6 +191,10 @@ public class NavigationDrawerFragment extends Fragment {
 
     public void selectItem(int position) {
         mCurrentSelectedPosition = position;
+        // quando implementerò l'adapter personalizzato gli assegnero qui la selezione corrente
+        // in questo modo l'adapter sa qual'e' la selezione corrente e di conseguenza sulla view
+        // che corrisponde alla selezione corrente gli cambia background
+
         if (mDrawerListView != null) {
             mDrawerListView.setItemChecked(position, true);
         }
@@ -240,6 +247,14 @@ public class NavigationDrawerFragment extends Fragment {
             showGlobalContextActionBar();
         }
         super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    public void openDrawer() {
+        mDrawerLayout.openDrawer(mFragmentContainerView);
+    }
+
+    public void closeDrawer() {
+        mDrawerLayout.closeDrawer(mFragmentContainerView);
     }
 
 /*    @Override
