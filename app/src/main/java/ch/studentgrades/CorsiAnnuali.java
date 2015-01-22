@@ -71,7 +71,7 @@ public class CorsiAnnuali extends Fragment {
 
             setupMenuRiepilogoAnnuale(menu, this);
 
-             /*INIZIO impostazioni view della pagina 'media annuale'*/
+             /*INIZIO impostazioni view della pagina 'corsi annuali'*/
             View rootView = getView();
             String nomeAnnoSelezionato = (String)menu.findItem(R.id.action_selected_year).getTitle();
             Anno anno = getAnno(nomeAnnoSelezionato);
@@ -102,7 +102,7 @@ public class CorsiAnnuali extends Fragment {
                 ListView lw = (ListView)rootView.findViewById(R.id.lwCorsiAnnuali);
                 lw.setAdapter(new AdapterListaCorsiView(activity, R.layout.row_corsi_annuali, listaCorsi));
             }
-            /*FINE impostazioni view della pagina 'media annuale'*/
+            /*FINE impostazioni view della pagina 'corsi annuali'*/
         }
     }
 

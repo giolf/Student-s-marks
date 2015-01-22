@@ -50,6 +50,7 @@ public class NavigationDrawerFragment extends Fragment {
 
     private DrawerLayout mDrawerLayout;
     private ListView mDrawerListView;
+    private AdapterListaMenu adapterListaMenu;
     private View mFragmentContainerView;
 
     private int mCurrentSelectedPosition = 0;
@@ -97,15 +98,22 @@ public class NavigationDrawerFragment extends Fragment {
                 selectItem(position);
             }
         });
+
+        adapterListaMenu = new AdapterListaMenu(getActionBar().getThemedContext(),
+                R.layout.lista_menu,
+                getResources().getStringArray(R.array.menu)
+        );
+        mDrawerListView.setAdapter(adapterListaMenu);
+
+        /*
         mDrawerListView.setAdapter(new ArrayAdapter<String>(
                 getActionBar().getThemedContext(),
                 android.R.layout.simple_list_item_1,
                 android.R.id.text1,
                 getResources().getStringArray(R.array.menu)
         ));
-        // dato che questo metodo viene chiamato una volta sola (sull'apertura dell'app),
-        // appena viene assegnato l'adapter alla lw, passiamo all'adapter
-        // come selezione corrente la 0, cioe la prima voce del menu
+        */
+
 
         mDrawerListView.setItemChecked(mCurrentSelectedPosition, true);
         return mDrawerListView;
@@ -194,6 +202,8 @@ public class NavigationDrawerFragment extends Fragment {
         // quando implementerò l'adapter personalizzato gli assegnero qui la selezione corrente
         // in questo modo l'adapter sa qual'e' la selezione corrente e di conseguenza sulla view
         // che corrisponde alla selezione corrente gli cambia background
+        if (adapterListaMenu != null)
+            adapterListaMenu.setPosizioneCorrente(position);
 
         if (mDrawerListView != null) {
             mDrawerListView.setItemChecked(position, true);

@@ -71,7 +71,7 @@ public class VotiAnnuali extends Fragment {
 
             setupMenuRiepilogoAnnuale(menu, this);
 
-             /*INIZIO impostazioni view della pagina 'media annuale'*/
+             /*INIZIO impostazioni view della pagina 'voti annuali'*/
             View rootView = getView();
             String nomeAnnoSelezionato = (String)menu.findItem(R.id.action_selected_year).getTitle();
             Anno anno = getAnno(nomeAnnoSelezionato);
@@ -102,7 +102,7 @@ public class VotiAnnuali extends Fragment {
                 ListView lw = (ListView)rootView.findViewById(R.id.lwVotiAnnuali);
                 lw.setAdapter(new AdapterListaVotiView(activity, R.layout.row_voti_annuali, listaVoti));
             }
-            /*FINE impostazioni view della pagina 'media annuale'*/
+            /*FINE impostazioni view della pagina 'voti annuali'*/
         }
     }
 
