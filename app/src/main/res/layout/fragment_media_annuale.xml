@@ -11,9 +11,10 @@
         android:text=""
         android:id="@+id/mediaAnnuale"
         android:textSize="60dp"
-        android:layout_centerVertical="true"
+        android:visibility="invisible"
+        android:layout_alignTop="@+id/msgMediaNonDisp"
         android:layout_centerHorizontal="true"
-        android:visibility="invisible" />
+        android:layout_marginTop="100dp" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -52,5 +53,17 @@
         android:id="@+id/pb"
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true"
-        android:indeterminate="false" />
+        android:indeterminate="false"
+        android:layout_alignTop="@+id/msgMediaNonDisp"
+        android:layout_marginTop="100dp" />
+
+    <ImageView
+        android:layout_width="16dp"
+        android:layout_height="16dp"
+        android:id="@+id/imgUD"
+        android:layout_alignBottom="@+id/varMediaAnnuale"
+        android:layout_toStartOf="@+id/varMediaAnnuale"
+        android:layout_marginBottom="5dp"
+        android:layout_marginRight="3dp"
+        android:visibility="invisible" />
 </RelativeLayout>

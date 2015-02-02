@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.Fragment;
 import android.content.DialogInterface;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -13,6 +14,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.NumberPicker;
 import android.widget.TextView;
 
@@ -91,6 +93,7 @@ public class MediaAnnuale extends Fragment {
                 //trovarsi dentro a questo blocco significa, indirettamente, a non aver creato nessun anno
                 rootView.findViewById(R.id.mediaAnnuale).setVisibility(View.INVISIBLE);
                 rootView.findViewById(R.id.varMediaAnnuale).setVisibility(View.INVISIBLE);
+                rootView.findViewById(R.id.imgUD).setVisibility(View.INVISIBLE);
                 rootView.findViewById(R.id.msgMediaNonDisp).setVisibility(View.VISIBLE);
                 //dopo di che termino qui il metodo
                 return;
@@ -99,6 +102,7 @@ public class MediaAnnuale extends Fragment {
             else if (anno.numeroVotiAnnuali() == 0) {
                 rootView.findViewById(R.id.mediaAnnuale).setVisibility(View.INVISIBLE);
                 rootView.findViewById(R.id.varMediaAnnuale).setVisibility(View.INVISIBLE);
+                rootView.findViewById(R.id.imgUD).setVisibility(View.INVISIBLE);
                 rootView.findViewById(R.id.msgMediaNonDisp).setVisibility(View.VISIBLE);
                 //dopo di che termino qui il metodo
                 return;
@@ -109,13 +113,23 @@ public class MediaAnnuale extends Fragment {
 
                 //calcolo il valore della differenza della media annuale (mediaAttuale - mediaPrecedente)
                 double diffMedia = anno.getDifferenzaMediaAttualePrecedente();
+                if (diffMedia < 0)
+                    ((ImageView)rootView.findViewById(R.id.imgUD)).setImageResource(R.drawable.down);
+                else if (diffMedia > 0)
+                    ((ImageView)rootView.findViewById(R.id.imgUD)).setImageResource(R.drawable.up);
+                diffMedia = Math.abs(diffMedia);
 
                 //mostro le media e la differenza di media sulle relative textView della pagina 'media annuale'
+                Typeface font = Typeface.createFromAsset(getActivity().getAssets(),"fonts/GOTHIC.TTF");
+                ((TextView)rootView.findViewById(R.id.mediaAnnuale)).setTypeface(font);
+                ((TextView)rootView.findViewById(R.id.varMediaAnnuale)).setTypeface(font);
                 ((TextView)rootView.findViewById(R.id.mediaAnnuale)).setText(""+formatter.format(mediaAttuale));
                 ((TextView)rootView.findViewById(R.id.varMediaAnnuale)).setText(""+formatter.format(diffMedia));
                 rootView.findViewById(R.id.msgMediaNonDisp).setVisibility(View.INVISIBLE);
                 rootView.findViewById(R.id.mediaAnnuale).setVisibility(View.VISIBLE);
                 rootView.findViewById(R.id.varMediaAnnuale).setVisibility(View.VISIBLE);
+                if (diffMedia != 0)
+                    rootView.findViewById(R.id.imgUD).setVisibility(View.VISIBLE);
             }
             /*FINE impostazioni view della pagina 'media annuale'*/
         }
@@ -191,6 +205,7 @@ public class MediaAnnuale extends Fragment {
                         if (annoSelezionato.numeroVotiAnnuali() == 0) {
                             rootView.findViewById(R.id.mediaAnnuale).setVisibility(View.INVISIBLE);
                             rootView.findViewById(R.id.varMediaAnnuale).setVisibility(View.INVISIBLE);
+                            rootView.findViewById(R.id.imgUD).setVisibility(View.INVISIBLE);
                             rootView.findViewById(R.id.msgMediaNonDisp).setVisibility(View.VISIBLE);
                             //dopo di che termino qui il metodo
                             return;
@@ -199,6 +214,11 @@ public class MediaAnnuale extends Fragment {
                             //l'anno selezionato ha voti: recupero la media e la differenza di media dell'anno selezionato
                             double mediaAttuale = getAnno(nomeAnnoSelezionato).getMediaAttuale();
                             double diffMedia = getAnno(nomeAnnoSelezionato).getDifferenzaMediaAttualePrecedente();
+                            if (diffMedia < 0)
+                                ((ImageView)rootView.findViewById(R.id.imgUD)).setImageResource(R.drawable.down);
+                            else if (diffMedia > 0)
+                                ((ImageView)rootView.findViewById(R.id.imgUD)).setImageResource(R.drawable.up);
+                            diffMedia = Math.abs(diffMedia);
 
                             //e poi mostro la media e la differenza di media nelle TextView 'mediaAnnuale', 'varMediaAnnuale'
                             ((TextView) rootView.findViewById(R.id.mediaAnnuale)).setText("" + formatter.format(mediaAttuale));
@@ -209,6 +229,8 @@ public class MediaAnnuale extends Fragment {
                             rootView.findViewById(R.id.msgMediaNonDisp).setVisibility(View.INVISIBLE);
                             rootView.findViewById(R.id.mediaAnnuale).setVisibility(View.VISIBLE);
                             rootView.findViewById(R.id.varMediaAnnuale).setVisibility(View.VISIBLE);
+                            if (diffMedia != 0)
+                                rootView.findViewById(R.id.imgUD).setVisibility(View.VISIBLE);
                         }
                     }
                 };
